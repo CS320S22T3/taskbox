@@ -2,9 +2,9 @@ name: CI
 
 on:
   pull_request:
-    branches: main
+    branches: [main, template]
   push:
-    branches: main
+    branches: [main, template]
 
 jobs:
   lint:
@@ -16,9 +16,9 @@ jobs:
             with:
               node-version: '16'
           - name: Lint client
-            run: bash -c 'cd client && npm install && npm run lint'
+            run: cd client && npm ci && npm run lint
           - name: Lint server
-            run: bash -c 'cd server && npm install && npm run lint'
+            run: cd ../server && npm ci && npm run lint
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -28,6 +28,10 @@ jobs:
         with:
           node-version: '16'
       - name: Test client
-        run: bash -c 'cd client && npm install && npm test'
+        run: cd client && npm ci && npm test
+        env:
+          CI: true
       - name: Test server
-        run: bash -c 'cd server && npm install && npm test'
+        run: cd ../server && npm ci && npm test
+        env:
+          CI: true
