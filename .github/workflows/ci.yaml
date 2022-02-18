@@ -33,13 +33,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - name: Lint client
+      - name: Test client
         working-directory: ./client
         run: |
           npm ci
-          npm run lint
-      - name: Lint server
+          npm test
+      - name: Test server
         working-directory: ./server
         run: |
           npm ci
-          npm run lint
+          npm test
