@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint --max-warnings 0 ./src/**/*.ts",
     "lint:fix": "eslint --fix ./src/**/*.ts",
-    "test": "echo 'todo'"
+    "test": "npx jest --passWithNoTests"
   },
   "dependencies": {
     "dotenv": "^16.0.0",
