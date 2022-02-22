@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start": "npm run build && node ./dist/index.js",
+    "build": "tsc",
     "lint": "eslint --max-warnings 0 ./src/**/*.ts",
     "lint:fix": "eslint --fix ./src/**/*.ts",
     "test": "npx jest --passWithNoTests"
