@@ -2,7 +2,9 @@ import express from "express";
 import { Sequelize } from "sequelize";
 import { EXPRESS_PORT, SQL_CONNECTION_URI } from "./constants";
 
-const sequelize = new Sequelize(SQL_CONNECTION_URI);
+const sequelize = new Sequelize(SQL_CONNECTION_URI, {
+  dialect: "postgres",
+});
 
 const app = express();
 app.use(express.json());
