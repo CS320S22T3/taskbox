@@ -15,5 +15,8 @@ app.get("/", (req, res) => {
 
 sequelize
   .authenticate()
-  .then(() => app.listen(EXPRESS_PORT))
+  .then(async () => {
+    console.log("Successfully connected to the database.");
+    app.listen(EXPRESS_PORT);
+  })
   .catch((rej) => console.error("Unable to connect to the database: ", rej));
