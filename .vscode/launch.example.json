@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/client"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Server",
+      "cwd": "${workspaceFolder}/server",
+      "program": "${workspaceFolder}/server/src/index.ts",
+      "preLaunchTask": "tsc: build - server/tsconfig.json",
+      "outFiles": ["${workspaceFolder}/server/dist/**/*.js"]
+    }
+  ]
+}
