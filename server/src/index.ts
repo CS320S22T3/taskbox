@@ -9,7 +9,15 @@ const sequelize = new Sequelize(SQL_CONNECTION_URI, {
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/api/session", (req, res) => {
+  res.send("Hello World");
+});
+
+app.post("/api/session", (req, res) => {
+  res.send("Hello World");
+});
+
+app.delete("/api/session", (req, res) => {
   res.send("Hello World");
 });
 
