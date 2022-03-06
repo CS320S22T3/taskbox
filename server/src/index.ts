@@ -20,6 +20,17 @@ declare module "express-session" {
   }
 }
 
+/**
+ * Ends a user session.
+ *
+ * Request body
+ * empty
+ *
+ * Response body
+ * 200
+ * An empty body if the user dose not exist
+ * A body with a 'user_id' field if they do exist
+ */
 app.get("/api/session", (req, res) => {
   return res
     .status(200)
@@ -28,6 +39,18 @@ app.get("/api/session", (req, res) => {
 
 /**
  * Creates a new session given an email and password.
+ *
+ * Request body
+ * email The users email
+ * password The users password
+ *
+ * Response body
+ * 200
+ *  user_id The id of the user just logged in as.
+ * 400
+ *  errors An array of error objects describing which body values are incorrect.
+ * 422
+ *  error A string error message detailing why login was not successful.
  */
 app.post(
   "/api/session",
@@ -41,15 +64,25 @@ app.post(
 
     const { password } = req.body as Record<string, string>;
     const User = {} as User; // TODO get user from database using email
-    if (bcrypt.compareSync(password, User.password_digest)) {
+    if (User && bcrypt.compareSync(password, User.password_digest)) {
       req.session.user_id = User.id;
       return res.status(200).json({ user_id: User.id });
     } else {
-      return res.status(422).json({ errors: ["Incorrect email or password."] });
+      return res.status(422).json({ error: "Incorrect email or password." });
     }
   }
 );
 
+/**
+ * Ends a user session.
+ *
+ * Request body
+ * empty
+ *
+ * Response body
+ * 200
+ * empty
+ */
 app.delete("/api/session", (req, res) => {
   if (req.session.user_id) {
     req.session.user_id = undefined;
