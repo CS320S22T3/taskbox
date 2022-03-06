@@ -45,7 +45,7 @@ app.post(
       req.session.user_id = User.id;
       return res.status(200).json({ user_id: User.id });
     } else {
-      return res.status(422).json({ errors: ["Invalid email or password."] });
+      return res.status(422).json({ errors: ["Incorrect email or password."] });
     }
   }
 );
