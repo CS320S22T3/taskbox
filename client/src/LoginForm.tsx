@@ -13,14 +13,10 @@ interface LoginFormState {
 class LoginForm extends React.Component<LoginFormParameters, LoginFormState> {
   constructor(props: LoginFormParameters) {
     super(props);
-    this.setState({
+    this.state = {
       email: "",
       password: "",
-    });
-
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    };
   }
 
   handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
