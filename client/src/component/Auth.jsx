@@ -7,11 +7,18 @@ class Auth extends React.Component {
         this.state = { user: undefined };
     }
 
+    componentDidMount() {
+        fetch('/api/sessions', {
+            method: 'GET'
+        }).then((res) => this.setState({ user: res.body }));
+    }
+
     login(email, password) {
         fetch('/api/sessions', {
             method: 'POST',
             body: { email, password }
         }).then((res) => this.setState({ user: res.body }))
+            .catch(err => console.log(err))
     };
 
     logout() {
