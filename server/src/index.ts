@@ -21,7 +21,7 @@ declare module "express-session" {
 }
 
 /**
- * Ends a user session.
+ * Retrieves a user session.
  *
  * Request body
  * empty
