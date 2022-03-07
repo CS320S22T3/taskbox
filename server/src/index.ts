@@ -8,7 +8,7 @@ import { EXPRESS_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD } from "./constants";
 const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
   host: 'localhost',
   dialect: 'postgres'
-})
+});
 
 const app = express();
 app.use(express.json());
