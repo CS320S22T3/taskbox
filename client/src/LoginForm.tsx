@@ -58,4 +58,4 @@ class LoginForm extends React.Component<any, any> {
     }
 }
 
-export default LoginForm
+export default LoginForm;
