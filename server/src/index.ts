@@ -20,6 +20,16 @@ declare module "express-session" {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function fetchUserFromEmail(email: string): User {
+  // TODO implement stub
+  return {
+    email: "a@b.com",
+    id: "753175031467520364",
+    password_digest: "ahoetunsaoehutnsmeaosuhao",
+  };
+}
+
 /**
  * Retrieves a user session.
  *
@@ -62,8 +72,8 @@ app.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { password } = req.body as Record<string, string>;
-    const User = {} as User; // TODO get user from database using email
+    const { email, password } = req.body as Record<string, string>;
+    const User = fetchUserFromEmail(email);
     if (User && bcrypt.compareSync(password, User.password_digest)) {
       req.session.user_id = User.id;
       return res.status(200).json({ user_id: User.id });
