@@ -41,7 +41,7 @@ function fetchUserFromEmail(email: string): User {
  * An empty body if the user dose not exist
  * A body with a 'user_id' field if they do exist
  */
-app.get("/api/session", (req, res) => {
+app.get("/api/sessions", (req, res) => {
   return res
     .status(200)
     .json(req.session.user_id ? { user_id: req.session.user_id } : {});
@@ -63,7 +63,7 @@ app.get("/api/session", (req, res) => {
  *  error A string error message detailing why login was not successful.
  */
 app.post(
-  "/api/session",
+  "/api/sessions",
   body("email").isEmail().normalizeEmail(),
   body("password").trim(),
   (req, res) => {
@@ -93,7 +93,7 @@ app.post(
  * 200
  * empty
  */
-app.delete("/api/session", (req, res) => {
+app.delete("/api/sessions", (req, res) => {
   if (req.session.user_id) {
     req.session.user_id = undefined;
   }
