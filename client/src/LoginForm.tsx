@@ -1,61 +1,69 @@
 import React from "react";
 import "./index.css";
 
-class LoginForm extends React.Component<any, any> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            // onSubmit: (email: string, password: string) => {
-            //     console.log("Submit has no function assigned!")
-            // }
-        }
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+interface LoginFormParameters {
+  onSubmit: (username: string, password: string) => void;
+}
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+interface LoginFormState {
+  email: string;
+  password: string;
+}
 
-    handleEmailChange(event: any) {
-        this.setState({ email: event.target.value });
-    }
+class LoginForm extends React.Component<LoginFormParameters, LoginFormState> {
+  constructor(props: LoginFormParameters) {
+    super(props);
+    this.setState({
+      email: "",
+      password: "",
+    });
 
-    handlePasswordChange(event: any) {
-        this.setState({ password: event.target.value });
-    }
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-    handleSubmit(event: any) {
-        if (this.props.onSubmit != null)
-            this.props.onSubmit(this.state.email, this.state.password)
-        event.preventDefault();
-    }
+  handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ email: event.target.value });
+  }
 
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Email:
-                    <br></br>
-                    <input type="text"
-                        value={this.state.email}
-                        onChange={this.handleEmailChange}
-                    />
-                </label>
-                <br></br>
-                <label>
-                    Password:
-                    <br></br>
-                    <input type="password"
-                        value={this.state.password}
-                        onChange={this.handlePasswordChange}
-                    />
-                </label>
-                <br></br>
-                <input type="submit" value="Submit" />
-            </form>
-        );
-    }
+  handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ password: event.target.value });
+  }
+
+  handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
+    if (this.props.onSubmit != null)
+      this.props.onSubmit(this.state.email, this.state.password);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Email:
+          <br></br>
+          <input
+            type="text"
+            value={this.state.email}
+            onChange={this.handleEmailChange}
+          />
+        </label>
+        <br></br>
+        <label>
+          Password:
+          <br></br>
+          <input
+            type="password"
+            value={this.state.password}
+            onChange={this.handlePasswordChange}
+          />
+        </label>
+        <br></br>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
 }
 
 export default LoginForm;
