@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import "../index.css";
 
 interface LoginFormParameters {
   onSubmit: (username: string, password: string) => void;
@@ -17,6 +17,10 @@ class LoginForm extends React.Component<LoginFormParameters, LoginFormState> {
       email: "",
       password: "",
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
   }
 
   handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
