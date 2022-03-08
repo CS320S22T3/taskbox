@@ -20,7 +20,6 @@ function App() {
           Learn React
         </a>
       </header>
-      <LoginForm onSubmit={() => console.log("hello")} />
     </div>
   );
 }
