@@ -1,16 +1,17 @@
 import React from "react";
-import "./App.css"
+import "./App.css";
 
 function Layout(props: { children: typeof React.Component }) {
-    return (
+    return(
         <div>
             <header className="App-header">
 
             </header>
             <main>
-                <props.children/>
+                <props.children />
             </main>
-        </div>
-        
+        </div>   
     );
 }
+
+export default Layout;
