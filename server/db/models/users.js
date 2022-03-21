@@ -1,6 +1,6 @@
-const { sequelize, DataTypes } = require("sequelize"); // Import the built-in data types
+const { Sequelize, DataTypes } = require("sequelize"); // Import the built-in data types
 const sequelize = new Sequelize('postgres::memory:');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const users = sequelize.define('users', {
   id: {

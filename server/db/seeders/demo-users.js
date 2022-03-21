@@ -9,6 +9,12 @@ module.exports = {
       password_digest: "$2y$10$aBVZQiZG/X3TbduZwdbJaOyBxLpVI/RYWjr5PxGnvinq/6xpXPowa",
       createdAt: new Date(),
       updatedAt: new Date()
+    }, {
+      id: 2,
+      email: "employee2@development.com",
+      password_digest: "$2y$10$aBVZQiZG/X3TbduZwdbJaOyBxLpVI/RYWjr5PxGnvinq/6xpXPowa",
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 
