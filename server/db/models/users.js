@@ -1,8 +1,9 @@
-const { Sequelize, DataTypes } = require("sequelize"); // Import the built-in data types
+const { Sequelize, DataTypes, Model } = require("sequelize"); // Import the built-in data types
 const sequelize = new Sequelize('postgres::memory:');
 const bcrypt = require('bcryptjs');
 
-const users = sequelize.define('users', {
+class users extends Model { }
+users.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -34,5 +35,8 @@ const users = sequelize.define('users', {
         users.password = bcrypt.hashSync(users.password, salt);
       }
     }
-  }
+  },
+  sequelize,
+  modelName: 'users'
 });
+
