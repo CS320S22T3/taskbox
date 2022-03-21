@@ -1,8 +1,25 @@
 const { Sequelize, DataTypes, Model } = require("sequelize"); // Import the built-in data types
-const sequelize = new Sequelize('postgres::memory:');
+const sequelize = new Sequelize('postgres::memory:', {
+  define: {
+    freezeTableName: true
+  }
+});
 const bcrypt = require('bcryptjs');
 
-class users extends Model { }
+class users extends Model {
+  /* EXAMPLES OF METHODS
+  static classLevelMethod() {
+    return 'foo';
+  }
+  instanceLevelMethod() {
+    return 'bar';
+  }
+  getFullname() {
+    return [this.firstname, this.lastname].join(' ');
+  } 
+  */
+}
+
 users.init({
   id: {
     type: DataTypes.INTEGER,
@@ -18,7 +35,7 @@ users.init({
   },
   password_digest: {
     type: DataTypes.STRING,
-    unique: true,
+    unique: false,
     validate: { isNull: false, len: [0, 60] }
   }
 }, {
@@ -36,7 +53,6 @@ users.init({
       }
     }
   },
-  sequelize,
-  modelName: 'users'
+  sequelize
 });
 
