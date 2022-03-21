@@ -6,7 +6,6 @@ import { EXPRESS_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD } from "./constants";
 import { User } from "./types";
 import bcrypt from "bcryptjs";
 
-
 /*const sequelize = new Sequelize(SQL_CONNECTION_URI, {
   dialect: "postgres",
 });*/
