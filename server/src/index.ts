@@ -6,8 +6,8 @@ import { EXPRESS_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD } from "./constants";
   dialect: "postgres",
 });*/
 const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
-  host: 'localhost',
-  dialect: 'postgres'
+  host: "localhost",
+  dialect: "postgres",
 });
 
 const app = express();
