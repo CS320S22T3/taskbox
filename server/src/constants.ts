@@ -11,6 +11,6 @@ function getEnv(key: string): string {
   return process.env[key]!;
 }
 
-export const EXPRESS_PORT = process.env.EXPRESS_PORT || 3000;
+export const EXPRESS_PORT = process.env.EXPRESS_PORT || 3201;
 
 export const SQL_CONNECTION_URI = getEnv("SQL_CONNECTION_URI");
