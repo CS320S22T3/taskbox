@@ -98,7 +98,7 @@ app.delete("/api/sessions", (req, res) => {
     req.session.user_id = undefined;
   }
 
-  return res.status(200);
+  return res.status(200).end();
 });
 
 sequelize
