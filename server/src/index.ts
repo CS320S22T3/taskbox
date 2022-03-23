@@ -2,11 +2,15 @@ import express from "express";
 import session from "express-session";
 import { body, validationResult } from "express-validator";
 import { Sequelize } from "sequelize";
-import { EXPRESS_PORT, SQL_CONNECTION_URI } from "./constants";
+import { EXPRESS_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD } from "./constants";
 import { User } from "./types";
 import bcrypt from "bcryptjs";
 
-const sequelize = new Sequelize(SQL_CONNECTION_URI, {
+/*const sequelize = new Sequelize(SQL_CONNECTION_URI, {
+  dialect: "postgres",
+});*/
+const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
+  host: "localhost",
   dialect: "postgres",
 });
 
