@@ -1,6 +1,7 @@
 import { body } from "express-validator";
 import { Request, Response, Router } from "express";
 import bcrypt from "bcryptjs";
+import validate from "./validate";
 
 export const sessions = Router();
 
@@ -44,8 +45,7 @@ sessions.get("/", (req: Request, res: Response) => {
  */
 sessions.post(
   "/",
-  body("email").isEmail().normalizeEmail(),
-  body("password").trim(),
+  validate([body("email").isEmail().normalizeEmail(), body("password").trim()]),
   (req: Request, res: Response) => {
     const { email, password } = req.body as Record<string, string>;
     const User = {};
