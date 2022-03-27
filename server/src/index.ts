@@ -2,7 +2,7 @@ import express from "express";
 import session from "express-session";
 import { EXPRESS_PORT } from "./constants";
 
-import { sessions } from "./routes/sessions";
+import { sessions } from "./routes/sessions.route";
 
 const app = express();
 app.use(express.json());

@@ -4,7 +4,7 @@ import {
   DB_USERNAME,
   DB_HOST,
   DB_PORT,
-} from "../constants";
+} from "../../constants";
 
 export default {
   development: {
