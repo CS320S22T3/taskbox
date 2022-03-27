@@ -73,5 +73,5 @@ sessions.delete("/", (req: Request, res: Response) => {
     req.session.user_id = undefined;
   }
 
-  return res.status(200);
+  return res.sendStatus(200);
 });
