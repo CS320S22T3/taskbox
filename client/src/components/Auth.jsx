@@ -1,7 +1,7 @@
 import React from "react";
 import userContext from "../context/userContext";
-import LoginForm from "../components/LoginForm";
-import Navbar from "../components/Navbar";
+import LoginForm from "./LoginForm";
+import Navbar from "./Navbar";
 
 class Auth extends React.Component {
   constructor(props) {
