@@ -18,3 +18,4 @@ export const DB_PASSWORD = getEnv("DB_PASSWORD");
 export const DB_NAME = getEnv("DB_NAME");
 export const DB_HOST = getEnv("DB_HOST");
 export const DB_PORT = getEnv("DB_PORT");
+export const SESSION_SECRET = getEnv("DB_PORT");

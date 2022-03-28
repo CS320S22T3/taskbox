@@ -1,13 +1,14 @@
 import express from "express";
 import session from "express-session";
 import { EXPRESS_PORT } from "./constants";
+import { SESSION_SECRET } from "./constants";
 import sequelize from "./db/sequelize";
 
 import { sessions } from "./routes/sessions.route";
 
 const app = express();
 app.use(express.json());
-app.use(session());
+app.use(session({ secret: SESSION_SECRET }));
 
 const api = express.Router();
 api.use("/sessions", sessions);
