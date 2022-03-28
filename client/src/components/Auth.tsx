@@ -3,10 +3,16 @@ import userContext from "../context/userContext";
 import LoginForm from "./LoginForm";
 import Navbar from "./Navbar";
 
-class Auth extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { user: undefined };
+class Auth extends React.Component<
+  Record<string, never>,
+  { user_id?: string }
+> {
+  constructor() {
+    super({});
+    this.state = { user_id: undefined };
+
+    this.logout = this.logout.bind(this);
+    this.login = this.login.bind(this);
   }
 
   /**
@@ -18,7 +24,9 @@ class Auth extends React.Component {
     fetch("/api/sessions", {
       method: "GET",
       mode: "cors",
-    }).then((res) => this.setState({ user: res.body }));
+    })
+      .then((res) => res.json())
+      .then((json) => this.setState({ user_id: json.user_id }));
   }
 
   /**
@@ -27,7 +35,7 @@ class Auth extends React.Component {
    * error message to the console
    */
 
-  login(email, password) {
+  login(email: string, password: string) {
     fetch("/api/sessions", {
       method: "POST",
       mode: "cors",
@@ -37,7 +45,7 @@ class Auth extends React.Component {
       .then((res) => {
         switch (res.status) {
           case 200:
-            this.setState({ user: res.body });
+            res.json().then((json) => this.setState({ user_id: json.user_id }));
             break;
           case 400:
             break;
@@ -63,14 +71,17 @@ class Auth extends React.Component {
     fetch("/api/sessions", {
       method: "DELETE",
       mode: "cors",
-    }).then(() => this.setState({ user: undefined }));
+    }).then(() => this.setState({ user_id: undefined }));
   }
 
   render() {
     return (
-      <userContext.Provider value={this.state.user}>
-        {!this.state.user ? (
-          <Navbar onSubmit={this.logout}></Navbar>
+      <userContext.Provider value={this.state.user_id}>
+        {this.state.user_id ? (
+          <>
+            <Navbar onSubmit={this.logout}></Navbar>
+            <h1>{`Logged in with user id ${this.state.user_id}`}</h1>
+          </>
         ) : (
           <LoginForm onSubmit={this.login} />
         )}
