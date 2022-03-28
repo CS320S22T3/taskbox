@@ -1,5 +1,7 @@
 import React from "react";
 import userContext from "../context/userContext";
+import LoginForm from "../components/LoginForm";
+import Navbar from "../components/Navbar";
 
 class Auth extends React.Component {
     constructor(props) {
@@ -14,7 +16,8 @@ class Auth extends React.Component {
 
     componentDidMount() {
         fetch('/api/sessions', {
-            method: 'GET'
+            method: 'GET',
+            mode: 'cors',
         }).then((res) => this.setState({ user: res.body }));
     }
 
@@ -27,9 +30,22 @@ class Auth extends React.Component {
     login(email, password) {
         fetch('/api/sessions', {
             method: 'POST',
-            body: { email, password }
-        }).then((res) => this.setState({ user: res.body }))
-            .catch(err => console.log(err))
+            mode: 'cors',
+            body: JSON.stringify({ email, password }),
+            headers: {'Content-Type': 'application/json'}
+        }).then((res) => {
+            switch (res.status) {
+                case 200:
+                    this.setState({ user: res.body })
+                    break;
+                case 400:
+                    break;
+                case 422:
+                    break;
+            }
+        }).catch(err => { 
+            console.log(err) 
+        })
     };
 
     /**
@@ -40,14 +56,17 @@ class Auth extends React.Component {
     logout() {
         fetch('/api/sessions', {
             method: 'DELETE',
+            mode: 'cors',
         }).then((res) => this.setState({ user: undefined }))
     };
 
     render() {
         return (
             <userContext.Provider value={this.state.user}>
-                {this.state.user ? (<Mainpage />) : (<LoginForm />)}
+                {!this.state.user ? (<Navbar onSubmit={this.logout}></Navbar>) : (<LoginForm onSubmit={this.login}/>)}
             </userContext.Provider>
         )
     }
 }
+
+export default Auth
