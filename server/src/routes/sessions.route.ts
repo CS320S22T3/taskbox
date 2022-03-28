@@ -2,6 +2,7 @@ import { body } from "express-validator";
 import { Request, Response, Router } from "express";
 import bcrypt from "bcryptjs";
 import validate from "./validate";
+import User from "../db/models/user.model";
 
 export const sessions = Router();
 
@@ -42,18 +43,31 @@ sessions.get("/", (req: Request, res: Response) => {
  *  errors An array of error objects describing which body values are incorrect.
  * 422
  *  error A string error message detailing why login was not successful.
+ * 500
+ *  empty body
  */
 sessions.post(
   "/",
   validate([body("email").isEmail().normalizeEmail(), body("password").trim()]),
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const { email, password } = req.body as Record<string, string>;
-    const User = {};
-    if (User && bcrypt.compareSync(password, User.password_digest)) {
-      req.session.user_id = User.id;
-      return res.status(200).json({ user_id: User.id });
-    } else {
-      return res.status(422).json({ error: "Incorrect email or password." });
+    try {
+      const user = await User.findOne({
+        where: {
+          email,
+        },
+      });
+
+      if (user && bcrypt.compareSync(password, user.password_digest)) {
+        req.session.user_id = String(user.id);
+        return res.status(200).json({ user_id: user.id });
+      } else {
+        return res.status(422).json({ error: "Incorrect email or password." });
+      }
+    } catch (e) {
+      console.log("Error while trying to find user: " + e);
+
+      return res.sendStatus(500);
     }
   }
 );

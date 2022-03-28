@@ -1,7 +1,17 @@
-import { DataTypes, Model } from "sequelize"; // Import the built-in data types
+import {
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+} from "sequelize";
 import bcrypt from "bcryptjs";
+import sequelize from "../sequelize";
 
-class User extends Model {}
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: number;
+  declare email: string;
+  declare password_digest: string;
+}
 
 User.init(
   {
@@ -24,21 +34,22 @@ User.init(
     },
   },
   {
+    sequelize,
+    tableName: "users",
     hooks: {
       beforeCreate: async (users) => {
-        if (users.password) {
-          const salt = await bcrypt.genSaltSync(10);
-          users.password = bcrypt.hashSync(users.password, salt);
-        }
+        // if (users.password) {
+        //   const salt = await bcrypt.genSaltSync(10);
+        //   users.password = bcrypt.hashSync(users.password, salt);
+        // }
       },
       beforeUpdate: async (users) => {
-        if (users.password) {
-          const salt = await bcrypt.genSaltSync(10);
-          users.password = bcrypt.hashSync(users.password, salt);
-        }
+        // if (users.password) {
+        //   const salt = await bcrypt.genSaltSync(10);
+        //   users.password = bcrypt.hashSync(users.password, salt);
+        // }
       },
     },
-    sequelize,
   }
 );
 
