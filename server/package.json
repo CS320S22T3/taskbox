@@ -9,7 +9,9 @@
     "lint:fix": "eslint --fix ./src/**/*.ts",
     "test": "npx jest --passWithNoTests",
     "db:migrate": "npx knex migrate:latest",
-    "db:seed": "npx knex seed:run"
+    "db:seed": "npx knex seed:run",
+    "db:create": "node ./db/scripts/createdb.js",
+    "db:drop": "node ./db/scripts/dropdb.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
