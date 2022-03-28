@@ -52,7 +52,6 @@ sessions.post(
     const { email, password } = req.body as Record<string, string>;
     try {
       // const user = await new Promise((res) => res(null));
-
       // if (user && bcrypt.compareSync(password, user.password_digest)) {
       //   req.session.user_id = String(user.id);
       //   return res.status(200).json({ user_id: user.id });
