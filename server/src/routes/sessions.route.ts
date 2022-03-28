@@ -2,6 +2,7 @@ import { body } from "express-validator";
 import { Request, Response, Router } from "express";
 import bcrypt from "bcryptjs";
 import validate from "./validate";
+import { getUserFromEmail } from "../models/users";
 
 export const sessions = Router();
 
@@ -51,13 +52,13 @@ sessions.post(
   async (req: Request, res: Response) => {
     const { email, password } = req.body as Record<string, string>;
     try {
-      // const user = await new Promise((res) => res(null));
-      // if (user && bcrypt.compareSync(password, user.password_digest)) {
-      //   req.session.user_id = String(user.id);
-      //   return res.status(200).json({ user_id: user.id });
-      // } else {
-      //   return res.status(422).json({ error: "Incorrect email or password." });
-      // }
+      const user = await getUserFromEmail(email);
+      if (user && bcrypt.compareSync(password, user.password_digest)) {
+        req.session.user_id = String(user.id);
+        return res.status(200).json({ user_id: user.id });
+      } else {
+        return res.status(422).json({ error: "Incorrect email or password." });
+      }
     } catch (e) {
       console.log("Error while trying to find user: " + e);
 

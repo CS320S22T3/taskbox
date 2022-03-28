@@ -6,7 +6,9 @@ import { sessions } from "./routes/sessions.route";
 
 const app = express();
 app.use(express.json());
-app.use(session({ secret: SESSION_SECRET }));
+app.use(
+  session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false })
+);
 
 const api = express.Router();
 api.use("/sessions", sessions);
