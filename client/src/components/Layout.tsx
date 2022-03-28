@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import navBar from "./Navbar";
+import Navbar from "./Navbar";
 
 function Layout(props: { children: typeof React.Component }) {
   return (
     <div>
       <header className="App-header">
-        <navBar />
+        <Navbar />
       </header>
       <main>
         <props.children />
