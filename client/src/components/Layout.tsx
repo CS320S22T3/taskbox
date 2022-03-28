@@ -4,12 +4,10 @@ import Navbar from "./Navbar";
 function Layout(props: { children: any }) {
   return (
     <div>
-      <header >
+      <header>
         <Navbar />
       </header>
-      <main>
-        {props.children }
-      </main>
+      <main>{props.children}</main>
     </div>
   );
 }
