@@ -13,37 +13,11 @@ module.exports = {
       user: process.env["DB_USERNAME"],
       password: process.env["DB_PASSWORD"],
     },
-  },
-
-  staging: {
-    client: "postgresql",
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password",
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
     migrations: {
-      tableName: "knex_migrations",
+      directory: "db/migrations",
     },
-  },
-
-  production: {
-    client: "postgresql",
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password",
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      tableName: "knex_migrations",
+    seeds: {
+      directory: "db/seeds",
     },
   },
 };

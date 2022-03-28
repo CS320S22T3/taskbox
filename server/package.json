@@ -7,7 +7,9 @@
     "build": "npx tsc",
     "lint": "eslint --max-warnings 0 ./src/**/*.ts",
     "lint:fix": "eslint --fix ./src/**/*.ts",
-    "test": "npx jest --passWithNoTests"
+    "test": "npx jest --passWithNoTests",
+    "db:migrate": "npx knex migrate:latest",
+    "db:seed": "npx knex seed:run"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
