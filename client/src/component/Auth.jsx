@@ -43,6 +43,8 @@ class Auth extends React.Component {
             break;
           case 422:
             break;
+          case 500:
+            break;
         }
       })
       .catch((err) => {
