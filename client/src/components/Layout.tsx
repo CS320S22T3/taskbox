@@ -8,7 +8,7 @@ function Layout(props: { children: any }) {
         <Navbar />
       </header>
       <main>
-        <props.children />
+        {props.children }
       </main>
     </div>
   );

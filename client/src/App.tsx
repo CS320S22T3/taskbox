@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import Navbar from "./components/Navbar";
 import Layout from "./components/Layout";
-
+import Hello from "./components/Hello";
 function App() {
   return (
     <div className="App">
@@ -22,7 +22,9 @@ function App() {
         
       </header> */}
       <Layout> 
+        <h1> Hello </h1>
       </Layout>
+      
     </div>
   );
 }
