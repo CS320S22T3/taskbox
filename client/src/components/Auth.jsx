@@ -63,7 +63,7 @@ class Auth extends React.Component {
     fetch("/api/sessions", {
       method: "DELETE",
       mode: "cors",
-    }).then((res) => this.setState({ user: undefined }));
+    }).then(() => this.setState({ user: undefined }));
   }
 
   render() {
