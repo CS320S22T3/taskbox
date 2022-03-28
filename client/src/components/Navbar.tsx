@@ -11,7 +11,7 @@ class Navbar extends React.Component<NavbarParameters> {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleLogout(event: React.ChangeEvent<HTMLFormElement>) {
+  handleLogout(event: React.MouseEvent<HTMLButtonElement>) {
     if (this.props.onSubmit != null) this.props.onSubmit();
     event.preventDefault();
   }
@@ -19,7 +19,7 @@ class Navbar extends React.Component<NavbarParameters> {
   render() {
     return (
       <nav>
-        <button>Log Out</button>
+        <button onClick={this.handleLogout}>Log Out</button>
       </nav>
     );
   }
