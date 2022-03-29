@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import { Request, Response, Router } from "express";
 import bcrypt from "bcryptjs";
-import validate from "./validate";
+import validate from "../middleware/validate";
 import { getUserFromEmail } from "../models/users";
 
 export const sessions = Router();
