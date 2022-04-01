@@ -67,7 +67,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters, T
 
     handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
         if (this.props.onSubmit != null)
-            this.props.onSubmit(this.state.assigner_id, this.state.assignee_id, this.state.due_date
+            this.props.onSubmit(this.state.assigner_id, this.state.assignee_id, this.state.due_date,
                 this.state.type, this.state.start_date, this.state.end_date, this.state.notes);
         event.preventDefault();
     }
