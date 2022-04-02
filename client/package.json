@@ -20,7 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "npx jest --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "eslint --max-warnings 0 ./src/**/*.ts ./src/**/*.tsx",
     "lint:fix": "eslint --fix ./src/**/*.ts ./src/**/*.tsx"
