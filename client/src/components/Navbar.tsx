@@ -1,28 +1,16 @@
 import React from "react";
+import UserContext from "../context/UserContext";
 
-interface NavbarParameters {
-  onSubmit: () => void;
-}
-
-class Navbar extends React.Component<NavbarParameters> {
-  constructor(props: NavbarParameters) {
-    super(props);
-
-    this.handleLogout = this.handleLogout.bind(this);
-  }
-
-  handleLogout(event: React.MouseEvent<HTMLButtonElement>) {
-    if (this.props.onSubmit != null) this.props.onSubmit();
-    event.preventDefault();
-  }
-
-  render() {
-    return (
-      <nav>
-        <button onClick={this.handleLogout}>Log Out</button>
-      </nav>
-    );
-  }
+function Navbar() {
+  return (
+    <UserContext.Consumer>
+      {(userContext) => (
+        <nav>
+          <button onClick={userContext?.logout}>Log Out</button>
+        </nav>
+      )}
+    </UserContext.Consumer>
+  );
 }
 
 export default Navbar;

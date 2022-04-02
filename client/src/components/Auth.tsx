@@ -1,14 +1,13 @@
 import React from "react";
-import userContext from "../context/userContext";
+import UserContext from "../context/UserContext";
 import LoginForm from "./LoginForm";
-import Navbar from "./Navbar";
 
-class Auth extends React.Component<
-  Record<string, never>,
-  { user_id?: string }
-> {
-  constructor() {
-    super({});
+interface AuthProps {
+  children?: React.ReactNode;
+}
+class Auth extends React.Component<AuthProps, { user_id?: string }> {
+  constructor(props: AuthProps) {
+    super(props);
     this.state = { user_id: undefined };
 
     this.logout = this.logout.bind(this);
@@ -35,31 +34,35 @@ class Auth extends React.Component<
    * error message to the console
    */
 
-  login(email: string, password: string) {
-    fetch("/api/sessions", {
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify({ email, password }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        switch (res.status) {
-          case 200:
-            res.json().then((json) => this.setState({ user_id: json.user_id }));
-            break;
-          case 400:
-            break;
-          case 422:
-            break;
-          case 500:
-            break;
-          default:
-            break;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
+  async login(email: string, password: string): Promise<string> {
+    try {
+      const res = await fetch("/api/sessions", {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
       });
+
+      switch (res.status) {
+        case 200: {
+          const json = await res.json();
+          this.setState({ user_id: json.user_id });
+
+          return json.user_id;
+        }
+        case 400:
+          throw new Error("Malformed request syntax.");
+        case 422:
+          throw new Error("Incorrect username or password.");
+        case 500:
+          throw new Error("Internal server error.");
+        default:
+          throw new Error(`Unexpected error code: ${res.status}.`);
+      }
+    } catch (e) {
+      console.error(e);
+      throw new Error("Unexpected fetch/response error.");
+    }
   }
 
   /**
@@ -68,7 +71,7 @@ class Auth extends React.Component<
    */
 
   logout() {
-    fetch("/api/sessions", {
+    return fetch("/api/sessions", {
       method: "DELETE",
       mode: "cors",
     }).then(() => this.setState({ user_id: undefined }));
@@ -76,16 +79,19 @@ class Auth extends React.Component<
 
   render() {
     return (
-      <userContext.Provider value={this.state.user_id}>
+      <UserContext.Provider
+        value={{
+          userId: this.state.user_id,
+          login: this.login,
+          logout: this.logout,
+        }}
+      >
         {this.state.user_id ? (
-          <>
-            <Navbar onSubmit={this.logout}></Navbar>
-            <h1>{`Logged in with user id ${this.state.user_id}`}</h1>
-          </>
+          this.props.children
         ) : (
           <LoginForm onSubmit={this.login} />
         )}
-      </userContext.Provider>
+      </UserContext.Provider>
     );
   }
 }
