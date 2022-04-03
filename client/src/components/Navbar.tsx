@@ -1,13 +1,16 @@
 import React from "react";
+import UserContext from "../context/UserContext";
 
-const navBar = () => {
+function Navbar() {
   return (
-    <>
-      <nav>
-        <button>Log Out</button>
-      </nav>
-    </>
+    <UserContext.Consumer>
+      {(userContext) => (
+        <nav>
+          <button onClick={userContext?.logout}>Log Out</button>
+        </nav>
+      )}
+    </UserContext.Consumer>
   );
-};
+}
 
-export default navBar;
+export default Navbar;

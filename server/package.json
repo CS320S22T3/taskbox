@@ -7,7 +7,11 @@
     "build": "npx tsc",
     "lint": "eslint --max-warnings 0 ./src/**/*.ts",
     "lint:fix": "eslint --fix ./src/**/*.ts",
-    "test": "npx jest --passWithNoTests"
+    "test": "npx jest --passWithNoTests",
+    "db:migrate": "npx knex migrate:latest",
+    "db:seed": "npx knex seed:run",
+    "db:create": "node ./db/scripts/createdb.js",
+    "db:drop": "node ./db/scripts/dropdb.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -15,9 +19,9 @@
     "express": "^4.17.2",
     "express-session": "^1.17.2",
     "express-validator": "^6.14.0",
+    "knex": "^1.0.4",
     "pg": "^8.7.3",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.16.2",
+    "pgtools": "^0.3.2",
     "typescript": "^4.5.5"
   },
   "devDependencies": {

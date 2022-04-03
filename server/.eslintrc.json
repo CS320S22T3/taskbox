@@ -19,5 +19,6 @@
     ],
     "rules": {
       "prettier/prettier": ["warn"]
-    }
+    },
+    "ignorePatterns": "./db/**/*.js"
 }

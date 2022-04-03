@@ -13,8 +13,4 @@ function getEnv(key: string): string {
 
 export const EXPRESS_PORT = process.env.EXPRESS_PORT || 3201;
 
-//export const SQL_CONNECTION_URI = getEnv("SQL_CONNECTION_URI");
-
-export const DB_NAME = getEnv("DB_NAME");
-export const DB_USERNAME = getEnv("DB_USERNAME");
-export const DB_PASSWORD = getEnv("DB_PASSWORD");
+export const SESSION_SECRET = getEnv("SESSION_SECRET");
