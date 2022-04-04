@@ -9,8 +9,9 @@ exports.seed = async function (knex) {
   await knex("users").del();
   await knex("tasks").del();
 
+  //Date format as YYYY-MM-DD
   await knex("tasks").insert([
-    { assigner_id: "", assignee_id: "", due_date: "", info_type: "", info_id: "" }
+    { assigner_id: 1, assignee_id: 2, due_date: "2022-05-08", info_type: "", info_id: "" }
   ]);
 
   await knex("users").insert([
