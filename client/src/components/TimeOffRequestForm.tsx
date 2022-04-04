@@ -50,7 +50,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters, T
     }
 
     handleTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
-        this.setState({ type: event.target.value });
+        this.setState({ type: event.target.value as unknown as number });
     }
 
     handleStartDateChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -112,7 +112,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters, T
                 <br></br>
                 <label>
                     Notes:
-                    <textarea value={this.state.notes} rows="4" cols="50" onChange={this.handleNotesChange}></textarea>
+                    <textarea value={this.state.notes} onChange={this.handleNotesChange}></textarea>
                 </label>
                 <br></br>
                 <input type="submit" value="Submit" />
