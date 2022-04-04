@@ -2,15 +2,12 @@
 
 A shared task board designed for workplaces.
 
+## Requirements
+
+- Node.js & npm
+- Postgresql
+
 ## Getting Started
-
-### Shared
-
-- Open the root directory.
-- Make sure you have a newer version of node installed.
-- Some of the packages that we are using require a newer runtime.
-  - This also makes sure we have a consistent `package-lock.json` . Older versions of npm had a different format.
-  - If you need assistance there are `./install_node.sh`  and `./post_install_node.sh` scripts available.
 
 ### Client
 
@@ -22,13 +19,14 @@ A shared task board designed for workplaces.
 
 ### Server
 
-- Make sure you have your Postgres development server initialized.
-- If not there is a `init_database.sh` script. Usage: `./init_database.sh daniel` This will create a new super user named daniel and a new postgres database called taskbox .
-- Run `cp ./server/.env.local.example ./server/.env`
-- Fill in the the .env file with the necessary items: denoted by `<item>`, such as the database user, password, host, and port (usually 5432). If your development database is not named taskbox then change it in the `.env` file as well.
-- Open the server folder `cd server` and `npm install`.
-- Wait for server packages to download.
-- `npm start`
+- Enter the server folder `cd server`.
+- Run `cp .env.example .env` and fill out respected fields.
+- Install necessary packages `npm install`
+- Make sure you have your Postgres development database initialized.
+  - If not there is a `npm run db:create` to create a db and `npm run db:drop` to drop a db.
+- Migrate the schemas into the database `npm run db:migrate`
+- Seed the database with stub data `npm run db:seed`
+- Start listening for queries `npm start`
 
 ## Debugging
 
