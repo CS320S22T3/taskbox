@@ -77,7 +77,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters, T
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Assigner Id:
-                    <hidden value={this.state.assigner_id}></hidden>
+                    <p hidden>{this.state.assigner_id}</p>
                 </label>
                 <br></br>
                 <label>
