@@ -5,11 +5,11 @@
 exports.up = function (knex) {
     return knex.schema.createTable("tasks", (table) => {
         table.increments("id").primary().unsigned();
-        table.integer("assigner_id");
-        table.integer("assignee_id");
+        table.string("info_type");
+        table.integer("info_id").references("id").inTable(info_type);
+        table.integer("assigner_id").references("user_id").inTable("user_informations");
+        table.integer("assignee_id").references("user_id").inTable("user_informations");
         table.date("due_date");
-        table.integer("info_type");
-        table.integer("info_id");
     });
 };
 
