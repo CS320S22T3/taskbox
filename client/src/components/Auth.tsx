@@ -1,4 +1,5 @@
 import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import UserContext from "../context/UserContext";
 import LoginForm from "./LoginForm";
 
@@ -89,7 +90,15 @@ class Auth extends React.Component<AuthProps, { user_id?: string }> {
         {this.state.user_id ? (
           this.props.children
         ) : (
-          <LoginForm onSubmit={this.login} />
+          <div className="vertical-center">
+            <Container>
+              <Row className="justify-content-md-center">
+                <Col md="auto">
+                  <LoginForm onSubmit={this.login} />
+                </Col>
+              </Row>
+            </Container>
+          </div>
         )}
       </UserContext.Provider>
     );
