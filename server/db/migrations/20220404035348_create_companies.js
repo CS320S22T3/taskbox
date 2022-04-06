@@ -4,15 +4,16 @@
  */
 exports.up = function (knex) {
 
-  knex.schema.createTable("companies", (t) => {
-    t.increments("id").primary().unsigned();
-    t.string("name").notNullable()
-  })
+  return knex.schema
+    .createTable("companies", (t) => {
+      t.increments("id").primary().unsigned();
+      t.string("name").notNullable()
+    })
 
-  knex.schema.alterTable("users", (t) => {
-    t.integer("company_id").unsigned();
-    t.foreign("company_id").references("companies.id")
-  })
+    .alterTable("users", (t) => {
+      t.integer("company_id").unsigned();
+      t.foreign("company_id").references("companies.id")
+    })
 
 
 };
