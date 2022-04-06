@@ -40,7 +40,7 @@ class LoginForm extends React.Component<LoginFormParameters, LoginFormState> {
 
   render() {
     return (
-      <Form>
+      <Form onSubmit={this.handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
