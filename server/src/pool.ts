@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import knex from "knex";
-
-const config = require("../knexfile.js");
-
 declare module "knex/types/tables" {
   interface User {
     id: number;
@@ -20,6 +15,14 @@ declare module "knex/types/tables" {
     users: User;
     companies: Company
   }
-}
 
-export default knex(config);
+  interface UserInformations {
+    id: number;
+    user_id: number;
+    first_name: string;
+    last_name: string;
+    position: string;
+    date_hired: Date;
+    is_manager: boolean;
+  }
+}
