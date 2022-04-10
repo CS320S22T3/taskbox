@@ -1,16 +1,19 @@
-import React from "react";
+import React, { ReactEventHandler } from "react";
 import "../index.css";
 
 interface TrainingAssignmentFormParameters {
-  onSubmit: (assigner_id: number, assignee_id: number, 
-    due_date: string, link: string) => void;
+  assigneeOptions: any,
+  onSubmit: (assigner_id: number, 
+             assignee_id: number, 
+             due_date: string, 
+             link: string) => void;
 }
 
 interface TrainingAssignmentFormState {
   assigner_id: number;
   assignee_id: number;
   due_date: string;
-  link: string
+  link: string;
 }
 
 class TrainingAssignmentForm extends React.Component<TrainingAssignmentFormParameters, TrainingAssignmentFormState> {
@@ -22,10 +25,14 @@ class TrainingAssignmentForm extends React.Component<TrainingAssignmentFormParam
       due_date: "",
       link: "",
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDueDateChange = this.handleDueDateChange.bind(this);
     this.handleLinkChange = this.handleLinkChange.bind(this);
+    this.handleAssigneeChange = this.handleAssigneeChange.bind(this);
+  }
+
+  handleAssigneeChange(event: any) {
+    this.setState({ assignee_id: event.target.value });
   }
 
   handleLinkChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -38,8 +45,10 @@ class TrainingAssignmentForm extends React.Component<TrainingAssignmentFormParam
 
   handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     if (this.props.onSubmit != null)
-      this.props.onSubmit(this.state.assigner_id, this.state.assignee_id,
-        this.state.due_date, this.state.link);
+      this.props.onSubmit(this.state.assigner_id, 
+                          this.state.assignee_id,
+                          this.state.due_date, 
+                          this.state.link);
     event.preventDefault();
   }
 
@@ -52,18 +61,20 @@ class TrainingAssignmentForm extends React.Component<TrainingAssignmentFormParam
         </label>
         <br></br>
         <label>
-          Assignee ID:
-          <select value={this.state.assignee_id}></select>
+          Asignee ID:
+          <select onChange={this.handleAssigneeChange}>
+            {this.props.assigneeOptions.map((assigneeOption: any) => (
+            <option key={assigneeOption.id} value={assigneeOption.id}>
+            {`${assigneeOption.first_name} ${assigneeOption.last_name}`}
+            </option>)
+            )}
+          </select>
         </label>
         <br></br>
         <label>
           Due Date:
           <br></br>
-          <input
-            type="date"
-            value={this.state.due_date}
-            onChange={this.handleDueDateChange}
-          />
+          <input type="date" value={this.state.due_date} onChange={this.handleDueDateChange}/>
         </label>
         <br></br>
         <label>
