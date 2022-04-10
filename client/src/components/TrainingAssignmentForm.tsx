@@ -1,12 +1,12 @@
-import React, { ReactEventHandler } from "react";
+import React from "react";
 import "../index.css";
 
 interface TrainingAssignmentFormParameters {
-  assigneeOptions: any,
-  onSubmit: (assigner_id: number, 
-             assignee_id: number, 
-             due_date: string, 
-             link: string) => void;
+  assigneeOptions: any;
+  onSubmit: (   assigner_id: number, 
+                assignee_id: number, 
+                due_date: string, 
+                link: string) => void;
 }
 
 interface TrainingAssignmentFormState {
@@ -16,7 +16,9 @@ interface TrainingAssignmentFormState {
   link: string;
 }
 
-class TrainingAssignmentForm extends React.Component<TrainingAssignmentFormParameters, TrainingAssignmentFormState> {
+class TrainingAssignmentForm extends React.Component<
+  TrainingAssignmentFormParameters, 
+  TrainingAssignmentFormState> {
   constructor(props: TrainingAssignmentFormParameters) {
     super(props);
     this.state = {
