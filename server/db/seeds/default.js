@@ -7,12 +7,15 @@ const bcrypt = require("bcryptjs");
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("users").del();
+  await knex("tasks").del();
   await knex("companies").del();
 
-  const companies = await knex("companies").insert([
-    {name: "Development Company"}
-  ], "*")
-  await knex("users").insert([
+  const companies = await knex("companies").insert(
+    [{ name: "Development Company" }],
+    "*"
+  );
+
+  const users = await knex("users").insert([
     { company_id: companies[0].id, email: "ben@email.com", password_digest: bcrypt.hashSync("password") },
     { company_id: companies[0].id, email: "daniel@email.com", password_digest: bcrypt.hashSync("password") },
     { company_id: companies[0].id, email: "ava@email.com", password_digest: bcrypt.hashSync("password") },
@@ -23,5 +26,19 @@ exports.seed = async function (knex) {
     { company_id: companies[0].id, email: "aastha@email.com", password_digest: bcrypt.hashSync("password") },
     { company_id: companies[0].id, email: "jeet@email.com", password_digest: bcrypt.hashSync("password") },
     { company_id: companies[0].id, email: "hongxiang@email.com", password_digest: bcrypt.hashSync("password") },
+    ],
+    "*"
+  );
+
+  //Date format as YYYY-MM-DD
+  const tasks = await knex("tasks").insert([
+    {
+      assigner_id: users[0].id,
+      assignee_id: users[1].id,
+      due_date: "2022-05-08",
+      created_date: "2022-05-05",
+      info_type: "time_off_requests",
+      info_id: 1,
+    },
   ]);
 };
