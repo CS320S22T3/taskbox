@@ -3,11 +3,10 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema
-    .createTable("training_assignments", function (table) {
-      table.increments("id").primary().unsigned();
-      table.string("link").notNullable();
-    })
+  return knex.schema.createTable("training_assignments", function (table) {
+    table.increments("id").primary().unsigned();
+    table.string("link").notNullable();
+  });
 };
 
 /**
