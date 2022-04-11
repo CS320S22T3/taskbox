@@ -20,12 +20,19 @@ exports.seed = async function (knex) {
     { email: "aastha@email.com", password_digest: bcrypt.hashSync("password") },
     { email: "jeet@email.com", password_digest: bcrypt.hashSync("password") },
     { email: "hongxiang@email.com", password_digest: bcrypt.hashSync("password") },
-  ]);
-
+    ],
+    "*"
+  );
 
   //Date format as YYYY-MM-DD
   const tasks = await knex("tasks").insert([
-    { assigner_id: users[0].id, assignee_id: users[1].id, due_date: "2022-05-08", info_type: "time_off_requests", info_id: 1 }
+    {
+      assigner_id: users[0].id,
+      assignee_id: users[1].id,
+      due_date: "2022-05-08",
+      created_date: "2022-05-05",
+      info_type: "time_off_requests",
+      info_id: 1,
+    },
   ]);
-
 };
