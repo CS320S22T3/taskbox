@@ -12,6 +12,7 @@ exports.up = function (knex) {
         table.integer("assignee_id").notNullable()
             .references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
         table.date("due_date").notNullable();
+        table.date("created_date").notNullable();
     });
 };
 
