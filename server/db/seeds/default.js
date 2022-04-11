@@ -9,7 +9,7 @@ exports.seed = async function (knex) {
   await knex("users").del();
   await knex("companies").del();
 
-  await knex("companies").insert([
+  const companies = await knex("companies").insert([
     {name: "Development Company"}
   ])
   await knex("users").insert([
