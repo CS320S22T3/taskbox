@@ -28,7 +28,7 @@ exports.seed = async function (knex) {
     { company_id: companies[0].id, email: "hongxiang@email.com", password_digest: bcrypt.hashSync("password") },
   ],
     "*"
-  );  
+  );
 
   //Date format as YYYY-MM-DD
   const tasks = await knex("tasks").insert([
