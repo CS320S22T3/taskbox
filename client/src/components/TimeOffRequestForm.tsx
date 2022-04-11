@@ -2,6 +2,7 @@ import React from "react";
 import "../index.css";
 
 interface TimeOffRequestFormParameters {
+  assigneeOptions: any;
   onSubmit: (
     assigner_id: number,
     assignee_id: number,
@@ -48,6 +49,7 @@ class TimeOffRequestForm extends React.Component<
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAssigneeIdChange = this.handleAssigneeIdChange.bind(this);
     this.handleDueDateChange = this.handleDueDateChange.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleStartDateChange = this.handleStartDateChange.bind(this);
@@ -55,25 +57,41 @@ class TimeOffRequestForm extends React.Component<
     this.handleNotesChange = this.handleNotesChange.bind(this);
   }
 
-  handleDueDateChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ due_date: event.target.value });
-  }
+  handleAssigneeIdChange = (e: any) => {
+    this.setState(() => ({
+      assignee_id: e.target.value,
+    }));
+  };
 
-  handleTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    this.setState({ type: event.target.value as unknown as number });
-  }
+  handleDueDateChange = (e: any) => {
+    this.setState(() => ({
+      due_date: e.target.value,
+    }));
+  };
 
-  handleStartDateChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ start_date: event.target.value });
-  }
+  handleTypeChange = (e: any) => {
+    this.setState(() => ({
+      type: e.target.value,
+    }));
+  };
 
-  handleEndDateChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ end_date: event.target.value });
-  }
+  handleStartDateChange = (e: any) => {
+    this.setState(() => ({
+      start_date: e.target.value,
+    }));
+  };
 
-  handleNotesChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    this.setState({ notes: event.target.value });
-  }
+  handleEndDateChange = (e: any) => {
+    this.setState(() => ({
+      end_date: e.target.value,
+    }));
+  };
+
+  handleNotesChange = (e: any) => {
+    this.setState(() => ({
+      notes: e.target.value,
+    }));
+  };
 
   handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     if (this.props.onSubmit != null)
@@ -99,7 +117,13 @@ class TimeOffRequestForm extends React.Component<
         <br></br>
         <label>
           Assignee Id:
-          <select value={this.state.assignee_id}></select>
+          <select onChange={this.handleAssigneeIdChange}>
+            {this.props.assigneeOptions.map((assigneeOption: any) => (
+              <option key={assigneeOption.id} value={assigneeOption.id}>
+                {`${assigneeOption.first_name} ${assigneeOption.last_name}`}
+              </option>
+            ))}
+          </select>
         </label>
         <br></br>
         <label>
