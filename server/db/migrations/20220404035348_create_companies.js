@@ -11,7 +11,7 @@ exports.up = function (knex) {
     })
 
     .alterTable("users", (t) => {
-      t.integer("company_id").unsigned();
+      t.integer("company_id").unsigned().notNullable();
       t.foreign("company_id").references("companies.id")
     })
 
