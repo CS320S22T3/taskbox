@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("users").del();
+  await knex("tasks").del();
 
   await knex("users").insert([
     { email: "ben@email.com", password_digest: bcrypt.hashSync("password") },
@@ -19,6 +20,11 @@ exports.seed = async function (knex) {
     { email: "aastha@email.com", password_digest: bcrypt.hashSync("password") },
     { email: "jeet@email.com", password_digest: bcrypt.hashSync("password") },
     { email: "hongxiang@email.com", password_digest: bcrypt.hashSync("password") },
+  ]);
+
+  //Date format as YYYY-MM-DD
+  const tasks = await knex("tasks").insert([
+    { assigner_id: 1, assignee_id: 2, due_date: "2022-05-08", info_type: "time_off_requests", info_id: 1 }
   ]);
 
 };
