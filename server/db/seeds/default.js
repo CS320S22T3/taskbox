@@ -26,7 +26,7 @@ exports.seed = async function (knex) {
     { company_id: companies[0].id, email: "aastha@email.com", password_digest: bcrypt.hashSync("password") },
     { company_id: companies[0].id, email: "jeet@email.com", password_digest: bcrypt.hashSync("password") },
     { company_id: companies[0].id, email: "hongxiang@email.com", password_digest: bcrypt.hashSync("password") },
-  ],
+    ],
     "*"
   );
 
