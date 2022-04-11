@@ -5,11 +5,14 @@
 exports.up = function (knex) {
     return knex.schema.createTable("tasks", (table) => {
         table.increments("id").primary().unsigned();
-        table.integer("assigner_id");
-        table.integer("assignee_id");
-        table.date("due_date");
-        table.integer("info_type");
-        table.integer("info_id");
+        table.string("info_type").notNullable();
+        table.integer("info_id").notNullable();
+        table.integer("assigner_id").notNullable()
+            .references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
+        table.integer("assignee_id").notNullable()
+            .references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
+        table.date("due_date").notNullable();
+        table.date("created_date").notNullable();
     });
 };
 
