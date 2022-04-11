@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("time_off_requests", (t) => {
     t.increments("id").primary().unsigned();
-    t.number("type").notNullable();
+    t.integer("type").notNullable();
     t.date("start_date").notNullable();
     t.date("end_date").notNullable();
   });
