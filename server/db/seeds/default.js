@@ -10,7 +10,10 @@ exports.seed = async function (knex) {
   await knex("tasks").del();
   await knex("companies").del();
 
-  const companies = await knex("companies").insert({name: "Development Company"}], "*");
+  const companies = await knex("companies").insert(
+    [{ name: "Development Company" }],
+    "*"
+  );
 
   const users = await knex("users").insert([
     { company_id: companies[0].id, email: "ben@email.com", password_digest: bcrypt.hashSync("password") },
