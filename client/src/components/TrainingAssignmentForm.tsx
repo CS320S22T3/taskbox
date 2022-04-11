@@ -3,10 +3,12 @@ import "../index.css";
 
 interface TrainingAssignmentFormParameters {
   assigneeOptions: any;
-  onSubmit: (   assigner_id: number, 
-                assignee_id: number, 
-                due_date: string, 
-                link: string) => void;
+  onSubmit: (
+    assigner_id: number,
+    assignee_id: number,
+    due_date: string,
+    link: string
+  ) => void;
 }
 
 interface TrainingAssignmentFormState {
@@ -17,8 +19,9 @@ interface TrainingAssignmentFormState {
 }
 
 class TrainingAssignmentForm extends React.Component<
-  TrainingAssignmentFormParameters, 
-  TrainingAssignmentFormState> {
+  TrainingAssignmentFormParameters,
+  TrainingAssignmentFormState
+> {
   constructor(props: TrainingAssignmentFormParameters) {
     super(props);
     this.state = {
@@ -47,10 +50,12 @@ class TrainingAssignmentForm extends React.Component<
 
   handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     if (this.props.onSubmit != null)
-      this.props.onSubmit(this.state.assigner_id, 
-                          this.state.assignee_id,
-                          this.state.due_date, 
-                          this.state.link);
+      this.props.onSubmit(
+        this.state.assigner_id,
+        this.state.assignee_id,
+        this.state.due_date,
+        this.state.link
+      );
     event.preventDefault();
   }
 
@@ -66,17 +71,21 @@ class TrainingAssignmentForm extends React.Component<
           Asignee ID:
           <select onChange={this.handleAssigneeChange}>
             {this.props.assigneeOptions.map((assigneeOption: any) => (
-            <option key={assigneeOption.id} value={assigneeOption.id}>
-            {`${assigneeOption.first_name} ${assigneeOption.last_name}`}
-            </option>)
-            )}
+              <option key={assigneeOption.id} value={assigneeOption.id}>
+                {`${assigneeOption.first_name} ${assigneeOption.last_name}`}
+              </option>
+            ))}
           </select>
         </label>
         <br></br>
         <label>
           Due Date:
           <br></br>
-          <input type="date" value={this.state.due_date} onChange={this.handleDueDateChange}/>
+          <input
+            type="date"
+            value={this.state.due_date}
+            onChange={this.handleDueDateChange}
+          />
         </label>
         <br></br>
         <label>
