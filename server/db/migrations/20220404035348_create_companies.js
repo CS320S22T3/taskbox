@@ -3,17 +3,16 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-
   return knex.schema
     .createTable("companies", (t) => {
       t.increments("id").primary().unsigned();
-      t.string("name").notNullable()
+      t.string("name").notNullable();
     })
 
     .alterTable("users", (t) => {
       t.integer("company_id").unsigned().notNullable();
-      t.foreign("company_id").references("companies.id")
-    })
+      t.foreign("company_id").references("companies.id");
+    });
 };
 
 /**
@@ -25,5 +24,5 @@ exports.down = function (knex) {
 
   knex.schema.alterTable("users", (t) => {
     t.dropColumn("company_id");
-  })
+  });
 };
