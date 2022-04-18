@@ -7,10 +7,10 @@ const bcrypt = require("bcryptjs");
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("users").del();
-  await knew("user_information").del();
   await knex("tasks").del();
   await knex("training_assignments").del();
   await knex("companies").del();
+  await knex("user_information").del();
 
   const companies = await knex("companies").insert(
     [{ name: "Development Company" }],
@@ -100,8 +100,25 @@ exports.seed = async function (knex) {
     "*"
   );
 
-  await knex("user_information").insert([
-    { user_id: users[0].id, first_name: "Matthew", last_name: 'Jordan', position: 'employee', date_hired: '3/27/2019', is_manager: true }, 
-    { user_id: users[1].id, first_name: "Joe", last_name: 'Edwards', position: 'employee', date_hired: '3/27/2019', is_manager: false }
-  ]);
+  const userinfo = await knex("user_information").insert(
+    [
+      { 
+        user_id: users[0].id, 
+        first_name: "Matthew", 
+        last_name: 'Jordan', 
+        position: 'employee', 
+        date_hired: '3-27/-019', 
+        is_manager: true 
+      }, 
+      { 
+        user_id: users[1].id, 
+        first_name: "Joe", 
+        last_name: 'Edwards', 
+        position: 'employee', 
+        date_hired: '3-27-2019', 
+        is_manager: false 
+      },
+    ],
+    "*"
+  );
 };
