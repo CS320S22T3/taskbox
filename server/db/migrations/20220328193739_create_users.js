@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
- exports.up = function (knex) {
+exports.up = function (knex) {
   return knex.schema.createTable("users", (t) => {
     t.increments("id").primary().unsigned();
     t.string("email").unique().notNullable();
