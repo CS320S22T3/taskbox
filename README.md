@@ -30,7 +30,7 @@ respectively.
 5) Fill in the environment file according to your system's needs
    ```bash
    ...
-   # BEWARE THESE FIELDS ALMOST NEED TO BE CONFIGURED
+   # BEWARE THESE FIELDS ALMOST ALWAYS NEED TO BE CONFIGURED
    # COMMON VALUES INCLUDE "postgres" OR YOUR COMPUTER'S USER ACCOUNT NAME
    # ALONG WITH A BLANK PASSWORD VALUE
    DB_USERNAME=''
@@ -64,4 +64,4 @@ respectively.
    npm run start
    ```
 
-[See the wiki](https://github.com/CS320S22T3/taskbox/wiki) for further developert s information.
+[See the wiki](https://github.com/CS320S22T3/taskbox/wiki) for further development information.
