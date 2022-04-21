@@ -3,6 +3,7 @@ import session from "express-session";
 import { EXPRESS_PORT, SESSION_SECRET } from "./constants";
 
 import { sessions } from "./routes/sessions.route";
+import { tasks } from "./routes/tasks.route";
 
 const app = express();
 app.use(express.json());
@@ -13,8 +14,10 @@ app.use(
 const api = express.Router();
 api.use("/sessions", sessions);
 
+api.use("/tasks", sessions);
+
 app.use("/api", api);
 
-app.listen(EXPRESS_PORT, () =>
+app.listen(EXPRESS_PORT, () => 
   console.log("Server listening on port " + EXPRESS_PORT)
 );
