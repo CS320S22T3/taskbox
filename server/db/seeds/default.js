@@ -104,16 +104,16 @@ exports.seed = async function (knex) {
     [
       { 
         user_id: users[0].id, 
-        first_name: "Matthew", 
-        last_name: 'Jordan', 
+        first_name: "Ben", 
+        last_name: 'Melz', 
         position: 'employee', 
-        date_hired: '3-27/-019', 
+        date_hired: '3-27-019', 
         is_manager: true 
       }, 
       { 
         user_id: users[1].id, 
-        first_name: "Joe", 
-        last_name: 'Edwards', 
+        first_name: "Daniel", 
+        last_name: 'Melanson', 
         position: 'employee', 
         date_hired: '3-27-2019', 
         is_manager: false 

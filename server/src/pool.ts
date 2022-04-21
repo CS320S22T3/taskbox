@@ -21,7 +21,7 @@ declare module "knex/types/tables" {
     companies: Company
   }
 
-  interface UserInformations {
+  interface UserInformation {
     id: number;
     user_id: number;
     first_name: string;
