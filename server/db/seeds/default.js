@@ -12,8 +12,6 @@ exports.seed = async function (knex) {
   await knex("companies").del();
   await knex("time_off_requests").del();
 
-
-
   const companies = await knex("companies").insert(
     [{ name: "Development Company" }],
     '*'
@@ -79,7 +77,16 @@ exports.seed = async function (knex) {
     [{ link: "assignment" }],
     "*"
   );
-
+  const time_off_requests = await knex("time_off_requests").insert([
+    {
+      type: 2,
+      start_date: "2022-06-08",
+      end_date: "2022-06-29",
+      notes: "spending summer break in europe",
+    },
+  ],
+    "*"
+  );
   const tasks = await knex("tasks").insert(
     [
       {
@@ -88,7 +95,7 @@ exports.seed = async function (knex) {
         due_date: "2022-05-08",
         created_date: "2022-05-05",
         info_type: "time_off_requests",
-        info_id: 1,
+        info_id: time_off_requests[0].id,
       },
       {
         assigner_id: users[0].id,
@@ -101,33 +108,5 @@ exports.seed = async function (knex) {
     ],
     "*"
   );
-  const time_off_requests = await knex("time_off_requests").insert([
-    {
-      type: 2,
-      start_date: "2022-06-08",
-      end_date: "2022-06-29",
-      notes: "spending summer break in europe",
-    },
-    {
-      type: 0,
-      start_date: "2022-05-12",
-      end_date: "2022-05-26",
-      notes:
-        "received a positive covid test have been asked to quarantine for 2 weeks",
-    },
-    {
-      type: 3,
-      start_date: "2022-09-01",
-      end_date: "2023-03-01",
-      notes: "parental leave",
-    },
-    {
-      type: 1,
-      start_date: "2022-09-01",
-      end_date: "2022-10-05",
-      notes: "jury duty",
-    },
-  ],
-    "*"
-  );
+
 };
