@@ -1,8 +1,8 @@
 import React from "react";
 
 interface TaskContext {
-    create_task: () => Promise<unknown>;
-    update_task: () => Promise<unknown>;
+    create_task: (data: any) => Promise<unknown>;
+    update_task: (data: any) => Promise<unknown>;
     tasks?: string
 }
 
