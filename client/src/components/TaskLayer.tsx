@@ -1,17 +1,17 @@
 import React from "react";
-import TasksContext from "../context/TasksContext"
+import TaskContext from "../context/TaskContext"
 
 
 interface TaskProps {
     children?: React.ReactNode;
 }
-class TasksLayer extends React.Component<TaskProps, { tasks?: string }>{
+class TaskLayer extends React.Component<TaskProps, { tasks?: [] }>{
     constructor(props: TaskProps) {
         super(props);
-        this.state = { tasks: undefined };
+        this.state = { tasks: [] };
 
-        this.fetch_tasks = this.fetch_tasks.bind(this);
-        //this.login = this.login.bind(this);
+        this.create_task = this.create_task.bind(this);
+        this.update_task = this.update_task.bind(this);
     }
 
 
@@ -19,11 +19,13 @@ class TasksLayer extends React.Component<TaskProps, { tasks?: string }>{
    * send a GET request to the server to return all tasks associated with a certain 
    * user ID, including all supplemental information associated with tasks (issue #64)
    */
-    fetch_tasks() {
-        return fetch("api/tasks", {
+    componentDidMount() {
+        return fetch("/api/users", {
             method: "GET",
             mode: "cors"
-        }).then((res) => res.json());
+        })
+            .then((res) => res.json())
+            .then();
     }
 
     /**
@@ -50,17 +52,16 @@ class TasksLayer extends React.Component<TaskProps, { tasks?: string }>{
 
     render() {
         return (
-            <TasksContext.Provider
+            <TaskContext.Provider
                 value={{
-                    fetch_tasks: this.fetch_tasks,
                     create_task: this.create_task,
                     update_task: this.update_task
                 }}
             >
 
-            </TasksContext.Provider>
+            </TaskContext.Provider>
         );
     }
 }
 
-export default TasksLayer;
+export default TaskLayer;
