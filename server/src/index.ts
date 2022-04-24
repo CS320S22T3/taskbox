@@ -15,15 +15,10 @@ app.use(
 
 const api = express.Router();
 
-app.use('/', (req, res)=> {
-  res.send('Hello World');
-})
+api.use("/sessions", sessions);
+api.use("/tasks", tasks);
 
-// api.use("/sessions", sessions);
-
-app.use("/tasks", tasks);
-
-// app.use("/api", api);
+app.use("/api", api);
 
 app.listen(EXPRESS_PORT, () => 
   console.log("Server listening on port " + EXPRESS_PORT)
