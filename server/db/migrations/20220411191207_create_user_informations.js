@@ -5,12 +5,12 @@
 exports.up = function(knex) {
     return knex.schema.createTable("user_information", (t) => {
         t.increments("id").primary().unsigned();
-        t.integer("user_id").unsigned();
-        t.string("first_name");
-        t.string("last_name");
-        t.string("position");
-        t.date("date_hired");
-        t.boolean("is_manager");
+        t.integer("user_id").unsigned().notNullable();
+        t.string("first_name").notNullable();
+        t.string("last_name").notNullable();
+        t.string("position").notNullable();
+        t.date("date_hired").notNullable();
+        t.boolean("is_manager").notNullable();
     })
 
     .alterTable("users", (t) => {
