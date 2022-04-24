@@ -11,10 +11,22 @@ tasks.post(
     body("assigner_id").isNumeric(), body("assignee_id").isNumeric(), 
     body("due_date").isDate(), body("created_date").isDate()]),
     async (req: Request, res: Response) => {
-        
-        // const { info_id, assigner_id, assignee_id, due_date, created_date } = req.body;
-        const assignee_id = 10;
-        await checkUserID(assignee_id)
+        const { info_id, assigner_id, assignee_id, due_date, created_date } = req.body; 
+        try {
+            if (await checkUserID(assignee_id)) {
+                console.log("valid user", await checkUserID(assignee_id))
+            }
+        // if (await checkUserID(assignee_id)) {
+            
+        //     return res.status(200)
+        // }
+        // else {
+        //     return res.status(422).json({ error: "Incorrect assignee id" });
+        // }
+        } catch(e) {
+            console.log("hello wrong")
+        }
+    }
     // try {
     //   const user = await checkUserID(assignee_id) && await ;
     //   const 
@@ -29,5 +41,4 @@ tasks.post(
 
     //   return res.sendStatus(200);
     // }  
-    }
 )

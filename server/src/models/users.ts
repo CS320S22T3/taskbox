@@ -5,6 +5,7 @@ export async function getUserFromEmail(email: string) {
 }
 
 export async function checkUserID(id: number) {
-  console.log(knex("users").select("*").where({id}));
+  // console.log(id)
+  return knex("users").select("email").where("id", id).first();
   // return knex("users").whereExists(knex.select(*).from()))
 }
