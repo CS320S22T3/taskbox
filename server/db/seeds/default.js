@@ -16,6 +16,7 @@ exports.seed = async function (knex) {
 
   const companies = await knex("companies").insert(
     [{ name: "Development Company" }],
+    '*'
   );
 
   const users = await knex("users").insert(
@@ -127,5 +128,6 @@ exports.seed = async function (knex) {
       notes: "jury duty",
     },
   ],
+    "*"
   );
 };
