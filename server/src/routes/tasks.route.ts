@@ -2,6 +2,7 @@ import { body } from 'express-validator';
 import { Request, Response, Router } from "express";
 import validate, { validateTask } from "../middleware/validate";
 import { checkUserID } from "../models/users";
+import knex from "knex";
 
 export const tasks = Router();
 
@@ -15,6 +16,7 @@ tasks.post(
         try {
             if (await checkUserID(assignee_id)) {
                 console.log("valid user", await checkUserID(assignee_id))
+                knex
             }
         // if (await checkUserID(assignee_id)) {
             
