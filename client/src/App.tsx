@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Auth from "./components/Auth";
+import Auth from "./components/SessionLayer";
 import Layout from "./components/Layout";
 import UserContext from "./context/UserContext";
 
