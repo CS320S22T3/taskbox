@@ -8,9 +8,7 @@ interface PerformanceReviewParameters {
     assigner_id: number,
     assignee_id: number,
     due_date: string
-
   ) => void;
-  
 }
 
 interface PerformanceReviewState {
@@ -36,7 +34,6 @@ class PerformanceReview extends React.Component<
   }
 
   handleAssigneeChange = (e: any) => {
-
     console.log(this.state.assignee_id);
     this.setState(() => ({
       assignee_id: e.target.value,
@@ -71,13 +68,11 @@ class PerformanceReview extends React.Component<
         <label>
           Asignee ID:
           <select onChange={this.handleAssigneeChange}>
-
             {this.props.assigneeOptions.map((assigneeOption: any) => (
               <option key={assigneeOption.id} value={assigneeOption.id}>
                 {`${assigneeOption.first_name} ${assigneeOption.last_name}`}
               </option>
             ))}
-
           </select>
         </label>
         <br />
