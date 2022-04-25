@@ -1,24 +1,26 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import knex from "knex";
+import {
+  PerformanceReviewRequest,
+  TimeOffRequest,
+  TrainingAssignment,
+  Task,
+  User,
+  UserInformation,
+  Company,
+} from "types";
 
 const config = require("../knexfile.js");
 
 declare module "knex/types/tables" {
-  interface User {
-    id: number;
-    company_id: number,
-    email: string;
-    password_digest: string;
-  }
-
-  interface Company {
-    id: number;
-    name: string;
-  }
-
   interface Tables {
+    performance_review_requests: PerformanceReviewRequest;
+    time_off_request: TimeOffRequest;
+    training_assignments: TrainingAssignment;
+    tasks: Task;
     users: User;
-    companies: Company
+    user_informations: UserInformation;
+    companies: Company;
   }
 }
 
