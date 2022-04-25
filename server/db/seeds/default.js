@@ -100,7 +100,7 @@ exports.seed = async function (knex) {
     "*"
   );
 
-  const userinfo = await knex("user_information").insert(
+  const userinfo = await knex("user_informations").insert(
     [
       { 
         user_id: users[0].id, 
