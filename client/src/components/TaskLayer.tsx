@@ -22,11 +22,11 @@ class TaskLayer extends React.Component<TaskProps & UserContext, { tasks: Map<nu
    * user ID, including all supplemental information associated with tasks (issue #64)
    */
     componentDidMount() {
-        var tt = this.props.userId;
+        var userId = this.props.userId;
         return fetch("/api/users", {
             method: "GET",
             mode: "cors",
-            body: JSON.stringify({}),
+            body: JSON.stringify({ userId }),
             headers: { "Content-Type": "application/json" }
         })
             .then((res) => res.json())
