@@ -10,7 +10,7 @@ exports.seed = async function (knex) {
   await knex("tasks").del();
   await knex("training_assignments").del();
   await knex("companies").del();
-  await knex("user_information").del();
+  await knex("user_informations").del();
 
   const companies = await knex("companies").insert(
     [{ name: "Development Company" }],
