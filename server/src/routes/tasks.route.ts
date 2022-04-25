@@ -26,3 +26,19 @@ tasks.post(
         }
     }
 )
+
+tasks.put(
+    "/:id",
+    validate([
+        body("id").isNumeric(), //isInt(), 
+        body("info_type").isAscii(), 
+        body("info_id").isNumeric(), //.isInt(), 
+        body("assigner_id").isNumeric(), //.isInt(), 
+        body("assignee_id").isNumeric(), // .isInt(),
+        body("due_date").isDate(),
+        body("created_date").isDate()
+    ]),
+    async (req: Request, res: Response) => {
+    
+    }
+);
