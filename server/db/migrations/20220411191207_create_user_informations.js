@@ -20,8 +20,4 @@ exports.up = function(knex) {
  */
 exports.down = function(knex) {
     knex.schema.dropTable("user_information");
-
-    knex.schema.alterTable("users", (t) => {
-        t.dropColumn("user_id");
-    });
 };
