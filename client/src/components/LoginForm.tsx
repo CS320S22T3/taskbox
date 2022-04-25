@@ -1,5 +1,4 @@
 import React from "react";
-import "../index.css";
 
 interface LoginFormParameters {
   onSubmit: (username: string, password: string) => void;
