@@ -5,7 +5,6 @@ import { EXPRESS_PORT, SESSION_SECRET } from "./constants";
 import { sessions } from "./routes/sessions.route";
 import { tasks } from "./routes/tasks.route";
 
-
 const app = express();
 app.use(express.json());
 
