@@ -12,11 +12,6 @@ exports.up = function(knex) {
         t.date("date_hired").notNullable();
         t.boolean("is_manager").notNullable();
     })
-
-    .alterTable("users", (t) => {
-        t.integer("user_id").unsigned().notNullable();
-        t.foreign("user_id").references("user_information.user_id");
-    })
 };
 
 /**
