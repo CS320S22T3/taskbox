@@ -20,6 +20,16 @@ declare module "knex/types/tables" {
     users: User;
     companies: Company
   }
+
+  interface UserInformation {
+    id: number;
+    user_id: number;
+    first_name: string;
+    last_name: string;
+    position: string;
+    date_hired: Date;
+    is_manager: boolean;
+  }
 }
 
 export default knex(config);
