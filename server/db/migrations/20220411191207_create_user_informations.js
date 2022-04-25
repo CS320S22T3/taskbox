@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema.createTable("user_information", (t) => {
+  return knex.schema.createTable("user_informations", (t) => {
     t.increments("id").primary().unsigned();
     t.foreign("user_id").references("id").inTable("users").notNullable();
     t.string("first_name").notNullable();
