@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 
 interface UserContext {
   login: (username: string, password: string) => Promise<string>; // Resolve to the id of the user
@@ -16,8 +16,7 @@ export default UserContext;
 export function withSession(WrappedComponent: any) {
   return (props: any) => (
     <UserContext.Consumer>
-      {(value) => (<WrappedComponent {...value} {...props} />)}
+      {(value) => <WrappedComponent {...value} {...props} />}
     </UserContext.Consumer>
   );
 }
-
