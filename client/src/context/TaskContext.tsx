@@ -14,9 +14,14 @@ const TaskContext = React.createContext<TaskContext>({
 export default TaskContext;
 
 export function withTasks(WrappedComponent: any) {
-  return (props: any) => (
+  const WrapperComponent = (props: any) => (
     <TaskContext.Consumer>
       {(value) => <WrappedComponent {...value} {...props} />}
     </TaskContext.Consumer>
   );
+
+  WrapperComponent.displayName = `logProps(${
+    WrappedComponent.displayName || WrappedComponent.name
+  })`;
+  return React.forwardRef(WrapperComponent);
 }

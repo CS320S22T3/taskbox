@@ -14,9 +14,14 @@ const UserContext = React.createContext<UserContext>({
 export default UserContext;
 
 export function withSession(WrappedComponent: any) {
-  return (props: any) => (
+  const WrapperComponent = (props: any) => (
     <UserContext.Consumer>
       {(value) => <WrappedComponent {...value} {...props} />}
     </UserContext.Consumer>
   );
+
+  WrapperComponent.displayName = `logProps(${
+    WrappedComponent.displayName || WrappedComponent.name
+  })`;
+  return React.forwardRef(WrapperComponent);
 }
