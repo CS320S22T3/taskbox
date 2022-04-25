@@ -3,7 +3,6 @@ import { Request, Response, Router } from "express";
 import validate from "../middleware/validate";
 import { checkUserID } from "../models/users";
 import { createTask } from "../models/tasks";
-import knex from "../pool";
 
 export const tasks = Router();
 
