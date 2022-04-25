@@ -20,7 +20,7 @@ export function withSession(WrappedComponent: any) {
     </UserContext.Consumer>
   );
 
-  WrapperComponent.displayName = `logProps(${
+  WrapperComponent.displayName = `withSession(${
     WrappedComponent.displayName || WrappedComponent.name
   })`;
   return React.forwardRef(WrapperComponent);

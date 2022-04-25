@@ -20,7 +20,7 @@ export function withTasks(WrappedComponent: any) {
     </TaskContext.Consumer>
   );
 
-  WrapperComponent.displayName = `logProps(${
+  WrapperComponent.displayName = `withTasks(${
     WrappedComponent.displayName || WrappedComponent.name
   })`;
   return React.forwardRef(WrapperComponent);
