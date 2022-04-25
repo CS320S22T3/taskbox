@@ -7,16 +7,129 @@ const bcrypt = require("bcryptjs");
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("users").del();
-  await knex("users").insert([
-    { email: "ben@email.com", password_digest: bcrypt.hashSync("password") },
-    { email: "daniel@email.com", password_digest: bcrypt.hashSync("password") },
-    { email: "ava@email.com", password_digest: bcrypt.hashSync("password") },
-    { email: "matt@email.com", password_digest: bcrypt.hashSync("password") },
-    { email: "long@email.com", password_digest: bcrypt.hashSync("password") },
-    { email: "rohit@email.com", password_digest: bcrypt.hashSync("password") },
-    { email: "navid@email.com", password_digest: bcrypt.hashSync("password") },
-    { email: "aastha@email.com", password_digest: bcrypt.hashSync("password") },
-    { email: "jeet@email.com", password_digest: bcrypt.hashSync("password") },
-    { email: "hongxiang@email.com", password_digest: bcrypt.hashSync("password") },
-  ]);
+  await knex("tasks").del();
+  await knex("training_assignments").del();
+  await knex("companies").del();
+  await knex("user_informations").del();
+  await knex("time_off_requests").del();
+
+  const companies = await knex("companies").insert(
+    [{ name: "Development Company" }],
+    "*"
+  );
+
+  const users = await knex("users").insert(
+    [
+      {
+        company_id: companies[0].id,
+        email: "ben@email.com",
+        password_digest: bcrypt.hashSync("password"),
+      },
+      {
+        company_id: companies[0].id,
+        email: "daniel@email.com",
+        password_digest: bcrypt.hashSync("password"),
+      },
+      {
+        company_id: companies[0].id,
+        email: "ava@email.com",
+        password_digest: bcrypt.hashSync("password"),
+      },
+      {
+        company_id: companies[0].id,
+        email: "matt@email.com",
+        password_digest: bcrypt.hashSync("password"),
+      },
+      {
+        company_id: companies[0].id,
+        email: "long@email.com",
+        password_digest: bcrypt.hashSync("password"),
+      },
+      {
+        company_id: companies[0].id,
+        email: "rohit@email.com",
+        password_digest: bcrypt.hashSync("password"),
+      },
+      {
+        company_id: companies[0].id,
+        email: "navid@email.com",
+        password_digest: bcrypt.hashSync("password"),
+      },
+      {
+        company_id: companies[0].id,
+        email: "aastha@email.com",
+        password_digest: bcrypt.hashSync("password"),
+      },
+      {
+        company_id: companies[0].id,
+        email: "jeet@email.com",
+        password_digest: bcrypt.hashSync("password"),
+      },
+      {
+        company_id: companies[0].id,
+        email: "hongxiang@email.com",
+        password_digest: bcrypt.hashSync("password"),
+      },
+    ],
+    "*"
+  );
+
+  const ta = await knex("training_assignments").insert(
+    [{ link: "assignment" }],
+    "*"
+  );
+  const time_off_requests = await knex("time_off_requests").insert(
+    [
+      {
+        type: 2,
+        start_date: "2022-06-08",
+        end_date: "2022-06-29",
+        notes: "spending summer break in europe",
+      },
+    ],
+    "*"
+  );
+  const tasks = await knex("tasks").insert(
+    [
+      {
+        assigner_id: users[0].id,
+        assignee_id: users[1].id,
+        due_date: "2022-05-08",
+        created_date: "2022-05-05",
+        info_type: "time_off_requests",
+        info_id: time_off_requests[0].id,
+      },
+      {
+        assigner_id: users[0].id,
+        assignee_id: users[1].id,
+        due_date: "2022-05-08",
+        created_date: "2022-05-05",
+        info_type: "training_assignments",
+        info_id: ta[0].id,
+      },
+    ],
+    "*"
+  );
+
+  const userinfo = await knex("user_informations").insert(
+    [
+      {
+        user_id: users[0].id,
+        first_name: "Ben",
+        last_name: "Melz",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: true,
+      },
+      {
+        user_id: users[1].id,
+        first_name: "Daniel",
+        last_name: "Melanson",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: false,
+      },
+    ],
+    "*"
+  );
 };
