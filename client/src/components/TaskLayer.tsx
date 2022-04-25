@@ -1,13 +1,14 @@
 import React from "react";
 import internal from "stream";
+import UserContext from "../context/UserContext";
 import TaskContext from "../context/TaskContext";
 
 
 interface TaskProps {
     children?: React.ReactNode;
 }
-class TaskLayer extends React.Component<TaskProps, { tasks: Map<number, any> }>{
-    constructor(props: TaskProps) {
+class TaskLayer extends React.Component<TaskProps & UserContext, { tasks: Map<number, any> }>{
+    constructor(props: TaskProps & UserContext) {
         super(props);
         this.state = { tasks: Map = require('immutable') };
 
@@ -21,9 +22,12 @@ class TaskLayer extends React.Component<TaskProps, { tasks: Map<number, any> }>{
    * user ID, including all supplemental information associated with tasks (issue #64)
    */
     componentDidMount() {
+        var tt = this.props.userId;
         return fetch("/api/users", {
             method: "GET",
-            mode: "cors"
+            mode: "cors",
+            body: JSON.stringify({}),
+            headers: { "Content-Type": "application/json" }
         })
             .then((res) => res.json())
             .then(data => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 
 interface TaskContext {
     create_task: (data: any) => Promise<unknown>;
@@ -6,7 +6,17 @@ interface TaskContext {
     tasks?: string
 }
 
-export default React.createContext<TaskContext>({
+const TaskContext = React.createContext<TaskContext>({
     create_task: async () => "",
     update_task: async () => ""
 });
+
+export default TaskContext;
+
+export function withTasks(WrappedComponent: any) {
+    return (props: any) => (
+        <TaskContext.Consumer>
+            {(value) => (<WrappedComponent {...value} {...props} />)}
+        </TaskContext.Consumer>
+    );
+}

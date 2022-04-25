@@ -77,6 +77,7 @@ class Auth extends React.Component<AuthProps, { user_id?: string }> {
     }).then(() => this.setState({ user_id: undefined }));
   }
 
+
   render() {
     return (
       <UserContext.Provider
