@@ -26,7 +26,7 @@ tasks.post(
       due_date,
       created_date,
     } = req.body;
-    
+
     try {
       if (await checkUserID(assignee_id)) {
         const newTask = {
