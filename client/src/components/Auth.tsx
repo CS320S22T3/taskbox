@@ -90,14 +90,8 @@ class Auth extends React.Component<AuthProps, { user_id?: string }> {
         {this.state.user_id ? (
           this.props.children
         ) : (
-          <div className="vertical-center">
-            <Container>
-              <Row className="justify-content-md-center">
-                <Col md="auto">
-                  <LoginForm onSubmit={this.login} />
-                </Col>
-              </Row>
-            </Container>
+          <div className="d-flex justify-content-center align-items-center h-100">
+            <LoginForm onSubmit={this.login} />
           </div>
         )}
       </UserContext.Provider>
