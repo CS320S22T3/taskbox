@@ -14,7 +14,7 @@ tasks.post(
     body("assigner_id").isNumeric(),
     body("assignee_id").isNumeric(),
     body("due_date").isDate(),
-    body("created_date").isDate(),
+    body("created_date").isDate()
   ]),
   async (req: Request, res: Response) => {
     const {
@@ -23,20 +23,22 @@ tasks.post(
       assigner_id,
       assignee_id,
       due_date,
-      created_date,
+      created_date
     } = req.body;
+
+    console.log(req.body)
 
     try {
       if (await checkUserID(assignee_id)) {
-        const newTask = {
-          info_type,
-          info_id,
-          assigner_id,
-          assignee_id,
-          due_date,
-          created_date,
-        };
-        const addedTask = await createTask(newTask);
+        // const newTask = {
+        //   info_type,
+        //   info_id,
+        //   assigner_id,
+        //   assignee_id,
+        //   due_date,
+        //   created_date,
+        // };
+        const addedTask = await createTask(req.body);
         return res.status(200).json(addedTask);
       }
     } catch (e) {
