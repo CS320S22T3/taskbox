@@ -1,5 +1,5 @@
 import { body } from "express-validator";
-import { Request, Response, Router } from "express";
+import e, { Request, Response, Router } from "express";
 import validate from "../middleware/validate";
 import { checkUserID } from "../models/users";
 import { createTask } from "../models/tasks";
@@ -14,32 +14,17 @@ tasks.post(
     body("assigner_id").isNumeric(),
     body("assignee_id").isNumeric(),
     body("due_date").isDate(),
-    body("created_date").isDate()
+    body("created_date").isDate(),
+    body("info").exists(),
   ]),
   async (req: Request, res: Response) => {
-    const {
-      info_type,
-      info_id,
-      assigner_id,
-      assignee_id,
-      due_date,
-      created_date
-    } = req.body;
-
-    console.log(req.body)
-
     try {
-      if (await checkUserID(assignee_id)) {
-        // const newTask = {
-        //   info_type,
-        //   info_id,
-        //   assigner_id,
-        //   assignee_id,
-        //   due_date,
-        //   created_date,
-        // };
+      if (await checkUserID(req.body.assignee_id) && await checkUserID(req.body.assigner_id)) {
         const addedTask = await createTask(req.body);
         return res.status(200).json(addedTask);
+      }
+      else {
+        return res.status(422).json({ error: "Incorrect Assigner or Assignee" });
       }
     } catch (e) {
       console.log(e);
