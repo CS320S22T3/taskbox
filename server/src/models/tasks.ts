@@ -16,17 +16,16 @@ export async function createTask(newTask: any) {
 // I have no idea if any of these work
 export async function updateTask(newTask: any) {
   return await knex("tasks")
-    .where("id", newTask["id"])
+    .where("id", newTask.id)
     // chain updates?
-    .update("info_type", newTask["info_type"])
-    .update("info_id", newTask["info_id"])
-    .update("assigner_id", newTask["assigner_id"])
-    .update("assignee_id", newTask["assignee_id"])
-    .update("due_date", newTask["due_date"])
-    .update("created_date", newTask["created_date"])
+    .update("info_type", newTask.info_type)
+    .update("info_id", newTask.info_id)
+    .update("assigner_id", newTask.assigner_id)
+    .update("assignee_id", newTask.assignee_id)
+    .update("due_date", newTask.due_date)
+    .update("created_date", newTask.created_date)
     .returning("id")
     .then(([{id}]) => { // not sure if this works, just copied from createTask (thanks Rohit)
-      newTask['id'] = id;
       return newTask;
   })
     .catch((err) => {
@@ -36,21 +35,20 @@ export async function updateTask(newTask: any) {
 
 // ask for more information on structure if body, if it includes special fields
 export async function updateInfoTask(newTask: any) {
-  const type = newTask["info_type"];
+  const type = newTask.info_type;
   switch(type) {
     case "performance_review_requests": //this only has an ID column
       return newTask
       //break;
     case "time_off_requests": // id, type, start_date, end_date, notes
       return await knex("time_off_requests")
-        .where("id", newTask["info_id"])
-        .update("type", newTask["type"])
-        .update("start_date", newTask["start_date"])
-        .update("end_date", newTask["end_date"])
-        .update("notes", newTask["notes"])
+        .where("id", newTask.info_id)
+        .update("type", newTask.type)
+        .update("start_date", newTask.start_date)
+        .update("end_date", newTask.end_date)
+        .update("notes", newTask.notes)
         .returning("id")
         .then(([{id}]) => { // not sure if this works, just copied from createTask (thanks Rohit)
-          newTask['id'] = id;
           return newTask;
         })
         .catch((err) => {
@@ -59,11 +57,10 @@ export async function updateInfoTask(newTask: any) {
       //break;
     case "training_assignments": // this only has ID and link columns, is "link" in request body?
         return await knex("training_assignments")
-          .where("id", newTask["info_id"])
-          .update("link", newTask["link"])
+          .where("id", newTask.info_id)
+          .update("link", newTask.link)
           .returning("id")
           .then(([{id}]) => { // not sure if this works, just copied from createTask (thanks Rohit)
-            newTask['id'] = id;
             return newTask;
           })
           .catch((err) => {

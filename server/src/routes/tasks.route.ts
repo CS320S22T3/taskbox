@@ -39,16 +39,16 @@ tasks.put(
         body("created_date").isDate()
     ]),
     async (req: Request, res: Response) => {
-        const { id, info_type, info_id, assigner_id, assignee_id, due_date, created_date } = req.body;
+        const requestInfo = req.body; // is req.body a k:v dictionary?
         try {
             if ( //too many checks?
-                await checkTaskID(id) && 
+                await checkTaskID(requestInfo.id) && 
                 ///await checkTaskType(info_type) && 
                 //await checkUserID(assigner_id) && 
-                await checkUserID(assignee_id)
+                await checkUserID(requestInfo.assignee_id)
                 //await checkTaskTypeID(info_id, info_type)
             ) {// end of if 
-                const newTask = { id, info_type, info_id, assigner_id, assignee_id, due_date, created_date};
+                const newTask = requestInfo;
                 const updatedInfo = await updateInfoTask(newTask);
                 const updatedTask = await updateTask(newTask);
                 return res.status(200).json(updatedTask)
