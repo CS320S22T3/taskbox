@@ -28,7 +28,7 @@ export async function updateInfoTask(newTask: any) {
   return await knex(newTask.info_type)
     .where("info_id",  "=",  "newTask.info_id")
     .update(newTask)
-    .catch((err) => {
+    .catch((err) => { 
       throw new Error("Failed to update existing Task " + err);
     })
 }

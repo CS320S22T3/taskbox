@@ -43,10 +43,10 @@ tasks.put(
         try {
             if ( //too many checks?
                 await checkTaskID(id) && 
-                await checkTaskType(info_type) && 
-                await checkUserID(assigner_id) && 
-                await checkUserID(assignee_id) &&
-                await checkTaskTypeID(info_id, info_type)
+                ///await checkTaskType(info_type) && 
+                //await checkUserID(assigner_id) && 
+                await checkUserID(assignee_id)
+                //await checkTaskTypeID(info_id, info_type)
             ) {// end of if 
                 const newTask = { id, info_type, info_id, assigner_id, assignee_id, due_date, created_date};
                 const updatedTask = await updateTask(newTask);
