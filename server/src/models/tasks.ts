@@ -40,11 +40,36 @@ export async function updateInfoTask(newTask: any) {
   switch(type) {
     case "performance_review_requests": //this only has an ID column
       return newTask
-      break;
+      //break;
     case "time_off_requests": // id, type, start_date, end_date, notes
-      break;
-    case "training assignments": // this only has ID and link columns, is "link" in request body?
-      break;
+      return await knex("time_off_requests")
+        .where("id", newTask["info_id"])
+        .update("type", newTask["type"])
+        .update("start_date", newTask["start_date"])
+        .update("end_date", newTask["end_date"])
+        .update("notes", newTask["notes"])
+        .returning("id")
+        .then(([{id}]) => { // not sure if this works, just copied from createTask (thanks Rohit)
+          newTask['id'] = id;
+          return newTask;
+        })
+        .catch((err) => {
+          throw new Error("Failed to update existing Task " + err);
+        })
+      //break;
+    case "training_assignments": // this only has ID and link columns, is "link" in request body?
+        return await knex("training_assignments")
+          .where("id", newTask["info_id"])
+          .update("link", newTask["link"])
+          .returning("id")
+          .then(([{id}]) => { // not sure if this works, just copied from createTask (thanks Rohit)
+            newTask['id'] = id;
+            return newTask;
+          })
+          .catch((err) => {
+            throw new Error("Failed to update existing Task " + err);
+          })
+      //break;
   }
 }
 
