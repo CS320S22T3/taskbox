@@ -16,23 +16,39 @@ export async function createTask(newTask: any) {
 // I have no idea if any of these work
 export async function updateTask(newTask: any) {
   return await knex("tasks")
-    .where("id", "=", newTask.id)
-    // maybe update each field individually?
-    .update(newTask, ["id", "info_type", "info_id", "assigner_id", "assignee_id", "due_date", "created_date"])
+    .where("id", newTask["id"])
+    // chain updates?
+    .update("info_type", newTask["info_type"])
+    .update("info_id", newTask["info_id"])
+    .update("assigner_id", newTask["assigner_id"])
+    .update("assignee_id", newTask["assignee_id"])
+    .update("due_date", newTask["due_date"])
+    .update("created_date", newTask["created_date"])
+    .returning("id")
+    .then(([{id}]) => { // not sure if this works, just copied from createTask (thanks Rohit)
+      newTask['id'] = id;
+      return newTask;
+  })
     .catch((err) => {
       throw new Error("Failed to update existing Task " + err);
     })
 }
 
+// ask for more information on structure if body, if it includes special fields
 export async function updateInfoTask(newTask: any) {
-  return await knex(newTask.info_type)
-    .where("info_id",  "=",  "newTask.info_id")
-    .update(newTask)
-    .catch((err) => { 
-      throw new Error("Failed to update existing Task " + err);
-    })
+  const type = newTask["info_type"];
+  switch(type) {
+    case "performance_review_requests": //this only has an ID column
+      return newTask
+      break;
+    case "time_off_requests": // id, type, start_date, end_date, notes
+      break;
+    case "training assignments": // this only has ID and link columns, is "link" in request body?
+      break;
+  }
 }
 
+// functions for checking possibility of requests
 export async function checkTaskID(id: number) {
   return knex("tasks").select("id").where("id", id).first();
 }

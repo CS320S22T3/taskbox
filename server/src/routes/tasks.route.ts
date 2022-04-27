@@ -49,8 +49,8 @@ tasks.put(
                 //await checkTaskTypeID(info_id, info_type)
             ) {// end of if 
                 const newTask = { id, info_type, info_id, assigner_id, assignee_id, due_date, created_date};
-                const updatedTask = await updateTask(newTask);
                 const updatedInfo = await updateInfoTask(newTask);
+                const updatedTask = await updateTask(newTask);
                 return res.status(200).json(updatedTask)
             }
         }
