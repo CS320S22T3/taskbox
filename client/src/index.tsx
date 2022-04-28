@@ -3,10 +3,12 @@ import ReactDOM from "react-dom";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
+import TaskForm from "./components/TaskForm"
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <TaskForm onSubmit={() => null}></TaskForm>
   </React.StrictMode>,
   document.getElementById("root")
 );

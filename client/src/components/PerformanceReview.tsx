@@ -1,5 +1,4 @@
 import React from "react";
-import "../App.css";
 
 interface PerformanceReviewParameters {
   assigneeOptions: any;
