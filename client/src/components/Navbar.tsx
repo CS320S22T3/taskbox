@@ -1,31 +1,22 @@
 import React from "react";
-import { Container, Navbar as Susbar, Button } from "react-bootstrap";
+import { Container, Navbar as Susbar, Button, Nav } from "react-bootstrap";
 import UserContext from "../context/UserContext";
 
 function Navbar() {
   return (
     <Susbar bg="dark" variant="dark">
-      <Container fluid={true}>
+      <Container fluid className="px-4 gap-3">
         <Susbar.Brand>taskbox</Susbar.Brand>
-        <UserContext.Consumer>
-          {(userContext) => (
-            <Container
-              fluid={true}
-              style={{ display: "flex", justifyContent: "right" }}
-            >
-              <Button style={{ margin: "5px" }} variant="outline-success">
-                Assign Task
-              </Button>
-              <Button
-                onClick={userContext?.logout}
-                style={{ margin: "5px" }}
-                variant="outline-secondary"
-              >
+        <Button variant="outline-success">Assign Task</Button>
+        <Nav>
+          <UserContext.Consumer>
+            {(userContext) => (
+              <Nav.Link href={"#"} onClick={userContext?.logout}>
                 Logout
-              </Button>
-            </Container>
-          )}
-        </UserContext.Consumer>
+              </Nav.Link>
+            )}
+          </UserContext.Consumer>
+        </Nav>
       </Container>
     </Susbar>
   );
