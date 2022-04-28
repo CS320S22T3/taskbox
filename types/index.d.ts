@@ -45,3 +45,9 @@ export interface UserInformation {
   is_manager: boolean;
 }
 
+export type TrainingAssignmentTask = TrainingAssignment & Task;
+
+export type PerformanceReviewRequestTask = PerformanceReviewRequest & Task;
+
+export type TimeOffRequestTask = TimeOffRequest & Task;
+
