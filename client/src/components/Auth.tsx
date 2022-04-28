@@ -5,7 +5,10 @@ import LoginForm from "./LoginForm";
 interface AuthProps {
   children?: React.ReactNode;
 }
-class Auth extends React.Component<AuthProps, { user_id?: string }> {
+class Auth extends React.Component<
+  AuthProps,
+  { user_id?: string; error?: string }
+> {
   constructor(props: AuthProps) {
     super(props);
     this.state = { user_id: undefined };
@@ -34,7 +37,7 @@ class Auth extends React.Component<AuthProps, { user_id?: string }> {
    * error message to the console
    */
 
-  async login(email: string, password: string): Promise<string> {
+  async login(email: string, password: string): Promise<void> {
     try {
       const res = await fetch("/api/sessions", {
         method: "POST",
@@ -43,25 +46,23 @@ class Auth extends React.Component<AuthProps, { user_id?: string }> {
         headers: { "Content-Type": "application/json" },
       });
 
-      switch (res.status) {
-        case 200: {
-          const json = await res.json();
-          this.setState({ user_id: json.user_id });
+      if (res.status === 200) {
+        const json = await res.json();
+        this.setState({ user_id: json.user_id, error: undefined });
+      } else {
+        const errorMessages = new Map<number, string>([
+          [400, "Malformed request syntax."],
+          [422, "Incorrect username or password."],
+          [500, "Internal server error."],
+        ]);
 
-          return json.user_id;
-        }
-        case 400:
-          throw new Error("Malformed request syntax.");
-        case 422:
-          throw new Error("Incorrect username or password.");
-        case 500:
-          throw new Error("Internal server error.");
-        default:
-          throw new Error(`Unexpected error code: ${res.status}.`);
+        const message = errorMessages.get(res.status);
+
+        this.setState({ error: message || "Unknown response error occurred." });
       }
     } catch (e) {
       console.error(e);
-      throw new Error("Unexpected fetch/response error.");
+      this.setState({ error: "Unknown request error occurred." });
     }
   }
 
@@ -89,7 +90,9 @@ class Auth extends React.Component<AuthProps, { user_id?: string }> {
         {this.state.user_id ? (
           this.props.children
         ) : (
-          <LoginForm onSubmit={this.login} />
+          <div className="d-flex justify-content-center align-items-center h-100">
+            <LoginForm onSubmit={this.login} error={this.state.error} />
+          </div>
         )}
       </UserContext.Provider>
     );
