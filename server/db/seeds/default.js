@@ -10,11 +10,12 @@ exports.seed = async function (knex) {
   await knex("tasks").del();
   await knex("training_assignments").del();
   await knex("companies").del();
+  await knex("user_informations").del();
   await knex("time_off_requests").del();
 
   const companies = await knex("companies").insert(
     [{ name: "Development Company" }],
-    '*'
+    "*"
   );
 
   const users = await knex("users").insert(
@@ -77,14 +78,15 @@ exports.seed = async function (knex) {
     [{ link: "assignment" }],
     "*"
   );
-  const time_off_requests = await knex("time_off_requests").insert([
-    {
-      type: 2,
-      start_date: "2022-06-08",
-      end_date: "2022-06-29",
-      notes: "spending summer break in europe",
-    },
-  ],
+  const time_off_requests = await knex("time_off_requests").insert(
+    [
+      {
+        type: 2,
+        start_date: "2022-06-08",
+        end_date: "2022-06-29",
+        notes: "spending summer break in europe",
+      },
+    ],
     "*"
   );
   const tasks = await knex("tasks").insert(
@@ -109,4 +111,25 @@ exports.seed = async function (knex) {
     "*"
   );
 
+  const userinfo = await knex("user_informations").insert(
+    [
+      {
+        user_id: users[0].id,
+        first_name: "Ben",
+        last_name: "Melz",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: true,
+      },
+      {
+        user_id: users[1].id,
+        first_name: "Daniel",
+        last_name: "Melanson",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: false,
+      },
+    ],
+    "*"
+  );
 };

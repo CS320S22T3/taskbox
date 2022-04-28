@@ -1,6 +1,4 @@
 import React from "react";
-import { Button, Form } from "react-bootstrap";
-import "../styles/index.scss";
 
 interface LoginFormParameters {
   onSubmit: (username: string, password: string) => void;
