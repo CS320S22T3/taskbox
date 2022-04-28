@@ -3,6 +3,7 @@ import session from "express-session";
 import { EXPRESS_PORT, SESSION_SECRET } from "./constants";
 
 import { sessions } from "./routes/sessions.route";
+import { users } from "./routes/users.route";
 import { tasks } from "./routes/tasks.route";
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(
 
 const api = express.Router();
 api.use("/sessions", sessions);
+api.use("/users", users);
 api.use("/tasks", tasks);
 
 app.use("/api", api);
