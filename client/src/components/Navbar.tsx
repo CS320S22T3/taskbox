@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <Susbar bg="dark" variant="dark">
       <Container fluid className="px-4 gap-3">
-        <Susbar.Brand>taskbox</Susbar.Brand>
+        <Susbar.Brand className="me-auto">taskbox</Susbar.Brand>
         <Button variant="outline-success">Assign Task</Button>
         <Nav>
           <UserContext.Consumer>
