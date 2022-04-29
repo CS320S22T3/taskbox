@@ -6,8 +6,9 @@ export async function getUserFromEmail(email: string) {
 
 export async function checkUserID(id: number) {
 
-  return knex("users")
+  const rows = await knex("users")
   .select("id")
-  .where("id", id)
-  .then(rows => rows.length>0)
+  .where("id", id);
+  
+  return rows.length > 0;
 }

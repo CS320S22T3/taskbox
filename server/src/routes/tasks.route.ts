@@ -1,5 +1,5 @@
 import { body } from "express-validator";
-import e, { Request, Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import validate from "../middleware/validate";
 import { checkUserID } from "../models/users";
 import { createTask } from "../models/tasks";
@@ -10,8 +10,6 @@ tasks.post(
   "/",
   validate([
     body("info_type").exists(),
-    body("info_id").exists(),
-    body("assignee_id").isInt(),
     body("due_date").isDate(),
     body("created_date").isDate(),
     body("info").exists(),
