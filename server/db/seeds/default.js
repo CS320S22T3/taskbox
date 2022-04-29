@@ -1,5 +1,4 @@
 const bcrypt = require("bcryptjs");
-const { default: knex } = require("knex");
 
 /**
  * @param { import("knex").Knex } knex
@@ -134,9 +133,3 @@ exports.seed = async function (knex) {
     "*"
   );
 };
-
-/*
-const test1 = knex("time_off_requests")
-  .where("id", users[0].id)
-  .update("notes", "test changed notes");
-*/
