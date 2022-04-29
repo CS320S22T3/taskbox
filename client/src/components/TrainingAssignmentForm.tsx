@@ -33,21 +33,11 @@ class TrainingAssignmentForm extends React.Component<
       link: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDueDateChange = this.handleDueDateChange.bind(this);
     this.handleLinkChange = this.handleLinkChange.bind(this);
-    this.handleAssigneeChange = this.handleAssigneeChange.bind(this);
-  }
-
-  handleAssigneeChange(event: any) {
-    this.setState({ assignee_id: event.target.value });
   }
 
   handleLinkChange(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({ link: event.target.value });
-  }
-
-  handleDueDateChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ due_date: event.target.value });
   }
 
   handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
@@ -64,32 +54,6 @@ class TrainingAssignmentForm extends React.Component<
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        {/* <label>
-          Assigner ID:
-          <input type="hidden" value={this.state.assigner_id}></input>
-        </label>
-        <br></br>
-        <label>
-          Asignee ID:
-          <select onChange={this.handleAssigneeChange}>
-            {this.props.assigneeOptions.map((assigneeOption: any) => (
-              <option key={assigneeOption.id} value={assigneeOption.id}>
-                {`${assigneeOption.first_name} ${assigneeOption.last_name}`}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br></br>
-        <label>
-          Due Date:
-          <br></br>
-          <input
-            type="date"
-            value={this.state.due_date}
-            onChange={this.handleDueDateChange}
-          />
-        </label>
-        <br></br> */}
         <label>
           Link:
           <br></br>

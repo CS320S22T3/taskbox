@@ -51,25 +51,11 @@ class TimeOffRequestForm extends React.Component<
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleAssigneeIdChange = this.handleAssigneeIdChange.bind(this);
-    this.handleDueDateChange = this.handleDueDateChange.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleStartDateChange = this.handleStartDateChange.bind(this);
     this.handleEndDateChange = this.handleEndDateChange.bind(this);
     this.handleNotesChange = this.handleNotesChange.bind(this);
   }
-
-  handleAssigneeIdChange = (e: any) => {
-    this.setState(() => ({
-      assignee_id: e.target.value,
-    }));
-  };
-
-  handleDueDateChange = (e: any) => {
-    this.setState(() => ({
-      due_date: e.target.value,
-    }));
-  };
 
   handleTypeChange = (e: any) => {
     this.setState(() => ({
@@ -112,31 +98,6 @@ class TimeOffRequestForm extends React.Component<
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        {/* <label>
-          Assigner Id:
-          <p hidden>{this.state.assigner_id}</p>
-        </label>
-        <br></br>
-        <label>
-          Assignee Id:
-          <select onChange={this.handleAssigneeIdChange}>
-            {this.props.assigneeOptions.map((assigneeOption: any) => (
-              <option key={assigneeOption.id} value={assigneeOption.id}>
-                {`${assigneeOption.first_name} ${assigneeOption.last_name}`}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br></br>
-        <label>
-          Due Date:
-          <input
-            type="text"
-            value={this.state.due_date}
-            onChange={this.handleDueDateChange}
-          />
-        </label>
-        <br></br> */}
         <label>
           Type:
           <select value={this.state.type} onChange={this.handleTypeChange}>

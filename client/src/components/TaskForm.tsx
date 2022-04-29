@@ -5,22 +5,6 @@ import PerformanceReview from "./PerformanceReview";
 
 interface TaskFormParameters {
   assigneeOptions: any;
-  // assigner_id: number;
-  // assignee_id: number;
-  // due_date: string;
-  onSubmit: (
-    assigner_id: number,
-    assignee_id: number,
-    due_date: string,
-    // // time off request fields
-    // type: number,
-    // start_date: string,
-    // end_date: string,
-    // notes: string,
-    // // training assignment fields
-    // link: string
-    //   fields: object
-  ) => void;
 }
 
 interface TaskFormState {
@@ -28,11 +12,6 @@ interface TaskFormState {
   assigner_id: number;
   assignee_id: number;
   due_date: string;
-  // type: number;
-  // start_date: string;
-  // end_date: string;
-  // notes: string;
-  // link: string;
 }
 
 class TaskForm extends React.Component<
@@ -48,6 +27,8 @@ class TaskForm extends React.Component<
       due_date: "",
     }
     this.handleInfoTypeChange = this.handleInfoTypeChange.bind(this);
+    this.handleAssigneeIdChange = this.handleAssigneeIdChange.bind(this);
+    this.handleDueDateChange = this.handleDueDateChange.bind(this);
   }
 
   handleInfoTypeChange(e: any) {
@@ -71,8 +52,6 @@ class TaskForm extends React.Component<
   render() {
     return (
       <div>
-
-        {/* <form onSubmit={(e) => this.handleInfoTypeChange(e)}> */}
         <form>
           <label>
             Assigner Id:
