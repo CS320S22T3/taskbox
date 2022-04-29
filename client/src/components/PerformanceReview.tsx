@@ -1,7 +1,10 @@
 import React from "react";
 
 interface PerformanceReviewParameters {
-  assigneeOptions: any;
+  assigneeOptions: any,
+  assigner_id: number,
+  assignee_id: number,
+  due_date: string,
   onSubmit?: (
     assigner_id: number,
     assignee_id: number,
@@ -25,9 +28,9 @@ class PerformanceReview extends React.Component<
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAssigneeChange = this.handleAssigneeChange.bind(this);
     this.state = {
-      assigner_id: -1,
-      assignee_id: -1,
-      due_date: "",
+      assigner_id: props.assigner_id,
+      assignee_id: props.assignee_id,
+      due_date: props.due_date,
     };
   }
 
@@ -60,7 +63,7 @@ class PerformanceReview extends React.Component<
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <h2>Performance Review Request</h2>
+        {/* <h2>Performance Review Request</h2>
         <br />
         <label>
           Asignee ID:
@@ -81,7 +84,7 @@ class PerformanceReview extends React.Component<
             onChange={this.handleDateChange}
           />
         </label>
-        <br />
+        <br /> */}
         <input type="submit" value="Submit" />
       </form>
     );

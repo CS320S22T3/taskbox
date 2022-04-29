@@ -2,6 +2,9 @@ import React from "react";
 
 interface TimeOffRequestFormParameters {
   assigneeOptions: any;
+  assigner_id: number,
+  assignee_id: number,
+  due_date: string,
   onSubmit: (
     assigner_id: number,
     assignee_id: number,
@@ -38,9 +41,9 @@ class TimeOffRequestForm extends React.Component<
   constructor(props: TimeOffRequestFormParameters) {
     super(props);
     this.state = {
-      assigner_id: -1,
-      assignee_id: -1,
-      due_date: "",
+      assigner_id: props.assigner_id,
+      assignee_id: props.assignee_id,
+      due_date: props.due_date,
       type: 0,
       start_date: "",
       end_date: "",
@@ -93,6 +96,7 @@ class TimeOffRequestForm extends React.Component<
   };
 
   handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
+    event.preventDefault();
     if (this.props.onSubmit != null)
       this.props.onSubmit(
         this.state.assigner_id,
@@ -103,13 +107,12 @@ class TimeOffRequestForm extends React.Component<
         this.state.end_date,
         this.state.notes
       );
-    event.preventDefault();
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
+        {/* <label>
           Assigner Id:
           <p hidden>{this.state.assigner_id}</p>
         </label>
@@ -133,7 +136,7 @@ class TimeOffRequestForm extends React.Component<
             onChange={this.handleDueDateChange}
           />
         </label>
-        <br></br>
+        <br></br> */}
         <label>
           Type:
           <select value={this.state.type} onChange={this.handleTypeChange}>

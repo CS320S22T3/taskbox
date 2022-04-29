@@ -2,6 +2,9 @@ import React from "react";
 
 interface TrainingAssignmentFormParameters {
   assigneeOptions: any;
+  assigner_id: number,
+  assignee_id: number,
+  due_date: string,
   onSubmit: (
     assigner_id: number,
     assignee_id: number,
@@ -24,9 +27,9 @@ class TrainingAssignmentForm extends React.Component<
   constructor(props: TrainingAssignmentFormParameters) {
     super(props);
     this.state = {
-      assigner_id: -1,
-      assignee_id: -1,
-      due_date: "",
+      assigner_id: props.assigner_id,
+      assignee_id: props.assignee_id,
+      due_date: props.due_date,
       link: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,7 +64,7 @@ class TrainingAssignmentForm extends React.Component<
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
+        {/* <label>
           Assigner ID:
           <input type="hidden" value={this.state.assigner_id}></input>
         </label>
@@ -86,7 +89,7 @@ class TrainingAssignmentForm extends React.Component<
             onChange={this.handleDueDateChange}
           />
         </label>
-        <br></br>
+        <br></br> */}
         <label>
           Link:
           <br></br>
