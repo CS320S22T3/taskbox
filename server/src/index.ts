@@ -13,12 +13,11 @@ app.use(
 );
 
 const api = express.Router();
-
 api.use("/sessions", sessions);
 api.use("/tasks", tasks);
 
 app.use("/api", api);
 
-app.listen(EXPRESS_PORT, () => 
+app.listen(EXPRESS_PORT, () =>
   console.log("Server listening on port " + EXPRESS_PORT)
 );
