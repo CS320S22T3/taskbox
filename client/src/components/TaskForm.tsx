@@ -100,7 +100,7 @@ class TaskForm extends React.Component<
             assignee_id={this.state.assignee_id}
             due_date={this.state.due_date}
             assigneeOptions={[]}
-            onSubmit={(assigner_id, assignee_id, due_date) => null}>
+            onSubmit={(_assigner_id, _assignee_id, _due_date) => null}>
           </PerformanceReview>
         )}
         {this.state.info_type === "TimeOffRequest" && (
@@ -109,7 +109,12 @@ class TaskForm extends React.Component<
             assignee_id={this.state.assignee_id}
             due_date={this.state.due_date}
             assigneeOptions={[]}
-            onSubmit={(assigner_id, assignee_id, due_date, type, start_date, end_date) => null}
+            onSubmit={(
+              _assigner_id,
+              _assignee_id,
+              _due_date, _type,
+              _start_date,
+              _end_date) => null}
           >
           </TimeOffRequestForm>
         )}
@@ -119,8 +124,7 @@ class TaskForm extends React.Component<
             assignee_id={this.state.assignee_id}
             due_date={this.state.due_date}
             assigneeOptions={[]}
-            onSubmit={(assigner_id, assignee_id, due_date, link) => null}
-          >
+            onSubmit={(_assigner_id, _assignee_id, _due_date, _link) => null}>
           </TrainingAssignmentForm>
         )}
       </div>
