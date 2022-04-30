@@ -25,7 +25,7 @@ class TaskForm extends React.Component<
       assigner_id: -1,
       assignee_id: -1,
       due_date: "",
-    }
+    };
     this.handleInfoTypeChange = this.handleInfoTypeChange.bind(this);
     this.handleAssigneeIdChange = this.handleAssigneeIdChange.bind(this);
     this.handleDueDateChange = this.handleDueDateChange.bind(this);
@@ -33,7 +33,7 @@ class TaskForm extends React.Component<
 
   handleInfoTypeChange(e: any) {
     this.setState(() => ({
-      info_type: e.target.value
+      info_type: e.target.value,
     }));
   }
 
@@ -80,7 +80,11 @@ class TaskForm extends React.Component<
           <br />
           <label>
             Form type:
-            <select name="info_type" id="info_type" onChange={(e) => this.handleInfoTypeChange(e)}>
+            <select
+              name="info_type"
+              id="info_type"
+              onChange={(e) => this.handleInfoTypeChange(e)}
+            >
               <option value="default">Select an option</option>
               <option value="PerformanceReview">Performance Review</option>
               <option value="TimeOffRequest">TimeOffRequest</option>
@@ -97,22 +101,26 @@ class TaskForm extends React.Component<
             due_date={this.state.due_date}
             assigneeOptions={[]}
             onSubmit={(assigner_id, assignee_id, due_date) => null}>
-          </PerformanceReview>)}
+          </PerformanceReview>
+        )}
         {this.state.info_type === "TimeOffRequest" && (
           <TimeOffRequestForm
             assigner_id={this.state.assigner_id}
             assignee_id={this.state.assignee_id}
             due_date={this.state.due_date}
             assigneeOptions={[]}
-            onSubmit={(assigner_id, assignee_id, due_date, type, start_date, end_date) => null}>
-          </TimeOffRequestForm>)}
+            onSubmit={(assigner_id, assignee_id, due_date, type, start_date, end_date) => null}
+          >
+          </TimeOffRequestForm>
+        )}
         {this.state.info_type === "TrainingAssignment" && (
           <TrainingAssignmentForm
             assigner_id={this.state.assigner_id}
             assignee_id={this.state.assignee_id}
             due_date={this.state.due_date}
             assigneeOptions={[]}
-            onSubmit={(assigner_id, assignee_id, due_date, link) => null}>
+            onSubmit={(assigner_id, assignee_id, due_date, link) => null}
+          >
           </TrainingAssignmentForm>
         )}
       </div>
