@@ -23,7 +23,7 @@ export async function updateTask(taskAttributes: any) {
     due_date,
     created_date
   }, "*"); // update the task
-  task.info = await knex(task.info_type).where({ id: task.info_id }).update(info_attributes, "*"); // update the associated info
+  task[0].info = await knex(task[0].info_type).where({ id: task[0].info_id }).update(info_attributes, "*"); // update the associated info
   return task;
 }
 
