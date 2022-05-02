@@ -13,8 +13,8 @@ class TaskLayer extends React.Component<
     super(props);
     this.state = { tasks: new Map() };
 
-    this.create_task = this.create_task.bind(this);
-    this.update_task = this.update_task.bind(this);
+    this.createTask = this.createTask.bind(this);
+    this.updateTask = this.updateTask.bind(this);
   }
 
   /**
@@ -23,7 +23,7 @@ class TaskLayer extends React.Component<
    */
   componentDidMount() {
     const userId = this.props.userId;
-    return fetch("/api/users", {
+    return fetch('/api/users/${this.props.userId}/tasks', {
       method: "GET",
       mode: "cors",
       body: JSON.stringify({ userId }),
@@ -46,7 +46,7 @@ class TaskLayer extends React.Component<
    * send a POST request to the server to create a new task in tasks table, and a new
    * entry in the approprate task table such as time_off_requests (issue #65)
    */
-  async create_task(data: any) {
+  async createTask(data: any) {
     try {
       const res = await fetch("/api/sessions", {
         method: "POST",
@@ -83,7 +83,7 @@ class TaskLayer extends React.Component<
    * send a PUT request to update an existing task in tasks table, and update the
    * subsequent task table such as time_off_requests (issue #66)
    */
-  async update_task(data: any) {
+  async updateTask(data: any) {
     try {
       const res = await fetch("api/tasks", {
         method: "PUT",
@@ -120,8 +120,8 @@ class TaskLayer extends React.Component<
     return (
       <TaskContext.Provider
         value={{
-          create_task: this.create_task,
-          update_task: this.update_task,
+          createTask: this.createTask,
+          updateTask: this.updateTask,
         }}
       ></TaskContext.Provider>
     );

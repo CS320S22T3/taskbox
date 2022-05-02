@@ -1,14 +1,14 @@
 import React from "react";
 
 interface TaskContext {
-  create_task: (data: any) => Promise<unknown>;
-  update_task: (data: any) => Promise<unknown>;
+  createTask: (data: any) => Promise<unknown>;
+  updateTask: (data: any) => Promise<unknown>;
   tasks?: string;
 }
 
 const TaskContext = React.createContext<TaskContext>({
-  create_task: async () => "",
-  update_task: async () => "",
+  createTask: async () => "",
+  updateTask: async () => "",
 });
 
 export default TaskContext;
