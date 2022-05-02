@@ -12,6 +12,7 @@ tasks.post(
   "/",
   validate([
     body("info_type").exists(),
+    body("assignee_id").isInt(),
     body("due_date").isDate(),
     body("created_date").isDate(),
     body("info").exists(),
