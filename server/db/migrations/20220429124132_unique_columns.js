@@ -4,7 +4,7 @@
  */
 exports.up = function (knex) {
   return knex.schema.alterTable("tasks", (table) => {
-    table.unique("info_id");
+    table.unique("info_id", "info_type");
   });
 };
 
