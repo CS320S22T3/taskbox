@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, CustomValidator, Meta } from "express-validator";
 import { Request, Response, Router } from "express";
 import validate from "../middleware/validate";
 import { checkUserID } from "../models/users";
@@ -17,24 +17,31 @@ const INFO_TYPES = [
   "training_assignments",
 ];
 
+const TASK_INFO_VALIDATOR: CustomValidator = (value, meta) => {
+  return true;
+};
+
+const USER_EXISTS_VALIDATOR: CustomValidator = (value, meta) => {
+  return true;
+};
+
+const TASK_EXISTS_VALIDATOR: CustomValidator = (value, meta) => {
+  return true;
+};
+
 tasks.post(
   "/",
   validate([
-    body("info_type").exists(),
+    body("info_type").isIn(INFO_TYPES),
     body("assignee_id").isInt(),
     body("due_date").isDate(),
     body("created_date").isDate(),
-    body("info").exists(),
+    body("info").isObject().custom(TASK_INFO_VALIDATOR),
+    body("assignee_id").isInt().custom(USER_EXISTS_VALIDATOR),
   ]),
   async (req: Request, res: Response) => {
     try {
-      if ((await checkUserID(req.body.assignee_id)) && req.session.user_id) {
-        req.body.assigner_id = parseInt(req.session.user_id);
-        const addedTask = await createTask(req.body);
-        return res.status(200).json(addedTask);
-      } else {
-        return res.status(422).json({ error: "Invalid Assigner or Assignee" });
-      }
+      return res.status(200).json(await createTask(req.body));
     } catch (e) {
       console.log(e);
       return res.sendStatus(500);
@@ -45,13 +52,13 @@ tasks.post(
 tasks.put(
   "/:id",
   validate([
-    body("id").isInt(),
+    body("id").isInt().custom(TASK_EXISTS_VALIDATOR),
     body("info_type").isAscii().isIn(INFO_TYPES),
-    body("info_id").isInt(),
-    body("assigner_id").isInt(),
-    body("assignee_id").isInt(),
+    body("assigner_id").isInt().custom(USER_EXISTS_VALIDATOR),
+    body("assignee_id").isInt().custom(USER_EXISTS_VALIDATOR),
     body("due_date").isDate(),
     body("created_date").isDate(),
+    body("info").isObject().custom(TASK_INFO_VALIDATOR),
   ]),
   async (req: Request, res: Response) => {
     const {
@@ -63,28 +70,20 @@ tasks.put(
       assignee_id,
       due_date,
       created_date,
-    } = req.body; // is req.body a k:v dictionary?
+    } = req.body;
     try {
-      if (
-        //too many checks?
-        (await doesTaskExist(id)) &&
-        (await doesUserExist(assignee_id)) &&
-        (await doesUserExist(assigner_id))
-      ) {
-        // end of if
-        const taskInfo = {
-          id,
-          info_type,
-          info_id,
-          info_attributes,
-          assigner_id,
-          assignee_id,
-          due_date,
-          created_date,
-        };
-        const updatedTask = await updateTask(taskInfo);
-        return res.status(200).json(updatedTask);
-      }
+      const taskInfo = {
+        id,
+        info_type,
+        info_id,
+        info_attributes,
+        assigner_id,
+        assignee_id,
+        due_date,
+        created_date,
+      };
+
+      return res.status(200).json(await updateTask(taskInfo));
     } catch (e) {
       console.log(e);
       return res.sendStatus(500);
