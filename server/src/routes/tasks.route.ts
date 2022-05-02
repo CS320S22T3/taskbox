@@ -11,6 +11,12 @@ import {
 
 export const tasks = Router();
 
+const INFO_TYPES = [
+  "performance_review_requests",
+  "time_off_requests",
+  "training_assignments",
+];
+
 tasks.post(
   "/",
   validate([
@@ -39,12 +45,11 @@ tasks.post(
 tasks.put(
   "/:id",
   validate([
-    // too many validations?
-    body("id").isNumeric(), //isInt(),
-    body("info_type").isAscii(),
-    body("info_id").isNumeric(), //.isInt(),
-    body("assigner_id").isNumeric(), //.isInt(),
-    body("assignee_id").isNumeric(), // .isInt(),
+    body("id").isInt(),
+    body("info_type").isAscii().isIn(INFO_TYPES),
+    body("info_id").isInt(),
+    body("assigner_id").isInt(),
+    body("assignee_id").isInt(),
     body("due_date").isDate(),
     body("created_date").isDate(),
   ]),
