@@ -16,12 +16,6 @@ const TASK_INFO_VALIDATOR: CustomValidator = (value, meta) => {
   return true;
 };
 
-const USER_EXISTS_VALIDATOR: CustomValidator = (value) =>
-  assertUserWithId(value);
-
-const TASK_EXISTS_VALIDATOR: CustomValidator = (value) =>
-  assertTaskWithId(value);
-
 tasks.post(
   "/",
   validate([
@@ -30,7 +24,7 @@ tasks.post(
     body("due_date").isDate(),
     body("created_date").isDate(),
     body("info").isObject().custom(TASK_INFO_VALIDATOR),
-    body("assignee_id").isInt().custom(USER_EXISTS_VALIDATOR),
+    body("assignee_id").isInt(),
   ]),
   async (req: Request, res: Response) => {
     try {
@@ -46,9 +40,8 @@ tasks.put(
   "/:id",
   validate([
     body("id").isInt().custom(TASK_EXISTS_VALIDATOR),
-    body("info_type").isAscii().isIn(INFO_TYPES),
-    body("assigner_id").isInt().custom(USER_EXISTS_VALIDATOR),
-    body("assignee_id").isInt().custom(USER_EXISTS_VALIDATOR),
+    body("assigner_id").isInt(),
+    body("assignee_id").isInt(),
     body("due_date").isDate(),
     body("created_date").isDate(),
     body("info").isObject().custom(TASK_INFO_VALIDATOR),
