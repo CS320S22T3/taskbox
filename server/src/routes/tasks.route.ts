@@ -1,8 +1,7 @@
 import { body, CustomValidator } from "express-validator";
 import { Request, Response, Router } from "express";
 import validate from "../middleware/validate";
-import { assertUserWithId } from "../models/users";
-import { createTask, assertTaskWithId, updateTask } from "../models/tasks";
+import { createTask, updateTask } from "../models/tasks";
 
 export const tasks = Router();
 
@@ -12,7 +11,7 @@ const INFO_TYPES = [
   "training_assignments",
 ];
 
-const TASK_INFO_VALIDATOR: CustomValidator = (value, meta) => {
+const TASK_INFO_VALIDATOR: CustomValidator = async (value, meta) => {
   return true;
 };
 
@@ -27,8 +26,19 @@ tasks.post(
     body("assignee_id").isInt(),
   ]),
   async (req: Request, res: Response) => {
+    const { assigner_id, assignee_id, due_date, info_type, info } = req.body;
     try {
-      return res.status(200).json(await createTask(req.body));
+      return res.status(200).json(
+        await createTask(
+          {
+            assignee_id,
+            assigner_id,
+            due_date,
+          },
+          info_type,
+          info
+        )
+      );
     } catch (e) {
       console.log(e);
       return res.sendStatus(500);
@@ -39,37 +49,26 @@ tasks.post(
 tasks.put(
   "/:id",
   validate([
-    body("id").isInt().custom(TASK_EXISTS_VALIDATOR),
+    body("id").isInt(),
     body("assigner_id").isInt(),
     body("assignee_id").isInt(),
     body("due_date").isDate(),
-    body("created_date").isDate(),
     body("info").isObject().custom(TASK_INFO_VALIDATOR),
   ]),
   async (req: Request, res: Response) => {
-    const {
-      id,
-      info_type,
-      info_id,
-      info_attributes,
-      assigner_id,
-      assignee_id,
-      due_date,
-      created_date,
-    } = req.body;
+    const { id, assigner_id, assignee_id, due_date, info } = req.body;
     try {
-      const taskInfo = {
-        id,
-        info_type,
-        info_id,
-        info_attributes,
-        assigner_id,
-        assignee_id,
-        due_date,
-        created_date,
-      };
-
-      return res.status(200).json(await updateTask(taskInfo));
+      return res.status(200).json(
+        await updateTask(
+          id,
+          {
+            assignee_id,
+            assigner_id,
+            due_date,
+          },
+          info
+        )
+      );
     } catch (e) {
       console.log(e);
       return res.sendStatus(500);

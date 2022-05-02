@@ -1,4 +1,5 @@
 import knex from "../pool";
+import { TaskInfoUpdateQuery, TaskUpdateQuery } from "types";
 
 export async function getAssociatedTasksForUser(id: number) {
   return await knex("tasks")
@@ -17,33 +18,36 @@ export async function getAssociatedTasksForUser(id: number) {
     );
 }
 
-export async function createTask(taskData: any) {
-  // const newInfo = await knex(taskData.info_type)
-  //   .insert(taskData.info)
-  //   .returning("id");
+export async function createTask(
+  taskData: TaskUpdateQuery,
+  taskInfoType: string,
+  taskInfoData: TaskInfoUpdateQuery
+) {
+  const newInfo = await knex(taskInfoType).insert(taskInfoData).returning("id");
 
-  // const info_id = newInfo[0].id;
-  // const { info, ...taskInfo } = taskData;
+  const info_id = newInfo[0].id;
 
-  // return await knex("tasks")
-  //   .insert({ ...taskInfo, info_id })
-  //   .returning("*")
-  //   .first();
-  return undefined;
+  return await knex("tasks")
+    .insert({ info_id, ...taskData })
+    .returning("*")
+    .first();
 }
 
-export async function updateTask(id: number, taskUpdateData: any) {
-  // const { infoUpdate, ...taskUpdateData } = taskUpdateData;
-  // const task = (
-  //   await knex("tasks")
-  //     .where({ id })
-  //     .update({ ...task })
-  //     .returning("*")
-  // )[0];
-  // task[0].info = await knex(task[0].info_type)
-  //   .where({ id: task[0].info_id })
-  //   .update(info_attributes, "*"); // update the associated info
-  // return task;
+export async function updateTask(
+  id: number,
+  taskData: TaskUpdateQuery,
+  taskInfoData: TaskInfoUpdateQuery
+) {
+  const updatedTask = (
+    await knex("tasks").where({ id }).update(taskData).returning("*")
+  )[0];
 
-  return undefined;
+  const updatedInfo = (
+    await knex(updatedTask.info_type)
+      .where({ id: updatedTask.info_id })
+      .update(taskInfoData)
+      .returning("*")
+  )[0];
+
+  return Object.assign(updatedTask, updatedInfo);
 }

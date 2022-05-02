@@ -45,9 +45,17 @@ export interface UserInformation {
   is_manager: boolean;
 }
 
-export type TrainingAssignmentTask = TrainingAssignment & Task;
+export type TaskInfo = TimeOffRequest | PerformanceReviewRequest | TrainingAssignment;
 
-export type PerformanceReviewRequestTask = PerformanceReviewRequest & Task;
+type _TaskInput<T> = Omit<T, "id" | "info_id" | "info_type">
 
-export type TimeOffRequestTask = TimeOffRequest & Task;
+export type TaskInput = _TaskInput<Task>;
+
+export type TimeOffRequestInput = _TaskInput<TimeOffRequest>;
+
+export type PerformanceReviewRequestInput = _TaskInput<PerformanceReviewRequest>;
+
+export type TrainingAssignmentInput = _TaskInput<TrainingAssignment>;
+
+export type TaskInfoUpdateQuery = TrainingAssignmentInput | PerformanceReviewRequestInput | TimeOffRequestInput;
 
