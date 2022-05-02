@@ -1,22 +1,21 @@
 import React from "react";
 
 interface UserContext {
-  login: (username: string, password: string) => Promise<string>; // Resolve to the id of the user
-  logout: () => Promise<unknown>;
+  login: (username: string, password: string) => void;
+  logout: () => void;
   userId?: string;
 }
 
-const UserContext = React.createContext<UserContext>({
-  login: async () => "",
-  logout: async () => "",
+export default React.createContext<UserContext>({
+  login: () => undefined,
+  logout: () => undefined,
 });
 
-export default UserContext;
 
 export function withSession(WrappedComponent: any) {
   const WrapperComponent = (props: any) => (
     <UserContext.Consumer>
-      {(value) => <WrappedComponent {...value} {...props} />}
+      {(value: any) => <WrappedComponent {...value} {...props} />}
     </UserContext.Consumer>
   );
 

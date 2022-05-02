@@ -1,7 +1,9 @@
 import React from "react";
+import { Alert, Button, Form } from "react-bootstrap";
 
 interface LoginFormParameters {
   onSubmit: (username: string, password: string) => void;
+  error?: string;
 }
 
 interface LoginFormState {
@@ -33,34 +35,35 @@ class LoginForm extends React.Component<LoginFormParameters, LoginFormState> {
   handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     if (this.props.onSubmit != null)
       this.props.onSubmit(this.state.email, this.state.password);
+
     event.preventDefault();
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Email:
-          <br></br>
-          <input
-            type="text"
-            value={this.state.email}
+      <Form onSubmit={this.handleSubmit}>
+        {this.props.error && <Alert variant="danger">{this.props.error}</Alert>}
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
             onChange={this.handleEmailChange}
           />
-        </label>
-        <br></br>
-        <label>
-          Password:
-          <br></br>
-          <input
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
-            value={this.state.password}
+            placeholder="Password"
             onChange={this.handlePasswordChange}
           />
-        </label>
-        <br></br>
-        <input type="submit" value="Submit" />
-      </form>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
     );
   }
 }
