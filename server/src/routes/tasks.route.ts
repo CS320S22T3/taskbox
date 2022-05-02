@@ -1,13 +1,8 @@
-import { body, CustomValidator, Meta } from "express-validator";
+import { body, CustomValidator } from "express-validator";
 import { Request, Response, Router } from "express";
 import validate from "../middleware/validate";
-import { checkUserID } from "../models/users";
-import {
-  createTask,
-  doesTaskExist,
-  updateTask,
-  doesUserExist,
-} from "../models/tasks";
+import { assertUserWithId } from "../models/users";
+import { createTask, assertTaskWithId, updateTask } from "../models/tasks";
 
 export const tasks = Router();
 
@@ -21,13 +16,11 @@ const TASK_INFO_VALIDATOR: CustomValidator = (value, meta) => {
   return true;
 };
 
-const USER_EXISTS_VALIDATOR: CustomValidator = (value, meta) => {
-  return true;
-};
+const USER_EXISTS_VALIDATOR: CustomValidator = (value) =>
+  assertUserWithId(value);
 
-const TASK_EXISTS_VALIDATOR: CustomValidator = (value, meta) => {
-  return true;
-};
+const TASK_EXISTS_VALIDATOR: CustomValidator = (value) =>
+  assertTaskWithId(value);
 
 tasks.post(
   "/",
