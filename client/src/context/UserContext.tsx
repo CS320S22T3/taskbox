@@ -6,11 +6,12 @@ interface UserContext {
   userId?: string;
 }
 
-export default React.createContext<UserContext>({
+const UserContext = React.createContext<UserContext>({
   login: () => undefined,
   logout: () => undefined,
 });
 
+export default UserContext;
 
 export function withSession(WrappedComponent: any) {
   const WrapperComponent = (props: any) => (
