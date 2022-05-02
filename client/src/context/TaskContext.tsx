@@ -3,7 +3,7 @@ import React from "react";
 interface TaskContext {
   createTask: (data: any) => Promise<unknown>;
   updateTask: (data: any) => Promise<unknown>;
-  tasks?: string;
+  tasks?: Map<number, any>;
 }
 
 const TaskContext = React.createContext<TaskContext>({
