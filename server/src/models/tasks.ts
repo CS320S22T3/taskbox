@@ -1,27 +1,27 @@
 import knex from "../pool";
 
 interface Task {
-  info_type: string,
-  info_id: number,
-  assigner_id: number,
-  assignee_id: number,
-  due_date: Date,
-  created_date: Date,
-  info: any
+  info_type: string;
+  info_id: number;
+  assigner_id: number;
+  assignee_id: number;
+  due_date: Date;
+  created_date: Date;
+  info: any;
 }
 
 export async function createTask(newTask: Task) {
   const newInfo = await knex(newTask["info_type"])
-  .insert(newTask.info)
-  .returning("id");
+    .insert(newTask.info)
+    .returning("id");
 
   const info_id = newInfo[0].id;
 
-  const {info, ...taskInfo} = newTask;
+  const { info, ...taskInfo } = newTask;
 
   return await knex("tasks")
-  .insert({...taskInfo, info_id})
-  .returning("*");
+    .insert({ ...taskInfo, info_id })
+    .returning("*");
 }
 
 export async function getAssociatedTasksForUser(id: number) {
@@ -41,29 +41,43 @@ export async function getAssociatedTasksForUser(id: number) {
     );
 }
 export async function createTask(newTask: any) {
-    return await knex('tasks')
-        .insert(newTask)
-        .returning('id')
-        .then(([{id}]) => {
-            newTask['id'] = id;
-            return newTask;
-        })
-        .catch((err) => {
-            throw new Error('Failed to create new Task ' + err);
-        })
+  return await knex("tasks")
+    .insert(newTask)
+    .returning("id")
+    .then(([{ id }]) => {
+      newTask["id"] = id;
+      return newTask;
+    })
+    .catch((err) => {
+      throw new Error("Failed to create new Task " + err);
+    });
 }
 
 export async function updateTask(taskAttributes: any) {
-  const { id, info_type, info_id, info_attributes, assigner_id, assignee_id, due_date, created_date } = taskAttributes; // extract id and k-specific fields
-  const task = await knex('tasks').where({ id }).update({
+  const {
+    id,
     info_type,
     info_id,
+    info_attributes,
     assigner_id,
     assignee_id,
     due_date,
-    created_date
-  }, "*"); // update the task
-  task[0].info = await knex(task[0].info_type).where({ id: task[0].info_id }).update(info_attributes, "*"); // update the associated info
+    created_date,
+  } = taskAttributes; // extract id and k-specific fields
+  const task = await knex("tasks").where({ id }).update(
+    {
+      info_type,
+      info_id,
+      assigner_id,
+      assignee_id,
+      due_date,
+      created_date,
+    },
+    "*"
+  ); // update the task
+  task[0].info = await knex(task[0].info_type)
+    .where({ id: task[0].info_id })
+    .update(info_attributes, "*"); // update the associated info
   return task;
 }
 

@@ -5,11 +5,8 @@ export async function getUserFromEmail(email: string) {
 }
 
 export async function checkUserID(id: number) {
+  const rows = await knex("users").select("id").where("id", id);
 
-  const rows = await knex("users")
-  .select("id")
-  .where("id", id);
-  
   return rows.length > 0;
 }
 export async function checkUserID(userId: number) {
