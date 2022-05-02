@@ -15,7 +15,7 @@ const config = require("../knexfile.js");
 declare module "knex/types/tables" {
   interface Tables {
     performance_review_requests: PerformanceReviewRequest;
-    time_off_request: TimeOffRequest;
+    time_off_requests: TimeOffRequest;
     training_assignments: TrainingAssignment;
     tasks: Task;
     users: User;
