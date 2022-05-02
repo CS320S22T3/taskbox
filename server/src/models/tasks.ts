@@ -16,13 +16,12 @@ export async function createTask(newTask: any) {
 export async function updateTask(taskAttributes: any) {
   const { id, info_type, info_id, info_attributes, assigner_id, assignee_id, due_date, created_date } = taskAttributes; // extract id and k-specific fields
   const task = await knex('tasks').where({ id }).update({
-    id: id,
-    info_type: info_type,
-    info_id: info_id,
-    assigner_id: assigner_id,
-    assignee_id: assignee_id,
-    due_date: due_date,
-    created_date: created_date
+    info_type,
+    info_id,
+    assigner_id,
+    assignee_id,
+    due_date,
+    created_date
   }, "*"); // update the task
   task.info = await knex(task.info_type).where({ id: task.info_id }).update(info_attributes, "*"); // update the associated info
   return task;
