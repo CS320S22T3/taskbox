@@ -14,7 +14,6 @@ app.use(
 );
 
 const api = express.Router();
-
 api.use("/sessions", sessions);
 api.use("/users", users);
 api.use("/tasks", tasks);

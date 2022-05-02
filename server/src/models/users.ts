@@ -1,7 +1,7 @@
 import knex from "../pool";
 
 export async function getUserFromEmail(email: string) {
-  return knex("users").where({ email }).first();
+  return await knex("users").where({ email }).first();
 }
 
 export async function checkUserID(id: number) {
@@ -11,4 +11,7 @@ export async function checkUserID(id: number) {
   .where("id", id);
   
   return rows.length > 0;
+}
+export async function checkUserID(userId: number) {
+  return await knex("users").select("email").where("id", userId).first();
 }
