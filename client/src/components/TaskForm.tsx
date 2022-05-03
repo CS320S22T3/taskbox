@@ -1,23 +1,34 @@
 import React from "react";
 import TimeOffRequestForm from "./TimeOffRequestForm";
 import TrainingAssignmentForm from "./TrainingAssignmentForm";
-import PerformanceReview from "./PerformanceReview";
 
 interface TaskFormParameters {
   assigneeOptions: any;
-  onSubmit: (info: object) => void;
+  handleSubmit: (
+    info: {
+      info_type: string;
+      assigner_id: number;
+      assignee_id: number;
+      due_date: string,
+      type: number,
+      start_date: string,
+      end_date: string,
+      notes: string,
+      link: string
+    }) => void;
 }
 
 interface TaskFormState {
-  info_type: string;
-  assigner_id: number;
-  assignee_id: number;
-  due_date: string;
   info: {
+    info_type: string;
+    assigner_id: number;
+    assignee_id: number;
+    due_date: string,
     type: number,
     start_date: string,
     end_date: string,
-    notes: string
+    notes: string,
+    link: string,
   };
 }
 
@@ -28,39 +39,20 @@ class TaskForm extends React.Component<
   constructor(props: any) {
     super(props);
     this.state = {
-      info_type: "",
-      assigner_id: -1,
-      assignee_id: -1,
-      due_date: "",
       info: {
+        info_type: "",
+        assigner_id: -1,
+        assignee_id: -1,
+        due_date: "",
         type: 0,
         start_date: "",
         end_date: "",
-        notes: ""
+        notes: "",
+        link: "",
       }
     };
-    this.handleInfoTypeChange = this.handleInfoTypeChange.bind(this);
-    this.handleAssigneeIdChange = this.handleAssigneeIdChange.bind(this);
-    this.handleDueDateChange = this.handleDueDateChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  handleInfoTypeChange(e: any) {
-    this.setState(() => ({
-      info_type: e.target.value,
-    }));
-  }
-
-  handleAssigneeIdChange = (e: any) => {
-    this.setState(() => ({
-      assignee_id: e.target.value,
-    }));
-  };
-
-  handleDueDateChange = (e: any) => {
-    this.setState(() => ({
-      due_date: e.target.value,
-    }));
-  };
 
   handleChange = (event: any) => {
     this.setState(prevState => ({
@@ -69,20 +61,21 @@ class TaskForm extends React.Component<
         [event.target.name]: event.target.value
       }
     }))
+    console.log(this.state.info);
   }
 
-  onSubmit() {
-    if (this.props.onSubmit)
-      this.props.onSubmit(this.state.info);
+  handleSubmit() {
+    if (this.props.handleSubmit)
+      this.props.handleSubmit(this.state.info);
   }
 
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <label>
             Assignee Id:
-            <select onChange={this.handleAssigneeIdChange}>
+            <select onChange={this.handleChange}>
               {this.props.assigneeOptions.map((assigneeOption: any) => (
                 <option key={assigneeOption.id} value={assigneeOption.id}>
                   {`${assigneeOption.first_name} ${assigneeOption.last_name}`}
@@ -95,8 +88,9 @@ class TaskForm extends React.Component<
             Due Date:
             <input
               type="text"
-              value={this.state.due_date}
-              onChange={this.handleDueDateChange}
+              name="due_date"
+              value={this.state.info.due_date}
+              onChange={this.handleChange}
             />
           </label>
           <br />
@@ -105,43 +99,32 @@ class TaskForm extends React.Component<
             <select
               name="info_type"
               id="info_type"
-              onChange={(e) => this.handleInfoTypeChange(e)}
+              onChange={(e) => this.handleChange(e)}
             >
               <option value="default">Select an option</option>
-              <option value="PerformanceReview">Performance Review</option>
-              <option value="TimeOffRequest">TimeOffRequest</option>
-              <option value="TrainingAssignment">TrainingAssignment</option>
+              <option value="performance_review_requests">Performance Review</option>
+              <option value="time_off_requests">TimeOffRequest</option>
+              <option value="training_assignments">TrainingAssignment</option>
             </select>
           </label>
           <br />
-          {this.state.info_type === "time_off_requests" && (
+          {this.state.info.info_type === "time_off_requests" && (
             <TimeOffRequestForm
               info={this.state.info}
               onChange={(e) => this.handleChange(e)}
             >
             </TimeOffRequestForm>
           )}
-        </form>
+          {this.state.info.info_type === "training_assignments" && (
+            <TrainingAssignmentForm
+              info={this.state.info}
+              onChange={(e) => this.handleChange(e)}>
+            </TrainingAssignmentForm>
+          )}
 
-        {this.state.info_type === "performance_review_requests" && (
-          <PerformanceReview
-            assigner_id={this.state.assigner_id}
-            assignee_id={this.state.assignee_id}
-            due_date={this.state.due_date}
-            assigneeOptions={[]}
-            onSubmit={(_assigner_id, _assignee_id, _due_date) => null}>
-          </PerformanceReview>
-        )}
-        {this.state.info_type === "training_assignments" && (
-          <TrainingAssignmentForm
-            assigner_id={this.state.assigner_id}
-            assignee_id={this.state.assignee_id}
-            due_date={this.state.due_date}
-            assigneeOptions={[]}
-            onSubmit={(_assigner_id, _assignee_id, _due_date, _link) => null}>
-          </TrainingAssignmentForm>
-        )}
-      </div>
+          <input type="submit" value="Submit" />
+        </form>
+      </div >
     );
   }
 }

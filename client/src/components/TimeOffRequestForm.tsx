@@ -20,10 +20,12 @@ interface TimeOffRequestFormParameters {
   // end_date: string;
   // notes: string;
   info: {
+    // due_date: string,
     type: number,
     start_date: string,
     end_date: string,
-    notes: string
+    notes: string,
+    link: string,
   }
   onChange: (e: any) => void;
 }
@@ -54,6 +56,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
           Start Date:
           <input
             type="text"
+            name="start_date"
             value={this.props.info.start_date}
             onChange={this.props.onChange}
           />
@@ -63,6 +66,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
           End Date:
           <input
             type="text"
+            name="end_date"
             value={this.props.info.end_date}
             onChange={this.props.onChange}
           />
@@ -71,12 +75,12 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
         <label>
           Notes:
           <textarea
+            name="notes"
             value={this.props.info.notes}
             onChange={this.props.onChange}
           ></textarea>
         </label>
         <br></br>
-        <input type="submit" value="Submit" />
       </div>
     );
   }
