@@ -5,6 +5,7 @@ import PerformanceReview from "./PerformanceReview";
 
 interface TaskFormParameters {
   assigneeOptions: any;
+  onSubmit: (info: object) => void;
 }
 
 interface TaskFormState {
@@ -12,6 +13,12 @@ interface TaskFormState {
   assigner_id: number;
   assignee_id: number;
   due_date: string;
+  info: {
+    type: number,
+    start_date: string,
+    end_date: string,
+    notes: string
+  };
 }
 
 class TaskForm extends React.Component<
@@ -25,6 +32,12 @@ class TaskForm extends React.Component<
       assigner_id: -1,
       assignee_id: -1,
       due_date: "",
+      info: {
+        type: 0,
+        start_date: "",
+        end_date: "",
+        notes: ""
+      }
     };
     this.handleInfoTypeChange = this.handleInfoTypeChange.bind(this);
     this.handleAssigneeIdChange = this.handleAssigneeIdChange.bind(this);
@@ -49,15 +62,25 @@ class TaskForm extends React.Component<
     }));
   };
 
+  handleChange = (event: any) => {
+    this.setState(prevState => ({
+      info: {
+        ...prevState.info,
+        // can't figure out how to make this part dynamic
+        type: event.target.value
+      }
+    }))
+  }
+
+  onSubmit() {
+    if (this.props.onSubmit)
+      this.props.onSubmit(this.state.info);
+  }
+
   render() {
     return (
       <div>
         <form>
-          <label>
-            Assigner Id:
-            <p hidden>{this.state.assigner_id}</p>
-          </label>
-          <br></br>
           <label>
             Assignee Id:
             <select onChange={this.handleAssigneeIdChange}>
@@ -92,9 +115,16 @@ class TaskForm extends React.Component<
             </select>
           </label>
           <br />
+          {this.state.info_type === "time_off_requests" && (
+            <TimeOffRequestForm
+              info={this.state.info}
+              onChange={(e) => this.handleChange(e)}
+            >
+            </TimeOffRequestForm>
+          )}
         </form>
 
-        {this.state.info_type === "PerformanceReview" && (
+        {this.state.info_type === "performance_review_requests" && (
           <PerformanceReview
             assigner_id={this.state.assigner_id}
             assignee_id={this.state.assignee_id}
@@ -103,22 +133,7 @@ class TaskForm extends React.Component<
             onSubmit={(_assigner_id, _assignee_id, _due_date) => null}>
           </PerformanceReview>
         )}
-        {this.state.info_type === "TimeOffRequest" && (
-          <TimeOffRequestForm
-            assigner_id={this.state.assigner_id}
-            assignee_id={this.state.assignee_id}
-            due_date={this.state.due_date}
-            assigneeOptions={[]}
-            onSubmit={(
-              _assigner_id,
-              _assignee_id,
-              _due_date, _type,
-              _start_date,
-              _end_date) => null}
-          >
-          </TimeOffRequestForm>
-        )}
-        {this.state.info_type === "TrainingAssignment" && (
+        {this.state.info_type === "training_assignments" && (
           <TrainingAssignmentForm
             assigner_id={this.state.assigner_id}
             assignee_id={this.state.assignee_id}
