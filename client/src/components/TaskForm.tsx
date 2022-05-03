@@ -66,8 +66,7 @@ class TaskForm extends React.Component<
     this.setState(prevState => ({
       info: {
         ...prevState.info,
-        // can't figure out how to make this part dynamic
-        type: event.target.value
+        [event.target.name]: event.target.value
       }
     }))
   }
