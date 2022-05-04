@@ -23,12 +23,13 @@ export async function createTask(
   taskInfoType: string,
   taskInfoData: TaskInfoInput
 ) {
-  const newInfo = await knex(taskInfoType).insert(taskInfoData).returning("id");
+  const trx = await knex.transaction();
 
+  const newInfo = await trx(taskInfoType).insert(taskInfoData).returning("id");
   const info_id = newInfo[0].id;
 
   try {
-    await knex("tasks")
+    const task = await trx("tasks")
       .insert({
         info_id,
         created_date: new Date(),
@@ -36,8 +37,12 @@ export async function createTask(
         ...taskData,
       })
       .returning("*");
+
+    await trx.commit();
+
+    return Object.assign(task, newInfo);
   } catch (e) {
-    await knex(taskInfoType).delete().where({ info_id });
+    await trx.rollback();
     throw e;
   }
 }
@@ -51,16 +56,25 @@ export async function updateTask(
   taskData: TaskInput,
   taskInfoData: TaskInfoInput
 ) {
-  const updatedTask = (
-    await knex("tasks").where({ id }).update(taskData).returning("*")
-  )[0];
+  const trx = await knex.transaction();
 
-  const updatedInfo = (
-    await knex(updatedTask.info_type)
-      .where({ id: updatedTask.info_id })
-      .update(taskInfoData)
-      .returning("*")
-  )[0];
+  try {
+    const updatedTask = (
+      await trx("tasks").where({ id }).update(taskData).returning("*")
+    )[0];
 
-  return Object.assign(updatedTask, updatedInfo);
+    const updatedInfo = (
+      await trx(updatedTask.info_type)
+        .where({ id: updatedTask.info_id })
+        .update(taskInfoData)
+        .returning("*")
+    )[0];
+
+    await trx.commit();
+
+    return Object.assign(updatedTask, updatedInfo);
+  } catch (e) {
+    await trx.rollback();
+    throw e;
+  }
 }
