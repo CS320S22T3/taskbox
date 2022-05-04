@@ -1,5 +1,5 @@
 import React from "react";
-import UserContext, { IUserContext } from "../context/UserContext";
+import { IUserContext } from "../context/UserContext";
 import TaskContext from "../context/TaskContext";
 
 interface TaskProps {
