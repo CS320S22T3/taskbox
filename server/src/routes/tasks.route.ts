@@ -1,7 +1,7 @@
-import { body, CustomValidator } from "express-validator";
+import { body } from "express-validator";
 import { Request, Response, Router } from "express";
 import validate from "../middleware/validate";
-import { createTask, fetchTask, updateTask } from "../models/tasks";
+import { createTask, updateTask } from "../models/tasks";
 
 export const tasks = Router();
 
