@@ -1,15 +1,15 @@
 import React from "react";
-import UserContext from "../context/UserContext";
+import UserContext, { IUserContext } from "../context/UserContext";
 import TaskContext from "../context/TaskContext";
 
 interface TaskProps {
   children?: React.ReactNode;
 }
 class TaskLayer extends React.Component<
-  TaskProps & UserContext,
+  TaskProps & IUserContext,
   { tasks: Map<number, any> }
 > {
-  constructor(props: TaskProps & UserContext) {
+  constructor(props: TaskProps & IUserContext) {
     super(props);
     this.state = { tasks: new Map() };
 

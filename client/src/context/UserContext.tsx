@@ -1,6 +1,6 @@
 import React from "react";
 
-interface IUserContext {
+export interface IUserContext {
   login: (username: string, password: string) => void;
   logout: () => void;
   userId?: string;
