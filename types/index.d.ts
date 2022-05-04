@@ -26,6 +26,7 @@ export interface Task {
   info_type: string;
   assigner_id: number;
   assignee_id: number;
+  created_date: Date;
   due_date: Date;
 }
 
@@ -47,7 +48,7 @@ export interface UserInformation {
 
 export type TaskInfo = TimeOffRequest | PerformanceReviewRequest | TrainingAssignment;
 
-type _TaskInput<T> = Omit<T, "id" | "info_id" | "info_type">
+type _TaskInput<T> = Omit<T, "id" | "info_id" | "info_type", "created_date">
 
 export type TaskInput = _TaskInput<Task>;
 

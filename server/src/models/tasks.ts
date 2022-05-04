@@ -28,7 +28,12 @@ export async function createTask(
   const info_id = newInfo[0].id;
 
   return await knex("tasks")
-    .insert({ info_id, info_type: taskInfoType, ...taskData })
+    .insert({
+      info_id,
+      created_date: new Date(),
+      info_type: taskInfoType,
+      ...taskData,
+    })
     .returning("*")
     .first();
 }
