@@ -7,5 +7,9 @@ export async function getUsers() {
 }
 
 export async function getUserFromEmail(email: string) {
-  return knex("users").where({ email }).first();
+  return await knex("users").where({ email }).first();
+}
+
+export async function assertUserWithId(id: number) {
+  return (await knex("users").select().where("id", id)).length > 0;
 }
