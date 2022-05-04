@@ -6,11 +6,11 @@ const bcrypt = require("bcryptjs");
  */
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
+  await knex("user_informations").del();
   await knex("users").del();
   await knex("tasks").del();
   await knex("training_assignments").del();
   await knex("companies").del();
-  await knex("user_informations").del();
   await knex("time_off_requests").del();
 
   const companies = await knex("companies").insert(
@@ -125,6 +125,70 @@ exports.seed = async function (knex) {
         user_id: users[1].id,
         first_name: "Daniel",
         last_name: "Melanson",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: false,
+      },
+      {
+        user_id: users[2].id,
+        first_name: "Ava",
+        last_name: "Smith",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: false,
+      },
+      {
+        user_id: users[3].id,
+        first_name: "Matthew",
+        last_name: "Crowe",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: false,
+      },
+      {
+        user_id: users[4].id,
+        first_name: "Long",
+        last_name: "Dang",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: false,
+      },
+      {
+        user_id: users[5].id,
+        first_name: "Rohit",
+        last_name: "R",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: false,
+      },
+      {
+        user_id: users[6].id,
+        first_name: "Navid",
+        last_name: "Bavar",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: false,
+      },
+      {
+        user_id: users[7].id,
+        first_name: "Aastha",
+        last_name: "Patill",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: false,
+      },
+      {
+        user_id: users[8].id,
+        first_name: "Jeet",
+        last_name: "Mitra",
+        position: "employee",
+        date_hired: "3-27-2019",
+        is_manager: false,
+      },
+      {
+        user_id: users[9].id,
+        first_name: "Hongxiang",
+        last_name: "Wang",
         position: "employee",
         date_hired: "3-27-2019",
         is_manager: false,
