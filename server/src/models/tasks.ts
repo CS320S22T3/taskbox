@@ -30,7 +30,6 @@ export async function createTask(
   return await knex("tasks")
     .insert({ info_id, ...taskData })
     .returning("*")
-    .first();
 }
 
 export async function fetchTask(id: number) {
