@@ -6,28 +6,25 @@ interface TaskFormParameters {
   assigneeOptions: any;
   info_type: string;
   assignee_id: number;
-  due_date: string,
+  due_date: string;
   onSubmit: (fields: TaskFormState) => void;
 }
 
 interface TaskFormState {
   info_type?: string;
   assignee_id?: number;
-  due_date?: string,
+  due_date?: string;
   info?: any;
 }
 
-class TaskForm extends React.Component<
-  TaskFormParameters,
-  TaskFormState
->{
+class TaskForm extends React.Component<TaskFormParameters, TaskFormState> {
   constructor(props: any) {
     super(props);
     this.state = {
       info_type: "",
       assignee_id: -1,
       due_date: "",
-      info: {}
+      info: {},
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -35,23 +32,22 @@ class TaskForm extends React.Component<
   }
 
   handleChange(event: any) {
-    this.setState({ [event.target.name]: event.target.value })
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubFormChange = (event: any) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       info: {
         ...prevState.info,
-        [event.target.name]: event.target.value
-      }
-    }))
-  }
+        [event.target.name]: event.target.value,
+      },
+    }));
+  };
 
   handleSubmit(event: any) {
     event.preventDefault();
     event.stopPropagation();
-    if (this.props.onSubmit)
-      this.props.onSubmit(this.state);
+    if (this.props.onSubmit) this.props.onSubmit(this.state);
   }
 
   render() {
@@ -60,7 +56,11 @@ class TaskForm extends React.Component<
         <form onSubmit={this.handleSubmit}>
           <label>
             Assignee Id:
-            <select onChange={this.handleChange} name="assignee_id" value={this.state.assignee_id}>
+            <select
+              onChange={this.handleChange}
+              name="assignee_id"
+              value={this.state.assignee_id}
+            >
               <option value="">Select an option</option>
               {this.props.assigneeOptions.map((assigneeOption: any) => (
                 <option key={assigneeOption.id} value={assigneeOption.id}>
@@ -89,7 +89,9 @@ class TaskForm extends React.Component<
               onChange={(e) => this.handleChange(e)}
             >
               <option value="">Select an option</option>
-              <option value="performance_review_requests">Performance Review</option>
+              <option value="performance_review_requests">
+                Performance Review
+              </option>
               <option value="time_off_requests">TimeOffRequest</option>
               <option value="training_assignments">TrainingAssignment</option>
             </select>
@@ -99,19 +101,18 @@ class TaskForm extends React.Component<
             <TimeOffRequestForm
               info={this.state.info}
               onChange={this.handleSubFormChange}
-            >
-            </TimeOffRequestForm>
+            ></TimeOffRequestForm>
           )}
           {this.state.info_type === "training_assignments" && (
             <TrainingAssignmentForm
               info={this.state.info}
-              onChange={this.handleSubFormChange}>
-            </TrainingAssignmentForm>
+              onChange={this.handleSubFormChange}
+            ></TrainingAssignmentForm>
           )}
 
           <input type="submit" value="Submit" />
         </form>
-      </div >
+      </div>
     );
   }
 }

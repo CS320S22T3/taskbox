@@ -16,7 +16,11 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
       <div>
         <label>
           Type:
-          <select value={this.props.info.type || ""} name="type" onChange={this.props.onChange}>
+          <select
+            value={this.props.info.type || ""}
+            name="type"
+            onChange={this.props.onChange}
+          >
             <option value="">Select an option</option>
             <option value="0">Sick Time</option>
             <option value="1">Jury Duty</option>
