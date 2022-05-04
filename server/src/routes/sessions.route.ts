@@ -3,8 +3,6 @@ import { Request, Response, Router } from "express";
 import bcrypt from "bcryptjs";
 import validate from "../middleware/validate";
 import { getUserFromEmail, getUserFromId } from "../models/users";
-import knex from "knex";
-import pool from "../pool";
 
 export const sessions = Router();
 

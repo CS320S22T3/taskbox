@@ -21,7 +21,3 @@ export async function getUserFromId(user_id: number) {
     .leftJoin("user_informations", "users.id", "user_informations.users_id")
     .first();
 }
-
-export async function assertUserWithId(id: number) {
-  return (await knex("users").select().where("id", id)).length > 0;
-}
