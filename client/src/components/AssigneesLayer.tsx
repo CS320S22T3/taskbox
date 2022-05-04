@@ -1,17 +1,16 @@
 import React from "react";
-import UserContext from "../context/UserContext";
-import LoginForm from "./LoginForm";
+import AssigneesContext from "../context/AssigneesContext";
 
 interface UsersProps {
   children?: React.ReactNode;
 }
-class Auth extends React.Component<
+class AssigneesLayer extends React.Component<
   UsersProps,
   { users?: Object[] }
 > {
-  constructor(props: AuthProps) {
+  constructor(props: UsersProps) {
     super(props);
-    this.state = { users: [] };
+    this.state = { users: undefined };
   }
 
   /**
@@ -36,14 +35,12 @@ class Auth extends React.Component<
 
   render() {
     return (
-      <UserContext.Provider
-        value={{
-          users: this.state.users,
-        }}
+      <AssigneesContext.Provider
+        value = {{users: this.state.users}}
       >
-      </UserContext.Provider>
+      </AssigneesContext.Provider>
     );
   }
 }
 
-export default Auth;
+export default AssigneesLayer;

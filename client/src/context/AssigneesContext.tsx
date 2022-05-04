@@ -1,7 +1,7 @@
 import React from "react";
 
 interface AssigneesContext {
-  users: Object[];
+  users?: Object[];
 }
 
-export default React.createContext<AssigneesContext>([]);
+export default React.createContext<AssigneesContext>({users: []});
