@@ -26,7 +26,6 @@ class TaskLayer extends React.Component<
     return fetch('/api/users/${this.props.userId}/tasks', {
       method: "GET",
       mode: "cors",
-      body: JSON.stringify({ userId }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
@@ -48,7 +47,7 @@ class TaskLayer extends React.Component<
    */
   async createTask(data: any) {
     try {
-      const res = await fetch("/api/sessions", {
+      const res = await fetch("/api/tasks", {
         method: "POST",
         mode: "cors",
         body: JSON.stringify({ data }),
@@ -85,7 +84,7 @@ class TaskLayer extends React.Component<
    */
   async updateTask(data: any) {
     try {
-      const res = await fetch("api/tasks", {
+      const res = await fetch('api/tasks/${data.id}', {
         method: "PUT",
         mode: "cors",
         body: JSON.stringify({ data }),
@@ -120,8 +119,9 @@ class TaskLayer extends React.Component<
     return (
       <TaskContext.Provider
         value={{
+          tasks: this.state.tasks,
           createTask: this.createTask,
-          updateTask: this.updateTask,
+          updateTask: this.updateTask
         }}
       ></TaskContext.Provider>
     );

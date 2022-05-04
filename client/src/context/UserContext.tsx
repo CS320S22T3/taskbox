@@ -16,7 +16,7 @@ export default UserContext;
 export function withSession(WrappedComponent: any) {
   const WrapperComponent = (props: any) => (
     <UserContext.Consumer>
-      {(value) => <WrappedComponent {...value} {...props} />}
+      {(value: any) => <WrappedComponent {...value} {...props} />}
     </UserContext.Consumer>
   );
 
