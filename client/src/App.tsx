@@ -10,7 +10,7 @@ function App() {
     <Auth>
       <Layout>
         <UserContext.Consumer>
-          {(userContext) => `Logged in to user id ${userContext.userId}! 😎`}
+          {(userContext) => `Logged in to user id ${userContext.user?.id}! 😎`}
         </UserContext.Consumer>
         <MainDisplay />
       </Layout>

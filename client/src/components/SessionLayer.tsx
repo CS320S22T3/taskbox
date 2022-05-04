@@ -1,17 +1,18 @@
 import React from "react";
 import UserContext from "../context/UserContext";
 import LoginForm from "./LoginForm";
+import { UserWithInformation } from "types";
 
 interface AuthProps {
   children?: React.ReactNode;
 }
 class Auth extends React.Component<
   AuthProps,
-  { user_id?: string; error?: string }
+  { user?: UserWithInformation; error?: string }
 > {
   constructor(props: AuthProps) {
     super(props);
-    this.state = { user_id: undefined };
+    this.state = { user: undefined };
 
     this.logout = this.logout.bind(this);
     this.login = this.login.bind(this);
@@ -28,7 +29,7 @@ class Auth extends React.Component<
       mode: "cors",
     })
       .then((res) => res.json())
-      .then((json) => this.setState({ user_id: json.user_id }));
+      .then((json) => this.setState({ user: json }));
   }
 
   /**
@@ -48,7 +49,7 @@ class Auth extends React.Component<
 
       if (res.status === 200) {
         const json = await res.json();
-        this.setState({ user_id: json.user_id, error: undefined });
+        this.setState({ user: json, error: undefined });
       } else {
         const errorMessages = new Map<number, string>([
           [400, "Malformed request syntax."],
@@ -75,19 +76,19 @@ class Auth extends React.Component<
     return fetch("/api/sessions", {
       method: "DELETE",
       mode: "cors",
-    }).then(() => this.setState({ user_id: undefined }));
+    }).then(() => this.setState({ user: undefined }));
   }
 
   render() {
     return (
       <UserContext.Provider
         value={{
-          userId: this.state.user_id,
+          user: this.state.user,
           login: this.login,
           logout: this.logout,
         }}
       >
-        {this.state.user_id ? (
+        {this.state.user ? (
           this.props.children
         ) : (
           <div className="d-flex justify-content-center align-items-center h-100">
