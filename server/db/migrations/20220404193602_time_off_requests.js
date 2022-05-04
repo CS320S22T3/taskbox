@@ -17,5 +17,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  knew.schema.dropTable("time_off_requests");
+  knex.schema.dropTable("time_off_requests");
 };

@@ -11,6 +11,9 @@
     "skipLibCheck": true,
     "types": ["@types/node"],
     "allowJs": true,
+    "paths": {
+      "types": ["../types/"]
+    }
   },
   "include": [
     "src"
