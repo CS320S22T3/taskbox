@@ -22,8 +22,7 @@ class TaskLayer extends React.Component<
    * user ID, including all supplemental information associated with tasks (issue #64)
    */
   componentDidMount() {
-    const userId = this.props.userId;
-    return fetch('/api/users/${this.props.userId}/tasks', {
+    return fetch("/api/users/${this.props.userId}/tasks", {
       method: "GET",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
@@ -84,7 +83,7 @@ class TaskLayer extends React.Component<
    */
   async updateTask(data: any) {
     try {
-      const res = await fetch('api/tasks/${data.id}', {
+      const res = await fetch("api/tasks/${data.id}", {
         method: "PUT",
         mode: "cors",
         body: JSON.stringify({ data }),
@@ -121,7 +120,7 @@ class TaskLayer extends React.Component<
         value={{
           tasks: this.state.tasks,
           createTask: this.createTask,
-          updateTask: this.updateTask
+          updateTask: this.updateTask,
         }}
       ></TaskContext.Provider>
     );
