@@ -7,8 +7,8 @@ import TaskForm from "./components/TaskForm"
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <TaskForm assigneeOptions={[{ id: 0, first_name: "matt", last_name: "crowe" }]} assignee_id={0} info_type={""} due_date={""} onSubmit={console.log}></TaskForm>
+    <App />
+    {/* <TaskForm assigneeOptions={[{ id: 0, first_name: "matt", last_name: "crowe" }]} assignee_id={0} info_type={""} due_date={""} onSubmit={console.log}></TaskForm> */}
   </React.StrictMode>,
   document.getElementById("root")
 );
