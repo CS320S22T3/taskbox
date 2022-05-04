@@ -1,7 +1,7 @@
 import { body, CustomValidator } from "express-validator";
 import { Request, Response, Router } from "express";
 import validate from "../middleware/validate";
-import { createTask, updateTask } from "../models/tasks";
+import { createTask, fetchTask, updateTask } from "../models/tasks";
 
 export const tasks = Router();
 
@@ -11,10 +11,6 @@ const INFO_TYPES = [
   "training_assignments",
 ];
 
-const TASK_INFO_VALIDATOR: CustomValidator = async (value, meta) => {
-  return true;
-};
-
 tasks.post(
   "/",
   validate([
@@ -22,7 +18,7 @@ tasks.post(
     body("assignee_id").isInt(),
     body("due_date").isDate(),
     body("created_date").isDate(),
-    body("info").isObject().custom(TASK_INFO_VALIDATOR),
+    body("info").isObject(),
     body("assignee_id").isInt(),
   ]),
   async (req: Request, res: Response) => {
@@ -53,7 +49,7 @@ tasks.put(
     body("assigner_id").isInt(),
     body("assignee_id").isInt(),
     body("due_date").isDate(),
-    body("info").isObject().custom(TASK_INFO_VALIDATOR),
+    body("info").isObject(),
   ]),
   async (req: Request, res: Response) => {
     const { id, assigner_id, assignee_id, due_date, info } = req.body;

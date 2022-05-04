@@ -57,5 +57,5 @@ export type PerformanceReviewRequestInput = _TaskInput<PerformanceReviewRequest>
 
 export type TrainingAssignmentInput = _TaskInput<TrainingAssignment>;
 
-export type TaskInfoUpdateQuery = TrainingAssignmentInput | PerformanceReviewRequestInput | TimeOffRequestInput;
+export type TaskInfoInput = TrainingAssignmentInput | PerformanceReviewRequestInput | TimeOffRequestInput;
 

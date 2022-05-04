@@ -1,5 +1,5 @@
 import knex from "../pool";
-import { TaskInfoUpdateQuery, TaskUpdateQuery } from "types";
+import { TaskInfoInput, TaskInput } from "types";
 
 export async function getAssociatedTasksForUser(id: number) {
   return await knex("tasks")
@@ -19,9 +19,9 @@ export async function getAssociatedTasksForUser(id: number) {
 }
 
 export async function createTask(
-  taskData: TaskUpdateQuery,
+  taskData: TaskInput,
   taskInfoType: string,
-  taskInfoData: TaskInfoUpdateQuery
+  taskInfoData: TaskInfoInput
 ) {
   const newInfo = await knex(taskInfoType).insert(taskInfoData).returning("id");
 
@@ -33,10 +33,14 @@ export async function createTask(
     .first();
 }
 
+export async function fetchTask(id: number) {
+  return await knex("tasks").where({ id }).first();
+}
+
 export async function updateTask(
   id: number,
-  taskData: TaskUpdateQuery,
-  taskInfoData: TaskInfoUpdateQuery
+  taskData: TaskInput,
+  taskInfoData: TaskInfoInput
 ) {
   const updatedTask = (
     await knex("tasks").where({ id }).update(taskData).returning("*")
