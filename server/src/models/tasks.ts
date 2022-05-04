@@ -28,7 +28,7 @@ export async function createTask(
   const info_id = newInfo[0].id;
 
   return await knex("tasks")
-    .insert({ info_id, ...taskData })
+    .insert({ info_id, info_type: taskInfoType, ...taskData })
     .returning("*")
 }
 
