@@ -135,7 +135,7 @@ exports.seed = async function (knex) {
         last_name: "Smith",
         position: "employee",
         date_hired: "3-27-2019",
-        is_manager: true,
+        is_manager: false,
       },
       {
         user_id: users[3].id,
@@ -151,7 +151,7 @@ exports.seed = async function (knex) {
         last_name: "Dang",
         position: "employee",
         date_hired: "3-27-2019",
-        is_manager: true,
+        is_manager: false,
       },
       {
         user_id: users[5].id,
@@ -167,7 +167,7 @@ exports.seed = async function (knex) {
         last_name: "Bavar",
         position: "employee",
         date_hired: "3-27-2019",
-        is_manager: true,
+        is_manager: false,
       },
       {
         user_id: users[7].id,
@@ -183,7 +183,7 @@ exports.seed = async function (knex) {
         last_name: "Mitra",
         position: "employee",
         date_hired: "3-27-2019",
-        is_manager: true,
+        is_manager: false,
       },
       {
         user_id: users[9].id,
