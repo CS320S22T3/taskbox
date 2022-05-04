@@ -27,14 +27,19 @@ export async function createTask(
 
   const info_id = newInfo[0].id;
 
-  return await knex("tasks")
-    .insert({
-      info_id,
-      created_date: new Date(),
-      info_type: taskInfoType,
-      ...taskData,
-    })
-    .returning("*");
+  try {
+    await knex("tasks")
+      .insert({
+        info_id,
+        created_date: new Date(),
+        info_type: taskInfoType,
+        ...taskData,
+      })
+      .returning("*");
+  } catch (e) {
+    await knex(taskInfoType).delete().where({ info_id });
+    throw e;
+  }
 }
 
 export async function fetchTask(id: number) {
