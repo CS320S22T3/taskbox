@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { Request, Response, Router } from "express";
 import validate from "../middleware/validate";
 import { createTask, updateTask } from "../models/tasks";
@@ -17,7 +17,6 @@ tasks.post(
     body("info_type").isIn(INFO_TYPES),
     body("assignee_id").isInt(),
     body("due_date").isDate(),
-    body("created_date").isDate(),
     body("info").isObject(),
     body("assignee_id").isInt(),
   ]),
@@ -45,18 +44,18 @@ tasks.post(
 tasks.put(
   "/:id",
   validate([
-    body("id").isInt(),
+    param("id").isInt(),
     body("assigner_id").isInt(),
     body("assignee_id").isInt(),
     body("due_date").isDate(),
     body("info").isObject(),
   ]),
   async (req: Request, res: Response) => {
-    const { id, assigner_id, assignee_id, due_date, info } = req.body;
+    const { assigner_id, assignee_id, due_date, info } = req.body;
     try {
       return res.status(200).json(
         await updateTask(
-          id,
+          Number(req.params.id),
           {
             assignee_id,
             assigner_id,
