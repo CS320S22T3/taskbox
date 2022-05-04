@@ -5,9 +5,6 @@ interface TimeOffRequestFormParameters {
   onChange: (e: any) => void;
 }
 
-//assigner_id: integer - <hidden> (predetermined)
-//assignee_id: integer - <select> (user id/name)
-//due_date: string - <input> (YYYY-MM-DD)
 //type: integer - <select> (0 => 'Sick Time', 1 => 'Jury Duty', 2 => 'Vacation Time', 3 => 'Parental Leave')
 //start_date: string - <input> (YYYY-MM-DD)
 //end_date: string - <input> (YYYY-MM-DD)
@@ -19,7 +16,8 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
       <div>
         <label>
           Type:
-          <select value={this.props.info.type} onChange={this.props.onChange}>
+          <select value={this.props.info.type || ""} name="type" onChange={this.props.onChange}>
+            <option value="">Select an option</option>
             <option value="0">Sick Time</option>
             <option value="1">Jury Duty</option>
             <option value="2">Vacation Time</option>
@@ -32,7 +30,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
           <input
             type="text"
             name="start_date"
-            value={this.props.info.start_date}
+            value={this.props.info.start_date || ""}
             onChange={this.props.onChange}
           />
         </label>
@@ -42,7 +40,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
           <input
             type="text"
             name="end_date"
-            value={this.props.info.end_date}
+            value={this.props.info.end_date || ""}
             onChange={this.props.onChange}
           />
         </label>
@@ -51,7 +49,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
           Notes:
           <textarea
             name="notes"
-            value={this.props.info.notes}
+            value={this.props.info.notes || ""}
             onChange={this.props.onChange}
           ></textarea>
         </label>

@@ -15,7 +15,7 @@ class TrainingAssignmentForm extends React.Component<TrainingAssignmentFormParam
           <input
             type="url"
             name="link"
-            value={this.props.info.start_date}
+            value={this.props.info.start_date || ""}
             onChange={this.props.onChange}
           />
         </label>
