@@ -3,6 +3,7 @@ import "../App.css";
 
 interface PerformanceReviewParameters {
   assigneeOptions: any;
+
   onSubmit?: (
     assigner_id: number,
     assignee_id: number,
@@ -41,6 +42,7 @@ class PerformanceReview extends React.Component<
 
   handleDateChange(e: any) {
     console.log(this.state.due_date);
+
     this.setState(() => ({
       due_date: e.target.value,
     }));
