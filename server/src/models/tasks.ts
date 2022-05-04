@@ -35,7 +35,6 @@ export async function createTask(
       ...taskData,
     })
     .returning("*")
-    .first();
 }
 
 export async function fetchTask(id: number) {
