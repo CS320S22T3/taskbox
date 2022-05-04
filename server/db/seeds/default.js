@@ -6,11 +6,11 @@ const bcrypt = require("bcryptjs");
  */
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
+  await knex("user_informations").del();
   await knex("users").del();
   await knex("tasks").del();
   await knex("training_assignments").del();
   await knex("companies").del();
-  await knex("user_informations").del();
   await knex("time_off_requests").del();
 
   const companies = await knex("companies").insert(
