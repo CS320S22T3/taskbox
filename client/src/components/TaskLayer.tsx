@@ -6,10 +6,10 @@ interface TaskProps {
   children?: React.ReactNode;
 }
 class TaskLayer extends React.Component<
-  TaskProps & UserContext,
+  TaskProps & typeof UserContext,
   { tasks: Map<number, any> }
 > {
-  constructor(props: TaskProps & UserContext) {
+  constructor(props: TaskProps & typeof UserContext) {
     super(props);
     this.state = { tasks: new Map() };
 

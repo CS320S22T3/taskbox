@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import Auth from "./components/SessionLayer";
 import Layout from "./components/Layout";
 import MainDisplay from "./components/MainDisplay";
