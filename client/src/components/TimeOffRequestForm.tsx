@@ -1,32 +1,7 @@
 import React from "react";
 
 interface TimeOffRequestFormParameters {
-  // assigneeOptions: any;
-  // assigner_id: number;
-  // assignee_id: number;
-  // due_date: string;
-  // onSubmit: (
-  //   assigner_id: number,
-  //   assignee_id: number,
-  //   due_date: string,
-  //   type: number,
-  //   start_date: string,
-  //   end_date: string,
-  //   notes: string
-  // ) => void;
-
-  // type: number;
-  // start_date: string;
-  // end_date: string;
-  // notes: string;
-  info: {
-    // due_date: string,
-    type: number,
-    start_date: string,
-    end_date: string,
-    notes: string,
-    link: string,
-  }
+  info: any;
   onChange: (e: any) => void;
 }
 

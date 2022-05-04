@@ -4,32 +4,17 @@ import TrainingAssignmentForm from "./TrainingAssignmentForm";
 
 interface TaskFormParameters {
   assigneeOptions: any;
-  handleSubmit: (
-    info: {
-      info_type: string;
-      assigner_id: number;
-      assignee_id: number;
-      due_date: string,
-      type: number,
-      start_date: string,
-      end_date: string,
-      notes: string,
-      link: string
-    }) => void;
+  info_type: string;
+  assignee_id: number;
+  due_date: string,
+  onSubmit: (fields: TaskFormState) => void;
 }
 
 interface TaskFormState {
-  info: {
-    info_type: string;
-    assigner_id: number;
-    assignee_id: number;
-    due_date: string,
-    type: number,
-    start_date: string,
-    end_date: string,
-    notes: string,
-    link: string,
-  };
+  info_type?: string;
+  assignee_id?: number;
+  due_date?: string,
+  info?: any;
 }
 
 class TaskForm extends React.Component<
@@ -39,11 +24,10 @@ class TaskForm extends React.Component<
   constructor(props: any) {
     super(props);
     this.state = {
+      info_type: "",
+      assignee_id: -1,
+      due_date: "",
       info: {
-        info_type: "",
-        assigner_id: -1,
-        assignee_id: -1,
-        due_date: "",
         type: 0,
         start_date: "",
         end_date: "",
@@ -52,21 +36,26 @@ class TaskForm extends React.Component<
       }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubFormChange = this.handleSubFormChange.bind(this);
   }
 
-  handleChange = (event: any) => {
+  handleChange(event: any) {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
+  handleSubFormChange = (event: any) => {
     this.setState(prevState => ({
       info: {
         ...prevState.info,
         [event.target.name]: event.target.value
       }
     }))
-    console.log(this.state.info);
   }
 
   handleSubmit() {
-    if (this.props.handleSubmit)
-      this.props.handleSubmit(this.state.info);
+    if (this.props.onSubmit)
+      this.props.onSubmit(this.state);
   }
 
   render() {
@@ -75,7 +64,7 @@ class TaskForm extends React.Component<
         <form onSubmit={this.handleSubmit}>
           <label>
             Assignee Id:
-            <select onChange={this.handleChange}>
+            <select onChange={this.handleChange} value={this.state.assignee_id}>
               {this.props.assigneeOptions.map((assigneeOption: any) => (
                 <option key={assigneeOption.id} value={assigneeOption.id}>
                   {`${assigneeOption.first_name} ${assigneeOption.last_name}`}
@@ -89,7 +78,7 @@ class TaskForm extends React.Component<
             <input
               type="text"
               name="due_date"
-              value={this.state.info.due_date}
+              value={this.state.due_date}
               onChange={this.handleChange}
             />
           </label>
@@ -99,6 +88,7 @@ class TaskForm extends React.Component<
             <select
               name="info_type"
               id="info_type"
+              value={this.state.info_type}
               onChange={(e) => this.handleChange(e)}
             >
               <option value="default">Select an option</option>
@@ -108,17 +98,17 @@ class TaskForm extends React.Component<
             </select>
           </label>
           <br />
-          {this.state.info.info_type === "time_off_requests" && (
+          {this.state.info_type === "time_off_requests" && (
             <TimeOffRequestForm
               info={this.state.info}
-              onChange={(e) => this.handleChange(e)}
+              onChange={this.handleSubFormChange}
             >
             </TimeOffRequestForm>
           )}
-          {this.state.info.info_type === "training_assignments" && (
+          {this.state.info_type === "training_assignments" && (
             <TrainingAssignmentForm
               info={this.state.info}
-              onChange={(e) => this.handleChange(e)}>
+              onChange={this.handleSubFormChange}>
             </TrainingAssignmentForm>
           )}
 

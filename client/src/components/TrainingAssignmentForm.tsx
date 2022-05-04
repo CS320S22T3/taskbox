@@ -1,24 +1,7 @@
 import React from "react";
 
 interface TrainingAssignmentFormParameters {
-  // assigneeOptions: any;
-  // assigner_id: number;
-  // assignee_id: number;
-  // due_date: string;
-  // onSubmit: (
-  //   assigner_id: number,
-  //   assignee_id: number,
-  //   due_date: string,
-  //   link: string
-  // ) => void;
-  info: {
-    // due_date: string,
-    type: number,
-    start_date: string,
-    end_date: string,
-    notes: string,
-    link: string,
-  }
+  info: any;
   onChange: (e: any) => void;
 }
 
