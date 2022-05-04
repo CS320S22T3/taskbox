@@ -1,12 +1,12 @@
 import React from "react";
 
-interface UserContext {
+interface IUserContext {
   login: (username: string, password: string) => void;
   logout: () => void;
   userId?: string;
 }
 
-const UserContext = React.createContext<UserContext>({
+const UserContext = React.createContext<IUserContext>({
   login: () => undefined,
   logout: () => undefined,
 });
