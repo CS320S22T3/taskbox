@@ -6,7 +6,7 @@ interface UsersProps {
 }
 class AssigneesLayer extends React.Component<
   UsersProps,
-  { users?: Object[] }
+  { users?: any }
 > {
   constructor(props: UsersProps) {
     super(props);
@@ -23,8 +23,10 @@ class AssigneesLayer extends React.Component<
       method: "GET",
       mode: "cors",
     })
-      .then((res) => res.json())
-      .then((json) => this.setState({ users: json.users }));
+    .then((res) => res.json())
+    .then((json) => this.setState({ users: json.users }))
+    .then(()=>console.log(this.state.users));
+    
   }
 
   /**
@@ -36,7 +38,7 @@ class AssigneesLayer extends React.Component<
   render() {
     return (
       <AssigneesContext.Provider
-        value = {{users: this.state.users}}
+        value={{users: this.state.users}}
       >
       </AssigneesContext.Provider>
     );
