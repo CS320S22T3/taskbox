@@ -1,7 +1,7 @@
 import React from "react";
 import { UserWithInformation } from "types";
 
-interface IUserContext {
+export interface IUserContext {
   login: (username: string, password: string) => void;
   logout: () => void;
   user?: UserWithInformation;

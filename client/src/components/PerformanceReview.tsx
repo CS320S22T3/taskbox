@@ -5,6 +5,7 @@ interface PerformanceReviewParameters {
   assigner_id: number;
   assignee_id: number;
   due_date: string;
+
   onSubmit?: (
     assigner_id: number,
     assignee_id: number,

@@ -1,8 +1,8 @@
 import React from "react";
 
 interface TaskContext {
-  createTask: (data: any) => void;
-  updateTask: (data: any) => void;
+  createTask?: (data: any) => void;
+  updateTask?: (data: any) => void;
   tasks?: Map<number, any>;
 }
 

@@ -11,20 +11,15 @@ import { withSession } from "../context/UserContext";
 class MainDisplay extends React.Component<any, any> {
 
     userIsAssigner = (e: any) => {
-        let listOfTasks = [] as React.ReactElement[];
-        for (let [key, value] of this.props.tasks) {
-            if (value.assigner === this.props.user.id) {
-                listOfTasks.push(<TaskComponent task={value} />);
-            }
-        }
-        if (listOfTasks.length === 0) {
-            return <h1>No tasks have been assigned by you</h1>
-        }
-        return listOfTasks;
+        const listOfTasks = [] as React.ReactElement[];
+
+        console.log(this.props.tasks);
+        console.log(this.props.user);
+        return <h1>Tasks assigned by ytou</h1>
     }
 
     userIsAssignee = (e: any) => {
-        for (let [key, value] of this.props.tasks) {
+        for (const [key, value] of this.props.tasks) {
             if (value.assignee === this.props.user.id) {
                 return <TaskComponent task={value} />
             }
@@ -37,10 +32,11 @@ class MainDisplay extends React.Component<any, any> {
             <Container>
                 <Tabs defaultActiveKey="assigned-to-user">
                     <Tab eventKey="assigned-to-user" title="Assigned to me">
+                        <h1>No tasks have been assigned to you</h1>
                         {this.userIsAssigner(1)}
                     </Tab>
                     <Tab eventKey="assigned-by-user" title="Assigned by me">
-                        {this.userIsAssignee(1)}
+                        <h1>No tasks have been assigned by you</h1>
                     </Tab>
                 </Tabs>
 
