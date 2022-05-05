@@ -10,7 +10,7 @@ function App() {
       <Layout>
         <AssigneesLayer />
         <UserContext.Consumer>
-          {(userContext) => `Logged in to user id ${userContext.userId}! 😎`}
+          {(userContext) => `Logged in to user id ${userContext.user?.id}! 😎`}
         </UserContext.Consumer>
       </Layout>
     </Auth>
