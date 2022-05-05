@@ -8,7 +8,7 @@ export const sessions = Router();
 
 declare module "express-session" {
   interface SessionData {
-    user_id: string;
+    user_id: number;
   }
 }
 
@@ -24,8 +24,12 @@ declare module "express-session" {
  * A body with a 'user_id' field if they do exist
  */
 sessions.get("/", async (req: Request, res: Response) => {
+  if (typeof req.session.user_id !== "number") {
+    return res.sendStatus(200);
+  }
+
   try {
-    const user = getUserFromId(req.session.user_id as unknown as number);
+    const user = await getUserFromId(req.session.user_id);
     return res.status(200).json(user);
   } catch (e) {
     console.log("Error while trying to get user: " + e);
@@ -58,7 +62,7 @@ sessions.post(
     try {
       const user = await getUserFromEmail(email);
       if (user && bcrypt.compareSync(password, user.password_digest)) {
-        req.session.user_id = String(user.id);
+        req.session.user_id = user.id;
         return res.status(200).json(user);
       } else {
         return res.status(422).json({ error: "Incorrect email or password." });
