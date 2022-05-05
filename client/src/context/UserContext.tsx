@@ -1,9 +1,10 @@
 import React from "react";
+import { UserWithInformation } from "types";
 
 export interface IUserContext {
-  login?: (username: string, password: string) => void;
-  logout?: () => void;
-  userId?: string;
+  login: (username: string, password: string) => void;
+  logout: () => void;
+  user?: UserWithInformation;
 }
 
 const UserContext = React.createContext<IUserContext>({

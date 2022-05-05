@@ -1,15 +1,23 @@
 import knex from "../pool";
 
 export async function getUsers() {
-  return knex("users")
+  return await knex("users")
     .select("*")
-    .leftJoin("user_informations", "users.id", "user_informations.user_id");
+    .leftJoin("user_informations as ui", "ui.user_id", "users.id");
 }
 
 export async function getUserFromEmail(email: string) {
-  return await knex("users").where({ email }).first();
+  return await knex("users")
+    .leftJoin("user_informations as ui", "ui.user_id", "users.id")
+    .select("*")
+    .where("email", email)
+    .first();
 }
 
-export async function assertUserWithId(id: number) {
-  return (await knex("users").select().where("id", id)).length > 0;
+export async function getUserFromId(user_id: number) {
+  return await knex("users")
+    .select("*")
+    .where("users.id", user_id)
+    .leftJoin("user_informations as ui", "ui.user_id", "users.id")
+    .first();
 }

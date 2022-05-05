@@ -46,6 +46,8 @@ export interface UserInformation {
   is_manager: boolean;
 }
 
+export type UserWithInformation = User & UserInformation;
+
 export type TaskInfo = TimeOffRequest | PerformanceReviewRequest | TrainingAssignment;
 
 type _TaskInput<T> = Omit<T, "id" | "info_id" | "info_type", "created_date">
