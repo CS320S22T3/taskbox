@@ -22,27 +22,31 @@ class TaskLayer extends React.Component<
    * user ID, including all supplemental information associated with tasks (issue #64)
    */
   componentDidMount() {
-    return fetch("/api/users/${this.props.userId}/tasks", {
+    if (!this.props.user) return;
+
+    return fetch(`/api/users/${this.props.user.id}/tasks`, {
       method: "GET",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
-      .then((data) => {
-        let temp = new Map();
-        for (let i = 0; i < data.length; i++) {
-          //TODO: correct asssumptions about the format
-          temp = temp.set(i, data[i]);
-        }
-        this.setState({
-          tasks: temp,
-        });
-      });
+      .then(this.setTaskMap.bind(this));
+  }
+
+  setTaskMap(data: any) {
+    const map = new Map();
+    for (let i = 0; i < data.length; i++) {
+      map.set(data[i].id, data[i]);
+    }
+
+    this.setState({
+      tasks: map,
+    });
   }
 
   /**
    * send a POST request to the server to create a new task in tasks table, and a new
-   * entry in the approprate task table such as time_off_requests (issue #65)
+   * entry in the appropriate task table such as time_off_requests (issue #65)
    */
   async createTask(data: any) {
     try {
@@ -53,27 +57,20 @@ class TaskLayer extends React.Component<
         headers: { "Content-Type": "application/json" },
       });
 
+      const json = await res.json();
+
       switch (res.status) {
         case 200: {
-          //CORRECT TO UPDATE WITH DB ENTRY RATHER THAN USER INPUT DATA
-          const len = this.state.tasks.size;
           this.setState({
-            tasks: this.state.tasks.set(len, data),
+            tasks: this.state.tasks.set(json.id, json),
           });
           return this.state.tasks;
         }
-        case 400:
-          throw new Error("Malformed request syntax.");
-        case 422:
-          throw new Error("Incorrect username or password.");
-        case 500:
-          throw new Error("Internal server error.");
         default:
-          throw new Error(`Unexpected error code: ${res.status}.`);
+          console.error(res);
       }
     } catch (e) {
       console.error(e);
-      throw new Error("Unexpected error involving POST endpoint.");
     }
   }
 
@@ -83,34 +80,27 @@ class TaskLayer extends React.Component<
    */
   async updateTask(data: any) {
     try {
-      const res = await fetch("api/tasks/${data.id}", {
+      const res = await fetch(`api/tasks/${data.id}`, {
         method: "PUT",
         mode: "cors",
         body: JSON.stringify({ data }),
         headers: { "Content-Type": "application/json" },
       });
 
+      const json = await res.json();
+
       switch (res.status) {
         case 200: {
-          //CORRECT TO UPDATE WITH DB ENTRY RATHER THAN USER INPUT DATA
-          const len = this.state.tasks.size;
           this.setState({
-            tasks: this.state.tasks.set(len, data),
+            tasks: this.state.tasks.set(json.id, json),
           });
-          return this.state.tasks;
+          break;
         }
-        case 400:
-          throw new Error("Malformed request syntax.");
-        case 422:
-          throw new Error("Incorrect username or password.");
-        case 500:
-          throw new Error("Internal server error.");
         default:
-          throw new Error(`Unexpected error code: ${res.status}.`);
+          console.error(res);
       }
     } catch (e) {
       console.error(e);
-      throw new Error("Unexpected error involving PUT endpoint.");
     }
   }
 
