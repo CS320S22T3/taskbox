@@ -20,21 +20,11 @@ function TOR(info: any): Array<Array<string>> {
 }
 
 function TR(info: any): Array<Array<string>> {
-  return [
-    ["Type", TORTypes[info.type]],
-    ["Start date", new Intl.DateTimeFormat().format(new Date(info.start_date))],
-    ["End date", new Intl.DateTimeFormat().format(new Date(info.start_date))],
-    ["Notes", info.notes],
-  ];
+  return [["Link", info.link]];
 }
 
 function PRR(info: any): Array<Array<string>> {
-  return [
-    ["Type", TORTypes[info.type]],
-    ["Start date", new Intl.DateTimeFormat().format(new Date(info.start_date))],
-    ["End date", new Intl.DateTimeFormat().format(new Date(info.start_date))],
-    ["Notes", info.notes],
-  ];
+  return [];
 }
 
 function formatTask(task: any): Array<Array<string>> {
@@ -61,7 +51,6 @@ const INFO_NAMES = {
 
 function TaskCard(props: { task: any }) {
   const task = props.task;
-  console.log(task.info_type);
   return (
     <Card key={task.id}>
       <Card.Body>
