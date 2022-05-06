@@ -1,5 +1,8 @@
 import React from "react";
-import AssigneesContext, {IAssigneesContext, withAssignees} from "../context/AssigneesContext";
+import AssigneesContext, {
+  IAssigneesContext,
+  withAssignees,
+} from "../context/AssigneesContext";
 
 interface UsersProps {
   children?: React.ReactNode;
@@ -24,17 +27,14 @@ class AssigneesLayer extends React.Component<
       method: "GET",
       mode: "cors",
     })
-    .then((res) => res.json())
-    .then((json) => this.setState({users: json}));
-    
+      .then((res) => res.json())
+      .then((json) => this.setState({ users: json }));
   }
 
   render() {
     return (
-      <AssigneesContext.Provider
-        value={{users: this.state.users}}
-      >
-      {this.props.children}
+      <AssigneesContext.Provider value={{ users: this.state.users }}>
+        {this.props.children}
       </AssigneesContext.Provider>
     );
   }

@@ -4,9 +4,9 @@ export interface IAssigneesContext {
   users?: any;
 }
 
-const AssigneesContext = React.createContext<IAssigneesContext>({users: []});
+const AssigneesContext = React.createContext<IAssigneesContext>({ users: [] });
 
-export default AssigneesContext
+export default AssigneesContext;
 
 export function withAssignees(WrappedComponent: any) {
   const WrapperComponent = React.forwardRef((props: any, ref: any) => (
