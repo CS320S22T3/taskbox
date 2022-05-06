@@ -29,7 +29,8 @@ class Auth extends React.Component<
       mode: "cors",
     })
       .then((res) => res.json())
-      .then((json) => this.setState({ user: json }));
+      .then((json) => this.setState({ user: json }))
+      .catch(() => this.setState({ user: undefined }));
   }
 
   /**
