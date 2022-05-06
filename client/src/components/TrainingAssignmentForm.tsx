@@ -10,7 +10,7 @@ class TrainingAssignmentForm extends React.Component<TrainingAssignmentFormParam
   render() {
     return (
       <Form>
-        <Form.Group>
+        <Form.Group className="mb-3" controlId="formLink">
         <Form.Label>Link:</Form.Label>
           <Form.Control
             type="url"

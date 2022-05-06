@@ -15,7 +15,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
   render() {
     return (
       <Form>
-        <Form.Group>
+        <Form.Group className="mb-3" controlId="formType">
           <Form.Label>Type:</Form.Label>
           <Form.Select
             value={this.props.info.type || ""}
@@ -29,7 +29,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
             <option value="3">Parental Leave</option>
           </Form.Select>
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mb-3" controlId="formStartDate">
           <Form.Label>Start Date:</Form.Label>
           <Form.Control
             type="text"
@@ -38,7 +38,7 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
             onChange={this.props.onChange}
           />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mb-3" controlId="formEndDate">
           <Form.Label>End Date:</Form.Label>
           <Form.Control
             type="text"
@@ -47,13 +47,14 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
             onChange={this.props.onChange}
           />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mb-3" controlId="formNotes">
           <Form.Label>Notes:</Form.Label>
           <Form.Control
             as="textarea"
             name="notes"
             value={this.props.info.notes || ""}
             onChange={this.props.onChange}
+            rows={4}
           ></Form.Control>
         </Form.Group>
       </Form>

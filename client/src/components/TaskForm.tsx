@@ -54,8 +54,8 @@ class TaskForm extends React.Component<TaskFormParameters, TaskFormState> {
   render() {
     return (
       <>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group>
+        <Form onSubmit={this.handleSubmit}> 
+          <Form.Group className="mb-3" controlId="formAssigneeId">
             <Form.Label>Assignee Id:</Form.Label>
             <Form.Select
               onChange={this.handleChange}
@@ -70,7 +70,7 @@ class TaskForm extends React.Component<TaskFormParameters, TaskFormState> {
               ))}
             </Form.Select>
           </Form.Group>
-          <Form.Group>
+          <Form.Group className="mb-3" controlId="formDueDateId">
             <Form.Label>Due Date:</Form.Label>
             <Form.Control
               type="text"
@@ -79,7 +79,7 @@ class TaskForm extends React.Component<TaskFormParameters, TaskFormState> {
               onChange={this.handleChange}
             />
           </Form.Group>
-          <Form.Group>
+          <Form.Group className="mb-3" controlId="formInfoType">
             <Form.Label>Form type:</Form.Label>
             <Form.Select
               name="info_type"
