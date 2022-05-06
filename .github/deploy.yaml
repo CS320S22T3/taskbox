@@ -1,0 +1,19 @@
+on:
+  pull:
+    ref: 'refs/heads/main'
+
+jobs:
+  deploy:
+    uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            cd ./taskbox
+            git pull origin master
+            git status
+            cd ./client
+            rm -rf build
+            npm run build
+            pm2 restart taskbox
