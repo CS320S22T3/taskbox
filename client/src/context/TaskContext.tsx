@@ -3,12 +3,13 @@ import React from "react";
 interface TaskContext {
   createTask?: (data: any) => void;
   updateTask?: (data: any) => void;
-  tasks?: Map<number, any>;
+  tasks: Map<number, any>;
 }
 
 const TaskContext = React.createContext<TaskContext>({
   createTask: async () => "",
   updateTask: async () => "",
+  tasks: new Map(),
 });
 
 export default TaskContext;

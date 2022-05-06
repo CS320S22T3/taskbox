@@ -15,14 +15,14 @@ const UserContext = React.createContext<IUserContext>({
 export default UserContext;
 
 export function withSession(WrappedComponent: any) {
-  const WrapperComponent = (props: any) => (
+  const WrapperComponent = React.forwardRef((props: any, ref: any) => (
     <UserContext.Consumer>
-      {(value: any) => <WrappedComponent {...value} {...props} />}
+      {(value) => <WrappedComponent ref={ref} {...value} {...props} />}
     </UserContext.Consumer>
-  );
+  ));
 
   WrapperComponent.displayName = `withSession(${
     WrappedComponent.displayName || WrappedComponent.name
   })`;
-  return React.forwardRef(WrapperComponent);
+  return WrapperComponent;
 }

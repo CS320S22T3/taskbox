@@ -3,6 +3,8 @@ import Auth from "./components/SessionLayer";
 import Layout from "./components/Layout";
 import MainDisplay from "./components/MainDisplay";
 import UserContext from "./context/UserContext";
+import TaskContext from "./context/TaskContext";
+import TaskLayer from "./components/TaskLayer";
 
 function App() {
   return (

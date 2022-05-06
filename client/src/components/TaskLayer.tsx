@@ -1,5 +1,5 @@
 import React from "react";
-import { IUserContext } from "../context/UserContext";
+import { IUserContext, withSession } from "../context/UserContext";
 import TaskContext from "../context/TaskContext";
 
 interface TaskProps {
@@ -22,9 +22,7 @@ class TaskLayer extends React.Component<
    * user ID, including all supplemental information associated with tasks (issue #64)
    */
   componentDidMount() {
-    if (!this.props.user) return;
-
-    return fetch(`/api/users/${this.props.user.id}/tasks`, {
+    return fetch(`/api/users/${this.props.user?.id}/tasks`, {
       method: "GET",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
@@ -112,9 +110,11 @@ class TaskLayer extends React.Component<
           createTask: this.createTask,
           updateTask: this.updateTask,
         }}
-      ></TaskContext.Provider>
+      >
+        {this.props.children}
+      </TaskContext.Provider>
     );
   }
 }
 
-export default TaskLayer;
+export default withSession(TaskLayer);
