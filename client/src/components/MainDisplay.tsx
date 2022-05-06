@@ -14,8 +14,23 @@ class MainDisplay extends React.Component<any, any> {
         const listOfTasks = [] as React.ReactElement[];
 
         console.log(this.props.tasks);
+        console.log(this.props);
         console.log(this.props.user);
-        return <h1>Tasks assigned by ytou</h1>
+        if (this.props.tasks === undefined) {
+            return <h1>No tasks</h1>
+        }
+        else {
+            for (const [key, value] of this.props.tasks) {
+                if (value.assignee === this.props.user.id) {
+                    listOfTasks.push(<TaskComponent task={value} />)
+                }
+            }
+            if (listOfTasks.length === 0) {
+                return <h1>No taks have been Assigned</h1>
+            }
+            return listOfTasks;
+        }
+
     }
 
     userIsAssignee = (e: any) => {
@@ -45,4 +60,4 @@ class MainDisplay extends React.Component<any, any> {
     }
 
 }
-export default withTasks(withSession(MainDisplay));
+export default withSession(withTasks(MainDisplay));
