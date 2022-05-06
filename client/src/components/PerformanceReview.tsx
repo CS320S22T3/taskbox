@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, Form } from "react-bootstrap";
 
 interface PerformanceReviewParameters {
   assigneeOptions: any;
@@ -47,9 +48,9 @@ class PerformanceReview extends React.Component<
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input type="submit" value="Submit" />
-      </form>
+      <Form onSubmit={this.handleSubmit}>
+        <Button type="submit" value="Submit">Submit</Button>
+      </Form>
     );
   }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import React from "react";
 import {
   Button,
@@ -21,21 +20,11 @@ function TOR(info: any): Array<Array<string>> {
 }
 
 function TR(info: any): Array<Array<string>> {
-  return [
-    ["Type", TORTypes[info.type]],
-    ["Start date", new Intl.DateTimeFormat().format(new Date(info.start_date))],
-    ["End date", new Intl.DateTimeFormat().format(new Date(info.start_date))],
-    ["Notes", info.notes],
-  ];
+  return [["Link", info.link]];
 }
 
 function PRR(info: any): Array<Array<string>> {
-  return [
-    ["Type", TORTypes[info.type]],
-    ["Start date", new Intl.DateTimeFormat().format(new Date(info.start_date))],
-    ["End date", new Intl.DateTimeFormat().format(new Date(info.start_date))],
-    ["Notes", info.notes],
-  ];
+  return [];
 }
 
 function formatTask(task: any): Array<Array<string>> {
@@ -62,16 +51,15 @@ const INFO_NAMES = {
 
 function TaskCard(props: { task: any }) {
   const task = props.task;
-  console.log(task.info_type);
   return (
-    <Card>
+    <Card key={task.id}>
       <Card.Body>
         <Card.Title>{`Task #${task.id} (${
           INFO_NAMES[task.info_type as keyof typeof INFO_NAMES] as string
         })`}</Card.Title>
         <ListGroup>
-          {formatTask(task).map((pair: any) => (
-            <ListGroupItem>{`${pair[0]}: ${pair[1]}`}</ListGroupItem>
+          {formatTask(task).map((pair: any, idx: any) => (
+            <ListGroupItem key={idx}>{`${pair[0]}: ${pair[1]}`}</ListGroupItem>
           ))}
         </ListGroup>
         <br></br>
@@ -80,8 +68,8 @@ function TaskCard(props: { task: any }) {
             INFO_FUNCTIONS[task.info_type as keyof typeof INFO_FUNCTIONS] as (
               x: any
             ) => any
-          )(task.info).map((pair: any) => (
-            <ListGroupItem>{`${pair[0]}: ${pair[1]}`}</ListGroupItem>
+          )(task.info).map((pair: any, idx: any) => (
+            <ListGroupItem key={idx}>{`${pair[0]}: ${pair[1]}`}</ListGroupItem>
           ))}
         </ListGroup>
         <br></br>
@@ -93,11 +81,11 @@ function TaskCard(props: { task: any }) {
 
 export default function TaskGrid(props: any) {
   return (
-    <Container mx-auto mt-4>
+    <Container className={"mx-auto mt-4"}>
       <Row>
-        <Col md-4>
-          {props.tasks.map((t: any) => (
-            <TaskCard task={t} />
+        <Col className={"md-4"}>
+          {props.tasks.map((t: any, idx: any) => (
+            <TaskCard key={idx} task={t} />
           ))}
         </Col>
       </Row>
