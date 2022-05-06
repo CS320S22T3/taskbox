@@ -1,4 +1,5 @@
 import React from "react";
+import { Form } from "react-bootstrap";
 
 interface TimeOffRequestFormParameters {
   info: any;
@@ -13,10 +14,10 @@ interface TimeOffRequestFormParameters {
 class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
   render() {
     return (
-      <div>
-        <label>
-          Type:
-          <select
+      <Form>
+        <Form.Group>
+          <Form.Label>Type:</Form.Label>
+          <Form.Select
             value={this.props.info.type || ""}
             name="type"
             onChange={this.props.onChange}
@@ -26,39 +27,36 @@ class TimeOffRequestForm extends React.Component<TimeOffRequestFormParameters> {
             <option value="1">Jury Duty</option>
             <option value="2">Vacation Time</option>
             <option value="3">Parental Leave</option>
-          </select>
-        </label>
-        <br></br>
-        <label>
-          Start Date:
-          <input
+          </Form.Select>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Start Date:</Form.Label>
+          <Form.Control
             type="text"
             name="start_date"
             value={this.props.info.start_date || ""}
             onChange={this.props.onChange}
           />
-        </label>
-        <br></br>
-        <label>
-          End Date:
-          <input
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>End Date:</Form.Label>
+          <Form.Control
             type="text"
             name="end_date"
             value={this.props.info.end_date || ""}
             onChange={this.props.onChange}
           />
-        </label>
-        <br></br>
-        <label>
-          Notes:
-          <textarea
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Notes:</Form.Label>
+          <Form.Control
+            as="textarea"
             name="notes"
             value={this.props.info.notes || ""}
             onChange={this.props.onChange}
-          ></textarea>
-        </label>
-        <br></br>
-      </div>
+          ></Form.Control>
+        </Form.Group>
+      </Form>
     );
   }
 }

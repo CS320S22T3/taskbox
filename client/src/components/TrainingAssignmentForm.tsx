@@ -1,4 +1,5 @@
 import React from "react";
+import { Form } from "react-bootstrap";
 
 interface TrainingAssignmentFormParameters {
   info: any;
@@ -8,19 +9,17 @@ interface TrainingAssignmentFormParameters {
 class TrainingAssignmentForm extends React.Component<TrainingAssignmentFormParameters> {
   render() {
     return (
-      <div>
-        <label>
-          Link:
-          <br></br>
-          <input
+      <Form>
+        <Form.Group>
+        <Form.Label>Link:</Form.Label>
+          <Form.Control
             type="url"
             name="link"
             value={this.props.info.start_date || ""}
             onChange={this.props.onChange}
           />
-        </label>
-        <br></br>
-      </div>
+        </Form.Group>
+      </Form>
     );
   }
 }

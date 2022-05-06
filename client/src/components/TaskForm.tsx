@@ -1,6 +1,7 @@
 import React from "react";
 import TimeOffRequestForm from "./TimeOffRequestForm";
 import TrainingAssignmentForm from "./TrainingAssignmentForm";
+import { Button, Form } from "react-bootstrap";
 
 interface TaskFormParameters {
   assigneeOptions: any;
@@ -52,11 +53,11 @@ class TaskForm extends React.Component<TaskFormParameters, TaskFormState> {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Assignee Id:
-            <select
+      <>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group>
+            <Form.Label>Assignee Id:</Form.Label>
+            <Form.Select
               onChange={this.handleChange}
               name="assignee_id"
               value={this.state.assignee_id}
@@ -67,22 +68,20 @@ class TaskForm extends React.Component<TaskFormParameters, TaskFormState> {
                   {`${assigneeOption.first_name} ${assigneeOption.last_name}`}
                 </option>
               ))}
-            </select>
-          </label>
-          <br></br>
-          <label>
-            Due Date:
-            <input
+            </Form.Select>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Due Date:</Form.Label>
+            <Form.Control
               type="text"
               name="due_date"
               value={this.state.due_date}
               onChange={this.handleChange}
             />
-          </label>
-          <br />
-          <label>
-            Form type:
-            <select
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Form type:</Form.Label>
+            <Form.Select
               name="info_type"
               id="info_type"
               value={this.state.info_type}
@@ -94,9 +93,8 @@ class TaskForm extends React.Component<TaskFormParameters, TaskFormState> {
               </option>
               <option value="time_off_requests">TimeOffRequest</option>
               <option value="training_assignments">TrainingAssignment</option>
-            </select>
-          </label>
-          <br />
+            </Form.Select>
+          </Form.Group>
           {this.state.info_type === "time_off_requests" && (
             <TimeOffRequestForm
               info={this.state.info}
@@ -109,10 +107,11 @@ class TaskForm extends React.Component<TaskFormParameters, TaskFormState> {
               onChange={this.handleSubFormChange}
             ></TrainingAssignmentForm>
           )}
-
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
+          <Button type="submit" value="Submit">
+            Submit
+          </Button>
+        </Form>
+      </>
     );
   }
 }
