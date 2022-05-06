@@ -13,18 +13,23 @@ function App() {
           <UserContext.Consumer>
             {(userContext) => `Logged in to user id ${userContext.user?.id}! 😎`}
           </UserContext.Consumer>
+          
           <br></br>
+          
           <AssigneesContext.Consumer>
             {(AssigneesContext) => 
               `They have the following possible Assignees: ${
                 AssigneesContext.users?.map(
-                  (user: any) => `${user.first_name} ${user.last_name}`)
+                  (user: any) => (
+                  `${user.id}. ${user.first_name} ${user.last_name}`)
+                )
                 .join(", ")
               }`
             }
           </AssigneesContext.Consumer>
+
         </Layout>
-        </AssigneesLayer>
+      </AssigneesLayer>
     </Auth>
   );
 }
